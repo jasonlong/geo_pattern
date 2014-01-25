@@ -1,3 +1,4 @@
+require 'base64'
 require 'color'
 
 class SVG
@@ -28,10 +29,10 @@ class SVG
   end
 
   def path(str, args={})
-    @svg_string << %Q{<path d="#{str}" #{inject_args(args)} />}
+    @svg_string << %Q{<path d="#{str}" #{write_args(args)} />}
   end
 
-  def inject_args(args)
+  def write_args(args)
     str = ""
     args.each {|key, value|
       if value.is_a?(Hash)
@@ -52,12 +53,16 @@ class GeoPattern
   def initialize(sha)
     @hash = sha
     @svg  = SVG.new
-    # generate_colors
+    # generate_background
     geoSineWaves
   end
 
   def svg_string
     @svg.to_s
+  end
+
+  def base64_string
+    Base64.encode64(@svg.to_s)
   end
 
   def geoSineWaves
@@ -99,8 +104,6 @@ class GeoPattern
                   }
                 })
     end
-
-    # @svg << "<path d='M0 44 C 42 0, 78 0, 120 44 S 198 88, 240 44 S 318 0, 360, 44' fill='none' stroke='#dddddd' transform='matrix(1,0,0,1,-60,1014)' style='opacity: 0.02; stroke-width: 30px;'/>"
   end
 
   def generate_colors
