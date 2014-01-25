@@ -1,10 +1,17 @@
 require 'color'
 
-class GeoPattern
+class GitHub::SVG
+  def initialize(width, height)
+    @width  ||= 100
+    @height ||= 100
+    @str      = ""
+  end
+end
 
+class GeoPattern
   def initialize(sha)
     @hash = sha
-    @svg  = ""
+    @svg  = GitHub::SVG.new
     # generate_colors
     geoSineWaves
   end
