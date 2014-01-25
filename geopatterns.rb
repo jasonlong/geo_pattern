@@ -27,8 +27,24 @@ class SVG
     svg_header + @svg_string + svg_closer
   end
 
-  def path(str)
-    @svg_string << %Q{<path d="#{str}" />}
+  def path(str, args={})
+    @svg_string << %Q{<path d="#{str}" #{inject_args(args)} />}
+  end
+
+  def inject_args(args)
+    str = ""
+    args.each {|key, value|
+      if value.is_a?(Hash)
+        str << %Q{class="}
+        value.each {|key, value|
+          str << %Q{#{key}:#{value};}
+        }
+        str << %Q{"}
+      else
+        str << %Q{#{key}="#{value}" }
+      end
+    }
+    str
   end
 end
 
@@ -51,11 +67,13 @@ class GeoPattern
 
     @svg.path("M0 44 C 42 0, 78 0, 120 44 S 198 88, 240 44 S 318 0, 360, 44",
               {
-                fill: "none",
-                stroke: fill,
-                opacity: opacity,
-                'stroke-width': waveWidth,
-                # transform: "t-"+period/4+","+(waveWidth*i-amplitude*1.5)
+                "fill" => "none",
+                "stroke" => fill,
+                # transform: "t-"+period/4+","+(waveWidth*i-amplitude*1.5),
+                "style" => {
+                  "opacity" => opacity,
+                  "stroke-width" => wave_width
+                }
               })
     # @svg << "<path d='M0 44 C 42 0, 78 0, 120 44 S 198 88, 240 44 S 318 0, 360, 44' fill='none' stroke='#dddddd' transform='matrix(1,0,0,1,-60,1014)' style='opacity: 0.02; stroke-width: 30px;'/>"
   end
