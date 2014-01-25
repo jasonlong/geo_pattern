@@ -1,35 +1,63 @@
 require 'color'
 
-class GitHub::SVG
-  def initialize(width, height)
-    @width  ||= 100
-    @height ||= 100
-    @str      = ""
+class SVG
+  def initialize
+    @width      = 100
+    @height     = 100
+    @svg_string = ""
   end
-end
 
-class GeoPattern
-  def initialize(sha)
-    @hash = sha
-    @svg  = GitHub::SVG.new
-    # generate_colors
-    geoSineWaves
+  def set_width(width)
+    @width = width
+  end
+
+  def set_height
+    @height = height
   end
 
   def svg_header
-    "<svg xmlns='http://www.w3.org/2000/svg' width='240' height='1080'>"
+    %Q{<svg xmlns="http://www.w3.org/2000/svg" width="#{@width}" height="#{@height}">}
   end
 
   def svg_closer
     "</svg>"
   end
 
+  def to_s
+    svg_header + @svg_string + svg_closer
+  end
+
+  def path(str)
+    @svg_string << %Q{<path d="#{str}" />}
+  end
+end
+
+class GeoPattern
+  def initialize(sha)
+    @hash = sha
+    @svg  = SVG.new
+    # generate_colors
+    geoSineWaves
+  end
+
   def svg_string
-    svg_header + @svg + svg_closer
+    @svg.to_s
   end
 
   def geoSineWaves
-    @svg << "<path d='M0 44 C 42 0, 78 0, 120 44 S 198 88, 240 44 S 318 0, 360, 44' fill='none' stroke='#dddddd' transform='matrix(1,0,0,1,-60,1014)' style='opacity: 0.02; stroke-width: 30px;'/>"
+    fill = "#dddddd"
+    opacity = 0.02
+    wave_width = "30px"
+
+    @svg.path("M0 44 C 42 0, 78 0, 120 44 S 198 88, 240 44 S 318 0, 360, 44",
+              {
+                fill: "none",
+                stroke: fill,
+                opacity: opacity,
+                'stroke-width': waveWidth,
+                # transform: "t-"+period/4+","+(waveWidth*i-amplitude*1.5)
+              })
+    # @svg << "<path d='M0 44 C 42 0, 78 0, 120 44 S 198 88, 240 44 S 318 0, 360, 44' fill='none' stroke='#dddddd' transform='matrix(1,0,0,1,-60,1014)' style='opacity: 0.02; stroke-width: 30px;'/>"
   end
 
   def generate_colors
