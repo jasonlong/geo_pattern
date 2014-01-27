@@ -28,6 +28,10 @@ class SVG
     svg_header + @svg_string + svg_closer
   end
 
+  def rect(x, y, width, height, args={})
+    @svg_string << %Q{<rect x="#{x}" y="#{y}" width="#{width}" height="#{height}" #{write_args(args)} />}
+  end
+
   def path(str, args={})
     @svg_string << %Q{<path d="#{str}" #{write_args(args)} />}
   end
@@ -77,12 +81,12 @@ class GeoPattern
       base_color.saturation = base_color.saturation - sat_offset
     end
     rgb = base_color.to_rgb
+    @svg.rect(0, 0, "100%", "100%", {
+          "fill" => "red"
+      })
     r = (rgb.r * 255).round
     g = (rgb.g * 255).round
     b = (rgb.b * 255).round
-    puts r
-    puts g
-    puts b
   end
 
   def geoSineWaves
@@ -164,4 +168,4 @@ end
 
 pattern = GeoPattern.new("073f59b119f21d1c2a35435d08e7894aa6a0c1cb")
 data = pattern.svg_string
-# puts data
+puts data
