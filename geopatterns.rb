@@ -53,7 +53,7 @@ class GeoPattern
   def initialize(sha)
     @hash = sha
     @svg  = SVG.new
-    # generate_background
+    generate_background
     geoSineWaves
   end
 
@@ -63,6 +63,26 @@ class GeoPattern
 
   def base64_string
     Base64.encode64(@svg.to_s)
+  end
+
+  def generate_background
+    hue_offset = map(@hash[14, 3].to_i(16), 0, 4095, 0, 359)
+    sat_offset = @hash[17, 1].to_i(16)
+    base_color = Color::HSL.new(0, 42, 41)
+    base_color.hue = base_color.hue - hue_offset;
+
+    if sat_offset % 2
+      base_color.saturation = base_color.saturation + sat_offset
+    else
+      base_color.saturation = base_color.saturation - sat_offset
+    end
+    rgb = base_color.to_rgb
+    r = (rgb.r * 255).round
+    g = (rgb.g * 255).round
+    b = (rgb.b * 255).round
+    puts r
+    puts g
+    puts b
   end
 
   def geoSineWaves
@@ -144,4 +164,4 @@ end
 
 pattern = GeoPattern.new("073f59b119f21d1c2a35435d08e7894aa6a0c1cb")
 data = pattern.svg_string
-puts data
+# puts data
