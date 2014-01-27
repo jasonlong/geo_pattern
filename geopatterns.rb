@@ -1,4 +1,5 @@
 require 'base64'
+require 'digest/sha1'
 require 'color'
 
 class SVG
@@ -54,8 +55,8 @@ class SVG
 end
 
 class GeoPattern
-  def initialize(sha)
-    @hash = sha
+  def initialize(string)
+    @hash = Digest::SHA1.hexdigest string
     @svg  = SVG.new
     generate_background
     geoSineWaves
@@ -81,12 +82,10 @@ class GeoPattern
       base_color.saturation = base_color.saturation - sat_offset
     end
     rgb = base_color.to_rgb
-    @svg.rect(0, 0, "100%", "100%", {
-          "fill" => "red"
-      })
     r = (rgb.r * 255).round
     g = (rgb.g * 255).round
     b = (rgb.b * 255).round
+    @svg.rect(0, 0, "100%", "100%", {"fill" => "rgb(#{r}, #{g}, #{b})"})
   end
 
   def geoSineWaves
@@ -130,31 +129,6 @@ class GeoPattern
     end
   end
 
-  def generate_colors
-    # use values at the end of the hash to determine HSL values
-    base_hue = map(@hash[25, 3].to_i(16), 0, 4095, 0, 360)
-    base_sat = map(@hash[28, 2].to_i(16), 0, 255, 0, 20)
-    base_lum = map(@hash[30, 2].to_i(16), 0, 255, 0, 20)
-
-    base_color = Color::HSL.new(base_hue, 50 - base_sat, 90 - base_lum)
-    rgb = base_color.to_rgb
-    r = (rgb.r * 255).round
-    g = (rgb.g * 255).round
-    b = (rgb.b * 255).round
-
-    i_color = base_color
-    i_color.saturation = i_color.saturation + 15
-    i_color.luminosity = i_color.luminosity - 15
-
-    i_rgb = base_color.to_rgb
-    i_r = (i_rgb.r * 255).round
-    i_g = (i_rgb.g * 255).round
-    i_b = (i_rgb.b * 255).round
-
-    # @bg_color      = ChunkyPNG::Color.rgb(240, 240, 240)
-    # @invader_color = ChunkyPNG::Color.rgb(i_r, i_g, i_b)
-  end
-
   # Ruby implementation of Processing's map function
   # http://processing.org/reference/map_.html
   def map(value, v_min, v_max, d_min, d_max) # v for value, d for desired
@@ -166,6 +140,7 @@ class GeoPattern
   end
 end
 
-pattern = GeoPattern.new("073f59b119f21d1c2a35435d08e7894aa6a0c1cb")
+# pattern = GeoPattern.new("073f59b119f21d1c2a35435d08e7894aa6a0c1cb")
+pattern = GeoPattern.new("Understanding the GitHub Workflow")
 data = pattern.svg_string
 puts data
