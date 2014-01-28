@@ -41,6 +41,10 @@ class SVG
     @svg_string << %Q{<path d="#{str}" #{write_args(args)} />}
   end
 
+  def polyline(str, args={})
+    @svg_string << %Q{<polyline points="#{str}" #{write_args(args)} />}
+  end
+
   def write_args(args)
     str = ""
     args.each {|key, value|
@@ -64,7 +68,8 @@ class GeoPattern
     @svg  = SVG.new
     generate_background
     # geoSineWaves
-    geoOverlappingCircles
+    # geoOverlappingCircles
+    geoHexagons
   end
 
   def svg_string
@@ -91,6 +96,67 @@ class GeoPattern
     g = (rgb.g * 255).round
     b = (rgb.b * 255).round
     @svg.rect(0, 0, "100%", "100%", {"fill" => "rgb(#{r}, #{g}, #{b})"})
+  end
+
+  def geoHexagons
+    scale       = @hash[1, 1].to_i(16)
+    side_length = map(scale, 0, 15, 5, 120)
+    hex_height  = side_length * Math.sqrt(3)
+    hex_width   = side_length * 2
+    hex         = hexagon_string(side_length)
+
+    @svg.set_width((hex_width * 3) + (side_length * 3))
+    @svg.set_height(hex_height * 6)
+
+    i = 0
+    for y in 0..5
+      for x in 0..5
+        val     = @hash[i, 1].to_i(16)
+        dy      = x % 2 == 0 ? y*hex_height : y*hex_height + hex_height/2
+        opacity = map(val, 0, 15, 0.02, 0.18)
+        fill    = (val % 2 == 0) ? "#ddd" : "#222"
+        tmp_hex = String.new(hex)
+
+        @svg.polyline(hex, {
+          "opacity"   => opacity,
+          "fill"      => fill,
+          "stroke"    => "#000000",
+          "transform" => "translate(#{x*side_length*1.5 - hex_width/2}, #{dy - hex_height/2})"
+        })
+
+        # Add an extra one at top-right, for tiling.
+        if (x == 0)
+          @svg.polyline(hex, {
+            "opacity"   => opacity,
+            "fill"      => fill,
+            "stroke"    => "#000000",
+            "transform" => "translate(#{6*side_length*1.5 - hex_width/2}, #{dy - hex_height/2})"
+          })
+        end
+
+        # Add an extra row at the end that matches the first row, for tiling.
+        if (y == 0)
+          dy = x % 2 == 0 ? 6*hex_height : 6*hex_height + hex_height/2;
+          @svg.polyline(hex, {
+            "opacity"   => opacity,
+            "fill"      => fill,
+            "stroke"    => "#000000",
+            "transform" => "translate(#{x*side_length*1.5 - hex_width/2}, #{dy - hex_height/2})"
+          })
+        end
+
+         # Add an extra one at bottom-right, for tiling.
+        if (x == 0 && y == 0)
+          @svg.polyline(hex, {
+            "opacity"   => opacity,
+            "fill"      => fill,
+            "stroke"    => "#000000",
+            "transform" => "translate(#{6*side_length*1.5 - hex_width/2}, #{5*hex_height + hex_height/2})"
+          })
+        end
+        i += 1
+      end
+    end
   end
 
   def geoSineWaves
@@ -189,6 +255,13 @@ class GeoPattern
     end
   end 
 
+  def hexagon_string(sideLength)
+    c = sideLength
+    a = c/2
+    b = Math.sin(60 * Math::PI / 180)*c
+    "0, #{b}, #{a}, 0, #{a+c}, 0, #{2*c}, #{b}, #{a+c}, #{2*b}, #{a}, #{2*b}, 0, #{b}"
+  end
+
   # Ruby implementation of Processing's map function
   # http://processing.org/reference/map_.html
   def map(value, v_min, v_max, d_min, d_max) # v for value, d for desired
@@ -200,6 +273,6 @@ class GeoPattern
   end
 end
 
-pattern = GeoPattern.new("Getting your project on GitHub")
+pattern = GeoPattern.new("Mastering Issues")
 data = pattern.svg_string
 puts data
