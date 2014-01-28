@@ -33,6 +33,10 @@ class SVG
     @svg_string << %Q{<rect x="#{x}" y="#{y}" width="#{width}" height="#{height}" #{write_args(args)} />}
   end
 
+  def circle(cx, cy, r, args={})
+    @svg_string << %Q{<circle cx="#{cx}" cy="#{cy}" r="#{r}" #{write_args(args)} />}
+  end
+
   def path(str, args={})
     @svg_string << %Q{<path d="#{str}" #{write_args(args)} />}
   end
@@ -59,7 +63,8 @@ class GeoPattern
     @hash = Digest::SHA1.hexdigest string
     @svg  = SVG.new
     generate_background
-    geoSineWaves
+    # geoSineWaves
+    geoOverlappingCircles
   end
 
   def svg_string
@@ -98,9 +103,9 @@ class GeoPattern
 
     for i in 0..35
       val      = @hash[i, 1].to_i(16)
-      fill     = (val % 2 == 0) ? "#ddd" : "#222";
-      opacity  = map(val, 0, 15, 0.02, 0.15);
-      x_offset = period / 4 * 0.7;
+      fill     = (val % 2 == 0) ? "#ddd" : "#222"
+      opacity  = map(val, 0, 15, 0.02, 0.15)
+      x_offset = period / 4 * 0.7
 
       str = "M0 "+amplitude.to_s+
             " C "+x_offset.to_s+" 0, "+(period/2 - x_offset).to_s+" 0, "+(period/2).to_s+" "+amplitude.to_s+
@@ -108,26 +113,81 @@ class GeoPattern
             " S "+(period*1.5-x_offset).to_s+" 0, "+(period*1.5).to_s+", "+amplitude.to_s;
 
       @svg.path(str, {
-                  "fill" => "none",
-                  "stroke" => fill,
-                  transform: "translate(-#{period/4}, #{wave_width*i-amplitude*1.5})",
-                  "style" => {
+                  "fill"      => "none",
+                  "stroke"    => fill,
+                  "transform" => "translate(-#{period/4}, #{wave_width*i-amplitude*1.5})",
+                  "style"     => {
                     "opacity" => opacity,
                     "stroke-width" => "#{wave_width}px"
                   }
                 })
 
       @svg.path(str, {
-                  "fill" => "none",
-                  "stroke" => fill,
-                  transform: "translate(-#{period/4}, #{wave_width*i-amplitude*1.5 + wave_width*36})",
-                  "style" => {
+                  "fill"      => "none",
+                  "stroke"    => fill,
+                  "transform" => "translate(-#{period/4}, #{wave_width*i-amplitude*1.5 + wave_width*36})",
+                  "style"     => {
                     "opacity" => opacity,
                     "stroke-width" => "#{wave_width}px"
                   }
                 })
     end
   end
+
+  def geoOverlappingCircles
+    scale    = @hash[1, 1].to_i(16)
+    diameter = map(scale, 0, 15, 20, 200)
+    radius   = diameter/2;
+
+    @svg.set_width(radius * 6)
+    @svg.set_height(radius * 6)
+
+    i = 0
+    for y in 0..5
+      for x in 0..5
+        val     = @hash[i, 1].to_i(16)
+        opacity = map(val, 0, 15, 0.02, 0.1)
+        fill    = (val % 2 == 0) ? "#ddd" : "#222"
+        @svg.circle(x*radius, y*radius, radius, {
+          "fill"  => fill,
+          "style" => {
+            "opacity" => opacity
+          }
+        })
+
+        # Add an extra one at top-right, for tiling.
+        if (x == 0)
+          @svg.circle(6*radius, y*radius, radius, {
+            "fill"  => fill,
+            "style" => {
+              "opacity" => opacity
+            }
+          })
+        end 
+
+        # Add an extra row at the end that matches the first row, for tiling.
+        if (y == 0)
+          @svg.circle(x*radius, 6*radius, radius, {
+            "fill"  => fill,
+            "style" => {
+              "opacity" => opacity
+            }
+          })
+        end
+
+        # Add an extra one at bottom-right, for tiling.
+        if (x == 0 and y == 0)
+          @svg.circle(6*radius, 6*radius, radius, {
+            "fill"  => fill,
+            "style" => {
+              "opacity" => opacity
+            }
+          })
+        end 
+        i += 1
+      end 
+    end
+  end 
 
   # Ruby implementation of Processing's map function
   # http://processing.org/reference/map_.html
@@ -140,7 +200,6 @@ class GeoPattern
   end
 end
 
-# pattern = GeoPattern.new("073f59b119f21d1c2a35435d08e7894aa6a0c1cb")
-pattern = GeoPattern.new("Understanding the GitHub Workflow")
+pattern = GeoPattern.new("Getting your project on GitHub")
 data = pattern.svg_string
 puts data
