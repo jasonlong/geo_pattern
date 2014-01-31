@@ -76,7 +76,8 @@ class GeoPattern
     # geoSineWaves
     # geoOverlappingCircles
     # geoHexagons
-    geoXes
+    # geoXes
+    geoSquares
   end
 
   def svg_string
@@ -334,6 +335,30 @@ class GeoPattern
       end 
     end
   end 
+
+  def geoSquares
+    square_size = map(@hash[0, 1].to_i(16), 0, 15, 10, 70)
+
+    @svg.set_width(square_size * 6)
+    @svg.set_height(square_size * 6)
+
+    i = 0
+    for y in 0..5
+      for x in 0..5
+        val     = @hash[i, 1].to_i(16)
+        opacity = map(val, 0, 15, 0.02, 0.2)
+        fill    = (val % 2 == 0) ? "#ddd" : "#222"
+
+        @svg.rect(x*square_size, y*square_size, square_size, square_size, {
+          "fill"  => fill,
+          "style" => {
+            "opacity" => opacity
+          }
+        })
+        i += 1
+      end
+    end
+  end
 
   def build_hexagon_shape(sideLength)
     c = sideLength
