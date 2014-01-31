@@ -45,6 +45,12 @@ class SVG
     @svg_string << %Q{<polyline points="#{str}" #{write_args(args)} />}
   end
 
+  def group(elements, args={})
+    @svg_string << %Q{<g #{write_args(args)}>}
+    elements.each {|e| eval e}
+    @svg_string << %Q{</g>}
+  end
+
   def write_args(args)
     str = ""
     args.each {|key, value|
@@ -69,7 +75,8 @@ class GeoPattern
     generate_background
     # geoSineWaves
     # geoOverlappingCircles
-    geoHexagons
+    # geoHexagons
+    geoXes
   end
 
   def svg_string
@@ -103,7 +110,7 @@ class GeoPattern
     side_length = map(scale, 0, 15, 5, 120)
     hex_height  = side_length * Math.sqrt(3)
     hex_width   = side_length * 2
-    hex         = hexagon_string(side_length)
+    hex         = build_hexagon_shape(side_length)
 
     @svg.set_width((hex_width * 3) + (side_length * 3))
     @svg.set_height(hex_height * 6)
@@ -200,6 +207,79 @@ class GeoPattern
     end
   end
 
+  def geoXes
+    square_size = map(@hash[0, 1].to_i(16), 0, 15, 10, 25)
+    x_shape     = build_x_shape(square_size)
+    x_size      = square_size * 3 * 0.943
+
+    @svg.set_width(x_size * 3)
+    @svg.set_height(x_size * 3)
+
+    i = 0
+    for y in 0..5
+      for x in 0..5
+        val     = @hash[i, 1].to_i(16)
+        opacity = map(val, 0, 15, 0.02, 0.15)
+        dy      = x % 2 == 0 ? y*x_size - x_size*0.5 : y*x_size - x_size*0.5 + x_size/4
+        fill    = (val % 2 == 0) ? "#ddd" : "#222"
+
+        @svg.group(x_shape, {
+          "fill"  => fill,
+          "transform" => "translate(#{x*x_size/2 - x_size/2},#{dy - y*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})",
+          "style" => {
+            "opacity" => opacity
+          }
+        })
+
+        # Add an extra column on the right for tiling.
+        if (x == 0)
+          @svg.group(x_shape, {
+            "fill"  => fill,
+            "transform" => "translate(#{6*x_size/2 - x_size/2},#{dy - y*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})",
+            "style" => {
+              "opacity" => opacity
+            }
+          })
+        end 
+
+        # Add an extra row on the bottom that matches the first row, for tiling.
+        if (y == 0)
+          dy = x % 2 == 0 ? 6*x_size - x_size/2 : 6*x_size - x_size/2 + x_size/4;
+          @svg.group(x_shape, {
+            "fill"  => fill,
+            "transform" => "translate(#{x*x_size/2 - x_size/2},#{dy - 6*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})",
+            "style" => {
+              "opacity" => opacity
+            }
+          })
+        end 
+
+        # These can hang off the bottom, so put a row at the top for tiling.
+        if (y == 5)
+          @svg.group(x_shape, {
+            "fill"  => fill,
+            "transform" => "translate(#{x*x_size/2 - x_size/2},#{dy - 11*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})",
+            "style" => {
+              "opacity" => opacity
+            }
+          })
+        end 
+
+        # Add an extra one at top-right and bottom-right, for tiling.
+        if (x == 0 && y == 0)
+          @svg.group(x_shape, {
+            "fill"  => fill,
+            "transform" => "translate(#{6*x_size/2 - x_size/2},#{dy - 6*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})",
+            "style" => {
+              "opacity" => opacity
+            }
+          })
+        end 
+        i += 1
+      end 
+    end 
+  end
+
   def geoOverlappingCircles
     scale    = @hash[1, 1].to_i(16)
     diameter = map(scale, 0, 15, 20, 200)
@@ -255,11 +335,18 @@ class GeoPattern
     end
   end 
 
-  def hexagon_string(sideLength)
+  def build_hexagon_shape(sideLength)
     c = sideLength
     a = c/2
     b = Math.sin(60 * Math::PI / 180)*c
     "0, #{b}, #{a}, 0, #{a+c}, 0, #{2*c}, #{b}, #{a+c}, #{2*b}, #{a}, #{2*b}, 0, #{b}"
+  end
+
+  def build_x_shape(square_size)
+    [
+      "rect(#{square_size}, 0, #{square_size}, #{square_size * 3})",
+      "rect(0, #{square_size}, #{square_size * 3}, #{square_size})"
+    ]
   end
 
   # Ruby implementation of Processing's map function
@@ -273,6 +360,6 @@ class GeoPattern
   end
 end
 
-pattern = GeoPattern.new("Mastering Issues")
+pattern = GeoPattern.new("Mastering Markdown")
 data = pattern.svg_string
 puts data
