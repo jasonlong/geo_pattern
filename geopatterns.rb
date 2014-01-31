@@ -77,7 +77,8 @@ class GeoPattern
     # geoOverlappingCircles
     # geoHexagons
     # geoXes
-    geoSquares
+    # geoSquares
+    geoRings
   end
 
   def svg_string
@@ -360,6 +361,36 @@ class GeoPattern
     end
   end
 
+  def geoRings
+    scale        = @hash[1, 1].to_i(16)
+    ring_size    = map(scale, 0, 15, 5, 80)
+    stroke_width = ring_size / 4
+
+    @svg.set_width((ring_size + stroke_width) * 6)
+    @svg.set_height((ring_size + stroke_width) * 6)
+
+    i = 0
+    for y in 0..5
+      for x in 0..5
+        val     = @hash[i, 1].to_i(16)
+        opacity = map(val, 0, 15, 0.02, 0.16)
+
+        @svg.circle(
+                x*ring_size + x*stroke_width + (ring_size + stroke_width)/2,
+                y*ring_size + y*stroke_width + (ring_size + stroke_width)/2,
+                ring_size/2, {
+                  "fill"  => "none",
+                  "stroke" => "#000",
+                  "style" => {
+                    "opacity" => opacity,
+                    "stroke-width" => "#{stroke_width}px"
+                  }
+                })
+        i += 1
+      end
+    end
+  end
+
   def build_hexagon_shape(sideLength)
     c = sideLength
     a = c/2
@@ -385,6 +416,6 @@ class GeoPattern
   end
 end
 
-pattern = GeoPattern.new("Mastering Markdown")
+pattern = GeoPattern.new("Mastering Issues")
 data = pattern.svg_string
 puts data
