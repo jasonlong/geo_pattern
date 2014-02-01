@@ -78,7 +78,8 @@ class GeoPattern
     # geoHexagons
     # geoXes
     # geoSquares
-    geoRings
+    # geoRings
+    geoTriangles
   end
 
   def svg_string
@@ -391,18 +392,69 @@ class GeoPattern
     end
   end
 
+  def geoTriangles
+    scale           = @hash[1, 1].to_i(16)
+    side_length     = map(scale, 0, 15, 5, 120)
+    triangle_height = side_length/2 * Math.sqrt(3)
+    triangle        = build_triangle_shape(side_length, triangle_height)
+
+    @svg.set_width(side_length * 3)
+    @svg.set_height(triangle_height * 6)
+
+    i = 0
+    for y in 0..5
+      for x in 0..5
+        val     = @hash[i, 1].to_i(16)
+        opacity = map(val, 0, 15, 0.02, 0.15)
+        fill    = (val % 2 == 0) ? "#ddd" : "#222"
+
+        rotation = ""
+        if y % 2 == 0
+          rotation = x % 2 == 0 ? 180 : 0
+        else
+          rotation = x % 2 != 0 ? 180 : 0 
+        end 
+
+        tmp_tri = String.new(triangle)
+        @svg.polyline(tmp_tri, {
+          "opacity"   => opacity,
+          "fill"      => fill,
+          "stroke"    => "#444",
+          "transform" => "translate(#{x*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"
+        })
+
+        # Add an extra one at top-right, for tiling.
+        if (x == 0)
+          tmp_tri = String.new(triangle)
+          @svg.polyline(tmp_tri, {
+            "opacity"   => opacity,
+            "fill"      => fill,
+            "stroke"    => "#444",
+            "transform" => "translate(#{6*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"
+          })
+        end 
+        i += 1
+      end
+    end
+  end
+
   def build_hexagon_shape(sideLength)
     c = sideLength
     a = c/2
     b = Math.sin(60 * Math::PI / 180)*c
-    "0, #{b}, #{a}, 0, #{a+c}, 0, #{2*c}, #{b}, #{a+c}, #{2*b}, #{a}, #{2*b}, 0, #{b}"
+    "0,#{b},#{a},0,#{a+c},0,#{2*c},#{b},#{a+c},#{2*b},#{a},#{2*b},0,#{b}"
   end
 
   def build_x_shape(square_size)
     [
-      "rect(#{square_size}, 0, #{square_size}, #{square_size * 3})",
-      "rect(0, #{square_size}, #{square_size * 3}, #{square_size})"
+      "rect(#{square_size},0,#{square_size},#{square_size * 3})",
+      "rect(0, #{square_size},#{square_size * 3},#{square_size})"
     ]
+  end
+
+  def build_triangle_shape(side_length, height)
+    half_width = side_length / 2
+    "#{half_width}, 0, #{side_length}, #{height}, 0, #{height}, #{half_width}, 0"
   end
 
   # Ruby implementation of Processing's map function
