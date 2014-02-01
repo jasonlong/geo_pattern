@@ -73,13 +73,13 @@ class GeoPattern
     @hash = Digest::SHA1.hexdigest string
     @svg  = SVG.new
     generate_background
-    # geoSineWaves
-    # geoOverlappingCircles
-    # geoHexagons
-    # geoXes
-    # geoSquares
-    # geoRings
-    geoTriangles
+    # geo_sine_waves
+    # geo_overlapping_circles
+    # geo_hexagons
+    # geo_xes
+    # geo_squares
+    # geo_rings
+    geo_triangles
   end
 
   def svg_string
@@ -108,7 +108,7 @@ class GeoPattern
     @svg.rect(0, 0, "100%", "100%", {"fill" => "rgb(#{r}, #{g}, #{b})"})
   end
 
-  def geoHexagons
+  def geo_hexagons
     scale       = @hash[1, 1].to_i(16)
     side_length = map(scale, 0, 15, 5, 120)
     hex_height  = side_length * Math.sqrt(3)
@@ -169,7 +169,7 @@ class GeoPattern
     end
   end
 
-  def geoSineWaves
+  def geo_sine_waves
     period     = map(@hash[1, 1].to_i(16), 0, 15, 100, 400).floor
     amplitude  = map(@hash[2, 1].to_i(16), 0, 15, 30, 100).floor
     wave_width = map(@hash[3, 1].to_i(16), 0, 15, 3, 30).floor
@@ -210,7 +210,7 @@ class GeoPattern
     end
   end
 
-  def geoXes
+  def geo_xes
     square_size = map(@hash[0, 1].to_i(16), 0, 15, 10, 25)
     x_shape     = build_x_shape(square_size)
     x_size      = square_size * 3 * 0.943
@@ -283,7 +283,7 @@ class GeoPattern
     end 
   end
 
-  def geoOverlappingCircles
+  def geo_overlapping_circles
     scale    = @hash[1, 1].to_i(16)
     diameter = map(scale, 0, 15, 20, 200)
     radius   = diameter/2;
@@ -338,7 +338,7 @@ class GeoPattern
     end
   end 
 
-  def geoSquares
+  def geo_squares
     square_size = map(@hash[0, 1].to_i(16), 0, 15, 10, 70)
 
     @svg.set_width(square_size * 6)
@@ -362,7 +362,7 @@ class GeoPattern
     end
   end
 
-  def geoRings
+  def geo_rings
     scale        = @hash[1, 1].to_i(16)
     ring_size    = map(scale, 0, 15, 5, 80)
     stroke_width = ring_size / 4
@@ -392,7 +392,7 @@ class GeoPattern
     end
   end
 
-  def geoTriangles
+  def geo_triangles
     scale           = @hash[1, 1].to_i(16)
     side_length     = map(scale, 0, 15, 5, 120)
     triangle_height = side_length/2 * Math.sqrt(3)
