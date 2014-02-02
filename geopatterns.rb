@@ -73,13 +73,7 @@ class GeoPattern
     @hash = Digest::SHA1.hexdigest string
     @svg  = SVG.new
     generate_background
-    # geo_sine_waves
-    # geo_overlapping_circles
-    # geo_hexagons
-    # geo_xes
-    # geo_squares
-    # geo_rings
-    geo_triangles
+    generate_pattern
   end
 
   def svg_string
@@ -106,6 +100,35 @@ class GeoPattern
     g = (rgb.g * 255).round
     b = (rgb.b * 255).round
     @svg.rect(0, 0, "100%", "100%", {"fill" => "rgb(#{r}, #{g}, #{b})"})
+  end
+
+  def generate_pattern
+    pattern = @hash[20, 1].to_i(16)
+    case pattern
+    when 0
+      geo_triangles
+    when 1
+      geo_overlapping_circles
+    when 2
+      geo_hexagons
+    when 3
+      geo_xes
+    when 4
+      geo_sine_waves
+    when 5
+    when 6
+    when 7
+    when 8
+    when 9
+      geo_squares
+    when 10
+      geo_rings
+    when 11
+    when 12
+    when 13
+    when 14
+    when 15
+    end
   end
 
   def geo_hexagons
@@ -468,6 +491,6 @@ class GeoPattern
   end
 end
 
-pattern = GeoPattern.new("Mastering Issues")
+pattern = GeoPattern.new("Getting your project on GitHub")
 data = pattern.svg_string
 puts data
