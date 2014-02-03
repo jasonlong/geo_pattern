@@ -1,6 +1,6 @@
 # GeoPattern
 
-Generate beautiful SVG patterns from a string.
+Generate beautiful tilng SVG patterns from a string.
 
 ## Installation
 
