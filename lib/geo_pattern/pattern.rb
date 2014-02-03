@@ -57,6 +57,7 @@ module GeoPattern
       when 5
         geo_plus_signs
       when 6
+        geo_overlapping_rings
       when 7
       when 8
       when 9
@@ -413,6 +414,69 @@ module GeoPattern
                       "stroke-width" => "#{stroke_width}px"
                     }
                   })
+          i += 1
+        end
+      end
+    end
+
+    def geo_overlapping_rings
+      scale        = @hash[1, 1].to_i(16)
+      ring_size    = map(scale, 0, 15, 5, 80)
+      stroke_width = ring_size / 4
+
+      @svg.set_width(ring_size * 6)
+      @svg.set_height(ring_size * 6)
+
+      i = 0
+      for y in 0..5
+        for x in 0..5
+          val     = @hash[i, 1].to_i(16)
+          opacity = map(val, 0, 15, 0.02, 0.16)
+
+          @svg.circle(x*ring_size, y*ring_size, ring_size, {
+                    "fill"  => "none",
+                    "stroke" => "#000",
+                    "style" => {
+                      "opacity" => opacity,
+                      "stroke-width" => "#{stroke_width}px"
+                    }
+                  })
+
+          # Add an extra one at top-right, for tiling.
+          if (x == 0)
+            @svg.circle(6*ring_size, y*ring_size, ring_size, {
+                    "fill"  => "none",
+                    "stroke" => "#000",
+                    "style" => {
+                      "opacity" => opacity,
+                      "stroke-width" => "#{stroke_width}px"
+                    }
+                  })
+          end 
+
+          # Add an extra row at the end that matches the first row, for tiling.
+          if (y == 0)
+            @svg.circle(x*ring_size, 6*ring_size, ring_size, {
+                    "fill"  => "none",
+                    "stroke" => "#000",
+                    "style" => {
+                      "opacity" => opacity,
+                      "stroke-width" => "#{stroke_width}px"
+                    }
+                  })
+          end
+
+          # Add an extra one at bottom-right, for tiling.
+          if (x == 0 and y == 0)
+            @svg.circle(6*ring_size, 6*ring_size, ring_size, {
+                    "fill"  => "none",
+                    "stroke" => "#000",
+                    "style" => {
+                      "opacity" => opacity,
+                      "stroke-width" => "#{stroke_width}px"
+                    }
+                  })
+          end 
           i += 1
         end
       end
