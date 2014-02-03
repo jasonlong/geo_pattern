@@ -55,6 +55,7 @@ module GeoPattern
       when 4
         geo_sine_waves
       when 5
+        geo_plus_signs
       when 6
       when 7
       when 8
@@ -172,9 +173,72 @@ module GeoPattern
       end
     end
 
+    def geo_plus_signs
+      square_size = map(@hash[0, 1].to_i(16), 0, 15, 10, 25)
+      plus_size   = square_size * 3
+      plus_shape  = build_plus_shape(square_size)
+
+      @svg.set_width(square_size * 12)
+      @svg.set_height(square_size * 12)
+
+      i = 0
+      for y in 0..5
+        for x in 0..5
+          val     = @hash[i, 1].to_i(16)
+          opacity = map(val, 0, 15, 0.02, 0.15)
+          fill    = (val % 2 == 0) ? "#ddd" : "#222"
+          dx      = (y % 2 == 0) ? 0 : 1
+
+          # opacity = 1 if x==0
+
+          @svg.group(plus_shape, {
+            "fill"  => fill,
+            "transform" => "translate(#{x*plus_size - x*square_size + dx*square_size - square_size},#{y*plus_size - y*square_size - plus_size/2})",
+            "style" => {
+              "opacity" => opacity
+            }
+          })
+
+          # Add an extra column on the right for tiling.
+          if (x == 0)
+            @svg.group(plus_shape, {
+              "fill"  => fill,
+              "transform" => "translate(#{4*plus_size - x*square_size + dx*square_size - square_size},#{y*plus_size - y*square_size - plus_size/2})",
+              "style" => {
+                "opacity" => opacity
+              }
+            })
+          end 
+
+          # Add an extra row on the bottom that matches the first row, for tiling.
+          if (y == 0)
+            @svg.group(plus_shape, {
+              "fill"  => fill,
+              "transform" => "translate(#{x*plus_size - x*square_size + dx*square_size - square_size},#{4*plus_size - y*square_size - plus_size/2})",
+              "style" => {
+                "opacity" => opacity
+              }
+            })
+          end 
+
+          # Add an extra one at top-right and bottom-right, for tiling.
+          if (x == 0 && y == 0)
+            @svg.group(plus_shape, {
+              "fill"  => fill,
+              "transform" => "translate(#{4*plus_size - x*square_size + dx*square_size - square_size},#{4*plus_size - y*square_size - plus_size/2})",
+              "style" => {
+                "opacity" => opacity
+              }
+            })
+          end 
+          i += 1
+        end
+      end
+    end
+
     def geo_xes
       square_size = map(@hash[0, 1].to_i(16), 0, 15, 10, 25)
-      x_shape     = build_x_shape(square_size)
+      x_shape     = build_plus_shape(square_size) # rotated later
       x_size      = square_size * 3 * 0.943
 
       @svg.set_width(x_size * 3)
@@ -407,7 +471,7 @@ module GeoPattern
       "0,#{b},#{a},0,#{a+c},0,#{2*c},#{b},#{a+c},#{2*b},#{a},#{2*b},0,#{b}"
     end
 
-    def build_x_shape(square_size)
+    def build_plus_shape(square_size)
       [
         "rect(#{square_size},0,#{square_size},#{square_size * 3})",
         "rect(0, #{square_size},#{square_size * 3},#{square_size})"
