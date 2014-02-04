@@ -1,3 +1,9 @@
+----
+
+**NOTE: This is currently a WIP with an incomplete set of patterns.**
+
+----
+
 # GeoPattern
 
 Generate beautiful tilng SVG patterns from a string.
