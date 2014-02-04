@@ -20,7 +20,7 @@ module GeoPattern
     end
 
     def base64_string
-      Base64.encode64(@svg.to_s)
+      Base64.strict_encode64(@svg.to_s)
     end
 
     def generate_background
