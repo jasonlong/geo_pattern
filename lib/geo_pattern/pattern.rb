@@ -59,6 +59,7 @@ module GeoPattern
       when 6
         geo_overlapping_rings
       when 7
+        geo_plaid
       when 8
       when 9
         geo_squares
@@ -526,6 +527,53 @@ module GeoPattern
           i += 1
         end
       end
+    end
+
+    def geo_plaid
+      height = 0
+      width  = 0
+
+      # horizontal stripes
+      i = 0
+      for y in 0..17
+        space   = @hash[i, 1].to_i(16)
+        height += space + 5
+
+        val  = @hash[i+1, 1].to_i(16)
+        opacity = map(val, 0, 15, 0.02, 0.15)
+        fill = (val % 2 == 0) ? "#ddd" : "#222"
+        stripe_height = val + 5
+
+        @svg.rect(0, height, "100%", stripe_height, {
+              "opacity"   => opacity,
+              "fill"      => fill
+        })
+        height += stripe_height
+        i += 2
+      end
+
+      # vertical stripes
+      i = 0
+      for x in 0..17
+        space  = @hash[i, 1].to_i(16)
+        width += space + 5
+
+        val  = @hash[i+1, 1].to_i(16)
+        opacity = map(val, 0, 15, 0.02, 0.15)
+        fill = (val % 2 == 0) ? "#ddd" : "#222"
+        stripe_width = val + 5
+
+        @svg.rect(width, 0, stripe_width, "100%", {
+              "opacity"   => opacity,
+              "fill"      => fill
+        })
+        width += stripe_width
+        i += 2
+      end
+
+      @svg.set_width(width)
+      @svg.set_height(height)
+
     end
 
     def build_hexagon_shape(sideLength)
