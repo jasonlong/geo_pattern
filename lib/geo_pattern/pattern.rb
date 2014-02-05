@@ -13,14 +13,29 @@ module GeoPattern
     end
 
     def svg_string
+
+      if @svg.svg_body == ""
+        return nil
+      end
+
       @svg.to_s
     end
 
     def to_s
+
+      if @svg.svg_body == ""
+        return nil
+      end
+
       svg_string
     end
 
     def base64_string
+
+      if @svg.svg_body == ""
+        return nil
+      end
+
       Base64.strict_encode64(@svg.to_s)
     end
 
@@ -86,11 +101,17 @@ module GeoPattern
         set_color
         geo_diamonds
       when 12
+        return nil
       when 13
+        return nil
       when 14
+        return nil
       when 15
+        return nil
       when 16
+        return nil
       end
+      return true
     end
       
     def geo_hexagons
