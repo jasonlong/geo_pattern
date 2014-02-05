@@ -45,32 +45,34 @@ module GeoPattern
       pattern = @hash[20, 1].to_i(16)
       case pattern
       when 0
-        geo_triangles
+        geo_bricks
       when 1
         geo_overlapping_circles
       when 2
-        geo_hexagons
+        geo_plus_signs
       when 3
         geo_xes
       when 4
         geo_sine_waves
       when 5
-        geo_plus_signs
+        geo_hexagons
       when 6
         geo_overlapping_rings
       when 7
         geo_plaid
       when 8
-      geo_bricks
+        geo_triangles
       when 9
         geo_squares
       when 10
         geo_rings
       when 11
+        geo_diamonds
       when 12
       when 13
       when 14
       when 15
+      when 16
       end
     end
       
@@ -191,8 +193,6 @@ module GeoPattern
           opacity = map(val, 0, 15, 0.02, 0.15)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
           dx      = (y % 2 == 0) ? 0 : 1
-
-          # opacity = 1 if x==0
 
           @svg.group(plus_shape, {
             "fill"  => fill,
@@ -582,6 +582,65 @@ module GeoPattern
       end
     end
 
+    def geo_diamonds
+      diamond_width  = map(@hash[0, 1].to_i(16), 0, 15, 10, 50)
+      diamond_height = map(@hash[1, 1].to_i(16), 0, 15, 10, 50)
+      diamond        = build_diamond_shape(diamond_width, diamond_height)
+
+      @svg.set_width(diamond_width * 6)
+      @svg.set_height(diamond_height * 3)
+
+      i = 0
+      for y in 0..5
+        for x in 0..5
+          val     = @hash[i, 1].to_i(16)
+          opacity = map(val, 0, 15, 0.02, 0.15)
+          fill    = (val % 2 == 0) ? "#ddd" : "#222"
+
+          dx = (y % 2 == 0) ? 0 : diamond_width / 2
+
+          tmp_diamond = String.new(diamond)
+          @svg.polyline(tmp_diamond, {
+            "opacity"   => opacity,
+            "fill"      => fill,
+            "transform" => "translate(#{x*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*y - diamond_height/2})"
+          })
+
+          # Add an extra one at top-right, for tiling.
+          if (x == 0)
+            tmp_diamond = String.new(diamond)
+            @svg.polyline(tmp_diamond, {
+              "opacity"   => opacity,
+              "fill"      => fill,
+              "transform" => "translate(#{6*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*y - diamond_height/2})"
+            })
+          end 
+
+          # Add an extra row at the end that matches the first row, for tiling.
+          if (y == 0)
+            tmp_diamond = String.new(diamond)
+            @svg.polyline(tmp_diamond, {
+              "opacity"   => opacity,
+              "fill"      => fill,
+              "transform" => "translate(#{x*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*6 - diamond_height/2})"
+            })
+          end
+
+          # Add an extra one at bottom-right, for tiling.
+          if (x == 0 and y == 0)
+            tmp_diamond = String.new(diamond)
+            @svg.polyline(tmp_diamond, {
+              "opacity"   => opacity,
+              "fill"      => fill,
+              "transform" => "translate(#{6*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*6 - diamond_height/2})"
+            })
+          end
+
+          i += 1
+        end
+      end
+    end
+
     def geo_plaid
       height = 0
       width  = 0
@@ -646,6 +705,10 @@ module GeoPattern
     def build_triangle_shape(side_length, height)
       half_width = side_length / 2
       "#{half_width}, 0, #{side_length}, #{height}, 0, #{height}, #{half_width}, 0"
+    end
+
+    def build_diamond_shape(width, height)
+      "#{width/2}, 0, #{width}, #{height/2}, #{width/2}, #{height}, 0, #{height/2}"
     end
 
     # Ruby implementation of Processing's map function
