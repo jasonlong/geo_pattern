@@ -61,6 +61,7 @@ module GeoPattern
       when 7
         geo_plaid
       when 8
+      geo_bricks
       when 9
         geo_squares
       when 10
@@ -365,6 +366,58 @@ module GeoPattern
         end 
       end
     end 
+
+    def geo_bricks
+      square_size = map(@hash[0, 1].to_i(16), 0, 15, 6, 60)
+      brick_width = square_size * 2
+      gap_size    = square_size * 0.1
+
+      @svg.set_width((brick_width + gap_size) * 6)
+      @svg.set_height((square_size + gap_size) * 6)
+
+      i = 0
+      for y in 0..5
+        for x in 0..5
+          val     = @hash[i, 1].to_i(16)
+          opacity = map(val, 0, 15, 0.02, 0.2)
+          fill    = (val % 2 == 0) ? "#ddd" : "#222"
+
+          dx = (y % 2 == 0) ? -square_size : 0 
+
+          @svg.rect(x*(brick_width + gap_size) + dx, y*(square_size + gap_size), brick_width, square_size, {
+            "fill"  => fill,
+            "stroke"    => "#000000",
+            "style" => {
+              "opacity" => opacity
+            }
+          })
+
+          # Add an extra one at top-right, for tiling.
+          if (x == 0)
+            @svg.rect(6*(brick_width + gap_size) + dx, y*(square_size + gap_size), brick_width, square_size, {
+              "fill"  => fill,
+              "stroke"    => "#000000",
+              "style" => {
+                "opacity" => opacity
+              }
+            })
+          end
+
+          # Add an extra one at bottom-right, for tiling.
+          if (x == 0 and y == 0)
+            @svg.rect(6*(brick_width + gap_size) + dx, 6*(square_size + gap_size), brick_width, square_size, {
+              "fill"  => fill,
+              "stroke"    => "#000000",
+              "style" => {
+                "opacity" => opacity
+              }
+            })
+          end
+
+          i += 1
+        end
+      end
+    end
 
     def geo_squares
       square_size = map(@hash[0, 1].to_i(16), 0, 15, 10, 70)

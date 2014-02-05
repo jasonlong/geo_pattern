@@ -7,11 +7,11 @@ module GeoPattern
     end
 
     def set_width(width)
-      @width = width
+      @width = width.floor
     end
 
     def set_height(height)
-      @height = height
+      @height = height.floor
     end
 
     def svg_header
