@@ -101,17 +101,11 @@ module GeoPattern
         set_color
         geo_diamonds
       when 12
-        return nil
       when 13
-        return nil
       when 14
-        return nil
       when 15
-        return nil
       when 16
-        return nil
       end
-      return true
     end
       
     def geo_hexagons
