@@ -14,10 +14,6 @@ module GeoPattern
       @height = height.floor
     end
 
-    def svg_body
-      @svg_string
-    end
-
     def svg_header
       %Q{<svg xmlns="http://www.w3.org/2000/svg" width="#{@width}" height="#{@height}">}
     end

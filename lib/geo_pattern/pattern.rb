@@ -7,39 +7,23 @@ module GeoPattern
     def initialize(string)
       @hash = Digest::SHA1.hexdigest string
       @svg  = SVG.new
-      @color = generate_color
-
+      generate_background
       generate_pattern
     end
 
     def svg_string
-
-      if @svg.svg_body == ""
-        return nil
-      end
-
       @svg.to_s
     end
 
     def to_s
-
-      if @svg.svg_body == ""
-        return nil
-      end
-
       svg_string
     end
 
     def base64_string
-
-      if @svg.svg_body == ""
-        return nil
-      end
-
       Base64.strict_encode64(@svg.to_s)
     end
 
-    def generate_color
+    def generate_background
       hue_offset = map(@hash[14, 3].to_i(16), 0, 4095, 0, 359)
       sat_offset = @hash[17, 1].to_i(16)
       base_color = Color::HSL.new(0, 42, 41)
@@ -54,51 +38,35 @@ module GeoPattern
       r = (rgb.r * 255).round
       g = (rgb.g * 255).round
       b = (rgb.b * 255).round
-      "rgb(#{r}, #{g}, #{b})"
-    end
-
-    def set_color
-      @svg.rect(0, 0, "100%", "100%", {"fill" => @color})
+      @svg.rect(0, 0, "100%", "100%", {"fill" => "rgb(#{r}, #{g}, #{b})"})
     end
 
     def generate_pattern
       pattern = @hash[20, 1].to_i(16)
       case pattern
       when 0
-        set_color
         geo_bricks
       when 1
-        set_color
         geo_overlapping_circles
       when 2
-        set_color
         geo_plus_signs
       when 3
-        set_color
         geo_xes
       when 4
-        set_color
         geo_sine_waves
       when 5
-        set_color
         geo_hexagons
       when 6
-        set_color
         geo_overlapping_rings
       when 7
-        set_color
         geo_plaid
       when 8
-        set_color
         geo_triangles
       when 9
-        set_color
         geo_squares
       when 10
-        set_color
         geo_rings
       when 11
-        set_color
         geo_diamonds
       when 12
       when 13
