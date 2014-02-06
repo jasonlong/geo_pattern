@@ -69,6 +69,7 @@ module GeoPattern
       when 11
         geo_diamonds
       when 12
+        geo_triangles_rotated
       when 13
       when 14
       when 15
@@ -582,6 +583,64 @@ module GeoPattern
       end
     end
 
+    def geo_triangles_rotated
+      scale           = @hash[1, 1].to_i(16)
+      side_length     = map(scale, 0, 15, 5, 120)
+      triangle_width  = side_length/2 * Math.sqrt(3)
+      triangle        = build_rotated_triangle_shape(side_length, triangle_width)
+
+      @svg.set_width(triangle_width * 6)
+      @svg.set_height(side_length * 3)
+
+      i = 0
+      for y in 0..5
+        for x in 0..5
+          val     = @hash[i, 1].to_i(16)
+          opacity = map(val, 0, 15, 0.02, 0.15)
+          fill    = (val % 2 == 0) ? "#ddd" : "#222"
+
+          rotation = ""
+          dx = 0
+          if y % 2 == 0
+            rotation = x % 2 == 0 ? 180 : 0
+          else
+            rotation = x % 2 != 0 ? 180 : 0 
+          end 
+
+          tmp_tri = String.new(triangle)
+          @svg.polyline(tmp_tri, {
+            "opacity"   => opacity,
+            "fill"      => fill,
+            "stroke"    => "#444",
+            "transform" => "translate(#{triangle_width*x}, #{y*side_length*0.5 - side_length/2}) rotate(#{rotation}, #{triangle_width/2}, #{side_length/2})"
+          })
+
+          # Add an extra row at the end that matches the first row, for tiling.
+          if (y == 0)
+            tmp_tri = String.new(triangle)
+            @svg.polyline(tmp_tri, {
+              "opacity"   => opacity,
+              "fill"      => fill,
+              "stroke"    => "#444",
+              "transform" => "translate(#{triangle_width*x - dx}, #{6*side_length*0.5 - side_length/2}) rotate(#{rotation}, #{triangle_width/2}, #{side_length/2})"
+            })
+          end
+
+          # Add an extra one at bottom-right, for tiling.
+          # if (x == 0 and y == 0)
+          #   tmp_tri = String.new(triangle)
+          #   @svg.polyline(tmp_tri, {
+          #     "opacity"   => opacity,
+          #     "fill"      => fill,
+          #     "stroke"    => "#444",
+          #     "transform" => "translate(#{triangle_height*6 + dx - triangle_height/2}, #{6*side_length*0.5 - side_length/2}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"
+          #   })
+          # end
+          i += 1
+        end
+      end
+    end
+
     def geo_diamonds
       diamond_width  = map(@hash[0, 1].to_i(16), 0, 15, 10, 50)
       diamond_height = map(@hash[1, 1].to_i(16), 0, 15, 10, 50)
@@ -705,6 +764,11 @@ module GeoPattern
     def build_triangle_shape(side_length, height)
       half_width = side_length / 2
       "#{half_width}, 0, #{side_length}, #{height}, 0, #{height}, #{half_width}, 0"
+    end
+
+    def build_rotated_triangle_shape(side_length, width)
+      half_height = side_length / 2
+      "0, 0, #{width}, #{half_height}, 0, #{side_length}, 0, 0"
     end
 
     def build_diamond_shape(width, height)
