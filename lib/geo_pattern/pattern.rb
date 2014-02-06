@@ -68,12 +68,8 @@ module GeoPattern
         geo_rings
       when 11
         geo_diamonds
-      when 12
+      when 12..16
         geo_triangles_rotated
-      when 13
-      when 14
-      when 15
-      when 16
       end
     end
       
