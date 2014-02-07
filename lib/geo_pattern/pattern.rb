@@ -49,7 +49,7 @@ module GeoPattern
     def generate_pattern
       if @opts[:generator]
         begin
-          eval("geo_#{@opts[:generator]}")
+          send("geo_#{@opts[:generator]}")
         rescue
           abort("Error: the requested generator is invalid.")
         end
