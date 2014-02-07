@@ -4,7 +4,12 @@ require 'color'
 
 module GeoPattern
   class Pattern
-    def initialize(string)
+    DEFAULTS = {
+      :base_color => '#933c3c',
+      :generator  => ''
+    }
+    def initialize(string, opts={})
+      @opts = DEFAULTS.merge(opts)
       @hash = Digest::SHA1.hexdigest string
       @svg  = SVG.new
       generate_background
@@ -26,7 +31,7 @@ module GeoPattern
     def generate_background
       hue_offset = map(@hash[14, 3].to_i(16), 0, 4095, 0, 359)
       sat_offset = @hash[17, 1].to_i(16)
-      base_color = Color::HSL.new(0, 42, 41)
+      base_color = Color::RGB.from_html(@opts[:base_color]).to_hsl
       base_color.hue = base_color.hue - hue_offset;
 
       if sat_offset % 2
@@ -42,36 +47,44 @@ module GeoPattern
     end
 
     def generate_pattern
-      pattern = @hash[20, 1].to_i(16)
-      case pattern
-      when 0
-        geo_bricks
-      when 1
-        geo_overlapping_circles
-      when 2
-        geo_plus_signs
-      when 3
-        geo_xes
-      when 4
-        geo_sine_waves
-      when 5
-        geo_hexagons
-      when 6
-        geo_overlapping_rings
-      when 7
-        geo_plaid
-      when 8
-        geo_triangles
-      when 9
-        geo_squares
-      when 10
-        geo_rings
-      when 11
-        geo_diamonds
-      when 12
-        geo_tessellation
-      when 13..16
-        geo_triangles_rotated
+      if @opts[:generator]
+        begin
+          eval("geo_#{@opts[:generator]}")
+        rescue
+          abort("Error: the requested generator is invalid.")
+        end
+      else
+        pattern = @hash[20, 1].to_i(16)
+        case pattern
+        when 0
+          geo_bricks
+        when 1
+          geo_overlapping_circles
+        when 2
+          geo_plus_signs
+        when 3
+          geo_xes
+        when 4
+          geo_sine_waves
+        when 5
+          geo_hexagons
+        when 6
+          geo_overlapping_rings
+        when 7
+          geo_plaid
+        when 8
+          geo_triangles
+        when 9
+          geo_squares
+        when 10
+          geo_rings
+        when 11
+          geo_diamonds
+        when 12
+          geo_tessellation
+        when 13..16
+          geo_triangles_rotated
+        end
       end
     end
       
