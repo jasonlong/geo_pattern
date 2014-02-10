@@ -82,7 +82,9 @@ module GeoPattern
           geo_diamonds
         when 12
           geo_tessellation
-        when 13..16
+        when 13
+          geo_nested_squares
+        when 14..16
           geo_triangles_rotated
         end
       end
@@ -696,6 +698,50 @@ module GeoPattern
             })
           end
 
+          i += 1
+        end
+      end
+    end
+
+    def geo_nested_squares
+      block_size = map(@hash[0, 1].to_i(16), 0, 15, 4, 12)
+      square_size = block_size * 7
+
+      @svg.set_width((square_size + block_size)*6 + block_size*6)
+      @svg.set_height((square_size + block_size)*6 + block_size*6)
+
+      i = 0
+      for y in 0..5
+        for x in 0..5
+          val     = @hash[i, 1].to_i(16)
+          opacity = map(val, 0, 15, 0.02, 0.16)
+          fill = (val % 2 == 0) ? "#ddd" : "#222"
+
+          @svg.rect(x*square_size + x*block_size*2 + block_size/2,
+                    y*square_size + y*block_size*2 + block_size/2,
+                    square_size, square_size, {
+                    "fill"  => "none",
+                    "stroke" => fill,
+                    "style" => {
+                      "opacity" => opacity,
+                      "stroke-width" => "#{block_size}px"
+                    }
+                  })
+
+          val     = @hash[40-i, 1].to_i(16)
+          opacity = map(val, 0, 15, 0.02, 0.16)
+          fill = (val % 2 == 0) ? "#ddd" : "#222"
+
+          @svg.rect(x*square_size + x*block_size*2 + block_size/2 + block_size*2,
+                    y*square_size + y*block_size*2 + block_size/2 + block_size*2,
+                    block_size * 3, block_size * 3, {
+                    "fill"  => "none",
+                    "stroke" => fill,
+                    "style" => {
+                      "opacity" => opacity,
+                      "stroke-width" => "#{block_size}px"
+                    }
+                  })
           i += 1
         end
       end
