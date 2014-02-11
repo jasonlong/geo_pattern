@@ -30,11 +30,11 @@ Make a new pattern:
 
 To specify a base background color:
 
-    pattern = GeoPattern.generate("Mastering Markdown", {:base_color => "#fc0"}
+    pattern = GeoPattern.generate("Mastering Markdown", {:base_color => "#fc0"})
 
 To use a specific [pattern generator](#available-patterns):
 
-    pattern = GeoPattern.generate("Mastering Markdown", {:generator => "sine_waves"}
+    pattern = GeoPattern.generate("Mastering Markdown", {:generator => "sine_waves"})
 
 Get the SVG string:
 
