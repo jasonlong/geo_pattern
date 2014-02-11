@@ -5,8 +5,7 @@ require 'color'
 module GeoPattern
   class Pattern
     DEFAULTS = {
-      :base_color => '#933c3c',
-      :generator  => ''
+      :base_color => '#933c3c'
     }
     def initialize(string, opts={})
       @opts = DEFAULTS.merge(opts)
