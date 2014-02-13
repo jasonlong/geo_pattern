@@ -7,6 +7,26 @@ module GeoPattern
     DEFAULTS = {
       :base_color => '#933c3c'
     }
+    PATTERNS = [
+      :bricks,
+      :overlapping_circles,
+      :plus_signs,
+      :xes,
+      :sine_waves,
+      :hexagons,
+      :overlapping_rings,
+      :plaid,
+      :triangles,
+      :squares,
+      :rings,
+      :diamonds,
+      :tessellation,
+      :nested_squares,
+      :mosaic_squares,
+      :triangles_rotated,
+      :triangles_rotated,
+    ]
+
     def initialize(string, opts={})
       @opts = DEFAULTS.merge(opts)
       @hash = Digest::SHA1.hexdigest string
@@ -54,40 +74,7 @@ module GeoPattern
         end
       else
         pattern = @hash[20, 1].to_i(16)
-        case pattern
-        when 0
-          geo_bricks
-        when 1
-          geo_overlapping_circles
-        when 2
-          geo_plus_signs
-        when 3
-          geo_xes
-        when 4
-          geo_sine_waves
-        when 5
-          geo_hexagons
-        when 6
-          geo_overlapping_rings
-        when 7
-          geo_plaid
-        when 8
-          geo_triangles
-        when 9
-          geo_squares
-        when 10
-          geo_rings
-        when 11
-          geo_diamonds
-        when 12
-          geo_tessellation
-        when 13
-          geo_nested_squares
-        when 14
-          geo_mosaic_squares
-        when 15..16
-          geo_triangles_rotated
-        end
+        send("geo_#{PATTERNS[pattern]}")
       end
     end
       
