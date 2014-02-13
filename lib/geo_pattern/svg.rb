@@ -56,7 +56,7 @@ module GeoPattern
           value.each {|key, value|
             str << %Q{#{key}:#{value};}
           } 
-          str << %Q{"}
+          str << %Q{" }
         else
           str << %Q{#{key}="#{value}" }
         end
