@@ -96,42 +96,28 @@ module GeoPattern
           opacity = map(val, 0, 15, 0.02, 0.18)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
-          @svg.polyline(hex, {
+          styles = {
             "opacity"   => opacity,
             "fill"      => fill,
-            "stroke"    => "#000000",
-            "transform" => "translate(#{x*side_length*1.5 - hex_width/2}, #{dy - hex_height/2})"
-          })
+            "stroke"    => "#000000"
+          }
+
+          @svg.polyline(hex, styles.merge({"transform" => "translate(#{x*side_length*1.5 - hex_width/2}, #{dy - hex_height/2})"}))
 
           # Add an extra one at top-right, for tiling.
           if (x == 0)
-            @svg.polyline(hex, {
-              "opacity"   => opacity,
-              "fill"      => fill,
-              "stroke"    => "#000000",
-              "transform" => "translate(#{6*side_length*1.5 - hex_width/2}, #{dy - hex_height/2})"
-            })
+            @svg.polyline(hex, styles.merge({"transform" => "translate(#{6*side_length*1.5 - hex_width/2}, #{dy - hex_height/2})"}))
           end
 
           # Add an extra row at the end that matches the first row, for tiling.
           if (y == 0)
             dy = x % 2 == 0 ? 6*hex_height : 6*hex_height + hex_height/2;
-            @svg.polyline(hex, {
-              "opacity"   => opacity,
-              "fill"      => fill,
-              "stroke"    => "#000000",
-              "transform" => "translate(#{x*side_length*1.5 - hex_width/2}, #{dy - hex_height/2})"
-            })
+            @svg.polyline(hex, styles.merge({"transform" => "translate(#{x*side_length*1.5 - hex_width/2}, #{dy - hex_height/2})"}))
           end
 
            # Add an extra one at bottom-right, for tiling.
           if (x == 0 && y == 0)
-            @svg.polyline(hex, {
-              "opacity"   => opacity,
-              "fill"      => fill,
-              "stroke"    => "#000000",
-              "transform" => "translate(#{6*side_length*1.5 - hex_width/2}, #{5*hex_height + hex_height/2})"
-            })
+            @svg.polyline(hex, styles.merge({"transform" => "translate(#{6*side_length*1.5 - hex_width/2}, #{5*hex_height + hex_height/2})"}))
           end
           i += 1
         end
@@ -152,30 +138,22 @@ module GeoPattern
         opacity  = map(val, 0, 15, 0.02, 0.15)
         x_offset = period / 4 * 0.7
 
+        styles = {
+            "fill"      => "none",
+            "stroke"    => fill,
+            "style"     => {
+              "opacity" => opacity,
+              "stroke-width" => "#{wave_width}px"
+            }
+        }
+
         str = "M0 "+amplitude.to_s+
               " C "+x_offset.to_s+" 0, "+(period/2 - x_offset).to_s+" 0, "+(period/2).to_s+" "+amplitude.to_s+
               " S "+(period-x_offset).to_s+" "+(amplitude*2).to_s+", "+period.to_s+" "+amplitude.to_s+
               " S "+(period*1.5-x_offset).to_s+" 0, "+(period*1.5).to_s+", "+amplitude.to_s;
 
-        @svg.path(str, {
-                    "fill"      => "none",
-                    "stroke"    => fill,
-                    "transform" => "translate(-#{period/4}, #{wave_width*i-amplitude*1.5})",
-                    "style"     => {
-                      "opacity" => opacity,
-                      "stroke-width" => "#{wave_width}px"
-                    }
-                  })
-
-        @svg.path(str, {
-                    "fill"      => "none",
-                    "stroke"    => fill,
-                    "transform" => "translate(-#{period/4}, #{wave_width*i-amplitude*1.5 + wave_width*36})",
-                    "style"     => {
-                      "opacity" => opacity,
-                      "stroke-width" => "#{wave_width}px"
-                    }
-                  })
+        @svg.path(str, styles.merge({"transform" => "translate(-#{period/4}, #{wave_width*i-amplitude*1.5})"}))
+        @svg.path(str, styles.merge({"transform" => "translate(-#{period/4}, #{wave_width*i-amplitude*1.5 + wave_width*36})"}))
       end
     end
 
@@ -195,45 +173,32 @@ module GeoPattern
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
           dx      = (y % 2 == 0) ? 0 : 1
 
-          @svg.group(plus_shape, {
+          styles = {
             "fill"  => fill,
-            "transform" => "translate(#{x*plus_size - x*square_size + dx*square_size - square_size},#{y*plus_size - y*square_size - plus_size/2})",
             "style" => {
               "opacity" => opacity
             }
-          })
+          }
+
+          @svg.group(plus_shape, styles.merge({
+            "transform" => "translate(#{x*plus_size - x*square_size + dx*square_size - square_size},#{y*plus_size - y*square_size - plus_size/2})"}))
 
           # Add an extra column on the right for tiling.
           if (x == 0)
-            @svg.group(plus_shape, {
-              "fill"  => fill,
-              "transform" => "translate(#{4*plus_size - x*square_size + dx*square_size - square_size},#{y*plus_size - y*square_size - plus_size/2})",
-              "style" => {
-                "opacity" => opacity
-              }
-            })
+            @svg.group(plus_shape, styles.merge({
+              "transform" => "translate(#{4*plus_size - x*square_size + dx*square_size - square_size},#{y*plus_size - y*square_size - plus_size/2})"}))
           end 
 
           # Add an extra row on the bottom that matches the first row, for tiling.
           if (y == 0)
-            @svg.group(plus_shape, {
-              "fill"  => fill,
-              "transform" => "translate(#{x*plus_size - x*square_size + dx*square_size - square_size},#{4*plus_size - y*square_size - plus_size/2})",
-              "style" => {
-                "opacity" => opacity
-              }
-            })
+            @svg.group(plus_shape, styles.merge({
+              "transform" => "translate(#{x*plus_size - x*square_size + dx*square_size - square_size},#{4*plus_size - y*square_size - plus_size/2})"}))
           end 
 
           # Add an extra one at top-right and bottom-right, for tiling.
           if (x == 0 && y == 0)
-            @svg.group(plus_shape, {
-              "fill"  => fill,
-              "transform" => "translate(#{4*plus_size - x*square_size + dx*square_size - square_size},#{4*plus_size - y*square_size - plus_size/2})",
-              "style" => {
-                "opacity" => opacity
-              }
-            })
+            @svg.group(plus_shape, styles.merge({
+              "transform" => "translate(#{4*plus_size - x*square_size + dx*square_size - square_size},#{4*plus_size - y*square_size - plus_size/2})"}))
           end 
           i += 1
         end
@@ -256,57 +221,39 @@ module GeoPattern
           dy      = x % 2 == 0 ? y*x_size - x_size*0.5 : y*x_size - x_size*0.5 + x_size/4
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
-          @svg.group(x_shape, {
+          styles = {
             "fill"  => fill,
-            "transform" => "translate(#{x*x_size/2 - x_size/2},#{dy - y*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})",
             "style" => {
               "opacity" => opacity
             }
-          })
+          }
+
+          @svg.group(x_shape, styles.merge({
+            "transform" => "translate(#{x*x_size/2 - x_size/2},#{dy - y*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})"}))
 
           # Add an extra column on the right for tiling.
           if (x == 0)
-            @svg.group(x_shape, {
-              "fill"  => fill,
-              "transform" => "translate(#{6*x_size/2 - x_size/2},#{dy - y*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})",
-              "style" => {
-                "opacity" => opacity
-              }
-            })
+            @svg.group(x_shape, styles.merge({
+              "transform" => "translate(#{6*x_size/2 - x_size/2},#{dy - y*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})"}))
           end 
 
           # Add an extra row on the bottom that matches the first row, for tiling.
           if (y == 0)
             dy = x % 2 == 0 ? 6*x_size - x_size/2 : 6*x_size - x_size/2 + x_size/4;
-            @svg.group(x_shape, {
-              "fill"  => fill,
-              "transform" => "translate(#{x*x_size/2 - x_size/2},#{dy - 6*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})",
-              "style" => {
-                "opacity" => opacity
-              }
-            })
+            @svg.group(x_shape, styles.merge({
+              "transform" => "translate(#{x*x_size/2 - x_size/2},#{dy - 6*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})"}))
           end 
 
           # These can hang off the bottom, so put a row at the top for tiling.
           if (y == 5)
-            @svg.group(x_shape, {
-              "fill"  => fill,
-              "transform" => "translate(#{x*x_size/2 - x_size/2},#{dy - 11*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})",
-              "style" => {
-                "opacity" => opacity
-              }
-            })
+            @svg.group(x_shape, styles.merge({
+              "transform" => "translate(#{x*x_size/2 - x_size/2},#{dy - 11*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})"}))
           end 
 
           # Add an extra one at top-right and bottom-right, for tiling.
           if (x == 0 && y == 0)
-            @svg.group(x_shape, {
-              "fill"  => fill,
-              "transform" => "translate(#{6*x_size/2 - x_size/2},#{dy - 6*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})",
-              "style" => {
-                "opacity" => opacity
-              }
-            })
+            @svg.group(x_shape, styles.merge({
+              "transform" => "translate(#{6*x_size/2 - x_size/2},#{dy - 6*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})"}))
           end 
           i += 1
         end 
@@ -314,7 +261,7 @@ module GeoPattern
     end
 
     def geo_overlapping_circles
-      scale    = hex_val(@hash, 1, 1)
+      scale    = hex_val(@hash, 0, 1)
       diameter = map(scale, 0, 15, 20, 200)
       radius   = diameter/2;
 
@@ -327,41 +274,29 @@ module GeoPattern
           val     = hex_val(@hash, i, 1)
           opacity = map(val, 0, 15, 0.02, 0.1)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
-          @svg.circle(x*radius, y*radius, radius, {
+
+          styles = {
             "fill"  => fill,
             "style" => {
               "opacity" => opacity
             }
-          })
+          }
+
+          @svg.circle(x*radius, y*radius, radius, styles)
 
           # Add an extra one at top-right, for tiling.
           if (x == 0)
-            @svg.circle(6*radius, y*radius, radius, {
-              "fill"  => fill,
-              "style" => {
-                "opacity" => opacity
-              }
-            })
+            @svg.circle(6*radius, y*radius, radius, styles)
           end 
 
           # Add an extra row at the end that matches the first row, for tiling.
           if (y == 0)
-            @svg.circle(x*radius, 6*radius, radius, {
-              "fill"  => fill,
-              "style" => {
-                "opacity" => opacity
-              }
-            })
+            @svg.circle(x*radius, 6*radius, radius, styles)
           end
 
           # Add an extra one at bottom-right, for tiling.
           if (x == 0 and y == 0)
-            @svg.circle(6*radius, 6*radius, radius, {
-              "fill"  => fill,
-              "style" => {
-                "opacity" => opacity
-              }
-            })
+            @svg.circle(6*radius, 6*radius, radius, styles) 
           end 
           i += 1
         end 
@@ -383,36 +318,26 @@ module GeoPattern
           opacity = map(val, 0, 15, 0.02, 0.2)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
-          dx = (y % 2 == 0) ? -square_size : 0 
-
-          @svg.rect(x*(brick_width + gap_size) + dx, y*(square_size + gap_size), brick_width, square_size, {
+          styles = {
             "fill"  => fill,
             "stroke"    => "#000000",
             "style" => {
               "opacity" => opacity
             }
-          })
+          }
+
+          dx = (y % 2 == 0) ? -square_size : 0 
+
+          @svg.rect(x*(brick_width + gap_size) + dx, y*(square_size + gap_size), brick_width, square_size, styles) 
 
           # Add an extra one at top-right, for tiling.
           if (x == 0)
-            @svg.rect(6*(brick_width + gap_size) + dx, y*(square_size + gap_size), brick_width, square_size, {
-              "fill"  => fill,
-              "stroke"    => "#000000",
-              "style" => {
-                "opacity" => opacity
-              }
-            })
+            @svg.rect(6*(brick_width + gap_size) + dx, y*(square_size + gap_size), brick_width, square_size, styles) 
           end
 
           # Add an extra one at bottom-right, for tiling.
           if (x == 0 and y == 0)
-            @svg.rect(6*(brick_width + gap_size) + dx, 6*(square_size + gap_size), brick_width, square_size, {
-              "fill"  => fill,
-              "stroke"    => "#000000",
-              "style" => {
-                "opacity" => opacity
-              }
-            })
+            @svg.rect(6*(brick_width + gap_size) + dx, 6*(square_size + gap_size), brick_width, square_size, styles) 
           end
 
           i += 1
@@ -475,7 +400,7 @@ module GeoPattern
     end
 
     def geo_overlapping_rings
-      scale        = hex_val(@hash, 1, 1)
+      scale        = hex_val(@hash, 0, 1)
       ring_size    = map(scale, 0, 15, 5, 80)
       stroke_width = ring_size / 4
 
@@ -488,49 +413,30 @@ module GeoPattern
           val     = hex_val(@hash, i, 1)
           opacity = map(val, 0, 15, 0.02, 0.16)
 
-          @svg.circle(x*ring_size, y*ring_size, ring_size, {
-                    "fill"  => "none",
-                    "stroke" => "#000",
-                    "style" => {
-                      "opacity" => opacity,
-                      "stroke-width" => "#{stroke_width}px"
-                    }
-                  })
+          styles = {
+            "fill"  => "none",
+            "stroke" => "#000",
+            "style" => {
+              "opacity" => opacity,
+              "stroke-width" => "#{stroke_width}px"
+            }
+          }
+
+          @svg.circle(x*ring_size, y*ring_size, ring_size, styles) 
 
           # Add an extra one at top-right, for tiling.
           if (x == 0)
-            @svg.circle(6*ring_size, y*ring_size, ring_size, {
-                    "fill"  => "none",
-                    "stroke" => "#000",
-                    "style" => {
-                      "opacity" => opacity,
-                      "stroke-width" => "#{stroke_width}px"
-                    }
-                  })
+            @svg.circle(6*ring_size, y*ring_size, ring_size, styles)
           end 
 
           # Add an extra row at the end that matches the first row, for tiling.
           if (y == 0)
-            @svg.circle(x*ring_size, 6*ring_size, ring_size, {
-                    "fill"  => "none",
-                    "stroke" => "#000",
-                    "style" => {
-                      "opacity" => opacity,
-                      "stroke-width" => "#{stroke_width}px"
-                    }
-                  })
+            @svg.circle(x*ring_size, 6*ring_size, ring_size, styles) 
           end
 
           # Add an extra one at bottom-right, for tiling.
           if (x == 0 and y == 0)
-            @svg.circle(6*ring_size, 6*ring_size, ring_size, {
-                    "fill"  => "none",
-                    "stroke" => "#000",
-                    "style" => {
-                      "opacity" => opacity,
-                      "stroke-width" => "#{stroke_width}px"
-                    }
-                  })
+            @svg.circle(6*ring_size, 6*ring_size, ring_size, styles) 
           end 
           i += 1
         end
@@ -538,7 +444,7 @@ module GeoPattern
     end
 
     def geo_triangles
-      scale           = hex_val(@hash, 1, 1)
+      scale           = hex_val(@hash, 0, 1)
       side_length     = map(scale, 0, 15, 5, 120)
       triangle_height = side_length/2 * Math.sqrt(3)
       triangle        = build_triangle_shape(side_length, triangle_height)
@@ -553,6 +459,12 @@ module GeoPattern
           opacity = map(val, 0, 15, 0.02, 0.15)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
+          styles = {
+            "opacity"   => opacity,
+            "fill"      => fill,
+            "stroke"    => "#444"
+          }
+
           rotation = ""
           if y % 2 == 0
             rotation = x % 2 == 0 ? 180 : 0
@@ -560,21 +472,13 @@ module GeoPattern
             rotation = x % 2 != 0 ? 180 : 0 
           end 
 
-          @svg.polyline(triangle, {
-            "opacity"   => opacity,
-            "fill"      => fill,
-            "stroke"    => "#444",
-            "transform" => "translate(#{x*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"
-          })
+          @svg.polyline(triangle, styles.merge({
+            "transform" => "translate(#{x*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"}))
 
           # Add an extra one at top-right, for tiling.
           if (x == 0)
-            @svg.polyline(triangle, {
-              "opacity"   => opacity,
-              "fill"      => fill,
-              "stroke"    => "#444",
-              "transform" => "translate(#{6*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"
-            })
+            @svg.polyline(triangle, styles.merge({
+              "transform" => "translate(#{6*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"}))
           end 
           i += 1
         end
@@ -582,7 +486,7 @@ module GeoPattern
     end
 
     def geo_triangles_rotated
-      scale           = hex_val(@hash, 1, 1)
+      scale           = hex_val(@hash, 0, 1)
       side_length     = map(scale, 0, 15, 5, 120)
       triangle_width  = side_length/2 * Math.sqrt(3)
       triangle        = build_rotated_triangle_shape(side_length, triangle_width)
@@ -597,6 +501,12 @@ module GeoPattern
           opacity = map(val, 0, 15, 0.02, 0.15)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
+          styles = {
+            "opacity"   => opacity,
+            "fill"      => fill,
+            "stroke"    => "#444"
+          }
+
           rotation = ""
           dx = 0
           if y % 2 == 0
@@ -605,21 +515,13 @@ module GeoPattern
             rotation = x % 2 != 0 ? 180 : 0 
           end 
 
-          @svg.polyline(triangle, {
-            "opacity"   => opacity,
-            "fill"      => fill,
-            "stroke"    => "#444",
-            "transform" => "translate(#{triangle_width*x}, #{y*side_length*0.5 - side_length/2}) rotate(#{rotation}, #{triangle_width/2}, #{side_length/2})"
-          })
+          @svg.polyline(triangle, styles.merge({
+            "transform" => "translate(#{triangle_width*x}, #{y*side_length*0.5 - side_length/2}) rotate(#{rotation}, #{triangle_width/2}, #{side_length/2})" }))
 
           # Add an extra row at the end that matches the first row, for tiling.
           if (y == 0)
-            @svg.polyline(triangle, {
-              "opacity"   => opacity,
-              "fill"      => fill,
-              "stroke"    => "#444",
-              "transform" => "translate(#{triangle_width*x - dx}, #{6*side_length*0.5 - side_length/2}) rotate(#{rotation}, #{triangle_width/2}, #{side_length/2})"
-            })
+            @svg.polyline(triangle, styles.merge({
+              "transform" => "translate(#{triangle_width*x - dx}, #{6*side_length*0.5 - side_length/2}) rotate(#{rotation}, #{triangle_width/2}, #{side_length/2})"}))
           end
 
           i += 1
@@ -642,41 +544,33 @@ module GeoPattern
           opacity = map(val, 0, 15, 0.02, 0.15)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
+          styles = {
+            "opacity"   => opacity,
+            "fill"      => fill
+          }
+
           dx = (y % 2 == 0) ? 0 : diamond_width / 2
 
-          @svg.polyline(diamond, {
-            "opacity"   => opacity,
-            "fill"      => fill,
-            "transform" => "translate(#{x*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*y - diamond_height/2})"
-          })
+          @svg.polyline(diamond, styles.merge({
+            "transform" => "translate(#{x*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*y - diamond_height/2})"}))
 
           # Add an extra one at top-right, for tiling.
           if (x == 0)
-            @svg.polyline(diamond, {
-              "opacity"   => opacity,
-              "fill"      => fill,
-              "transform" => "translate(#{6*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*y - diamond_height/2})"
-            })
+            @svg.polyline(diamond, styles.merge({
+              "transform" => "translate(#{6*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*y - diamond_height/2})"}))
           end 
 
           # Add an extra row at the end that matches the first row, for tiling.
           if (y == 0)
-            @svg.polyline(diamond, {
-              "opacity"   => opacity,
-              "fill"      => fill,
-              "transform" => "translate(#{x*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*6 - diamond_height/2})"
-            })
+            @svg.polyline(diamond, styles.merge({
+              "transform" => "translate(#{x*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*6 - diamond_height/2})"}))
           end
 
           # Add an extra one at bottom-right, for tiling.
           if (x == 0 and y == 0)
-            @svg.polyline(diamond, {
-              "opacity"   => opacity,
-              "fill"      => fill,
-              "transform" => "translate(#{6*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*6 - diamond_height/2})"
-            })
+            @svg.polyline(diamond, styles.merge({
+              "transform" => "translate(#{6*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*6 - diamond_height/2})"}))
           end
-
           i += 1
         end
       end
@@ -696,16 +590,18 @@ module GeoPattern
           opacity = map(val, 0, 15, 0.02, 0.16)
           fill = (val % 2 == 0) ? "#ddd" : "#222"
 
+          styles = {
+            "fill"  => "none",
+            "stroke" => fill,
+            "style" => {
+              "opacity" => opacity,
+              "stroke-width" => "#{block_size}px"
+            }
+          }
+
           @svg.rect(x*square_size + x*block_size*2 + block_size/2,
                     y*square_size + y*block_size*2 + block_size/2,
-                    square_size, square_size, {
-                    "fill"  => "none",
-                    "stroke" => fill,
-                    "style" => {
-                      "opacity" => opacity,
-                      "stroke-width" => "#{block_size}px"
-                    }
-                  })
+                    square_size, square_size, styles) 
 
           val     = hex_val(@hash, 40-i, 1)
           opacity = map(val, 0, 15, 0.02, 0.16)
@@ -713,14 +609,7 @@ module GeoPattern
 
           @svg.rect(x*square_size + x*block_size*2 + block_size/2 + block_size*2,
                     y*square_size + y*block_size*2 + block_size/2 + block_size*2,
-                    block_size * 3, block_size * 3, {
-                    "fill"  => "none",
-                    "stroke" => fill,
-                    "style" => {
-                      "opacity" => opacity,
-                      "stroke-width" => "#{block_size}px"
-                    }
-                  })
+                    block_size * 3, block_size * 3, styles)
           i += 1
         end
       end
