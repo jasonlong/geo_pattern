@@ -95,7 +95,6 @@ module GeoPattern
           dy      = x % 2 == 0 ? y*hex_height : y*hex_height + hex_height/2
           opacity = map(val, 0, 15, 0.02, 0.18)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
-          tmp_hex = String.new(hex)
 
           @svg.polyline(hex, {
             "opacity"   => opacity,
@@ -561,8 +560,7 @@ module GeoPattern
             rotation = x % 2 != 0 ? 180 : 0 
           end 
 
-          tmp_tri = String.new(triangle)
-          @svg.polyline(tmp_tri, {
+          @svg.polyline(triangle, {
             "opacity"   => opacity,
             "fill"      => fill,
             "stroke"    => "#444",
@@ -571,8 +569,7 @@ module GeoPattern
 
           # Add an extra one at top-right, for tiling.
           if (x == 0)
-            tmp_tri = String.new(triangle)
-            @svg.polyline(tmp_tri, {
+            @svg.polyline(triangle, {
               "opacity"   => opacity,
               "fill"      => fill,
               "stroke"    => "#444",
@@ -608,8 +605,7 @@ module GeoPattern
             rotation = x % 2 != 0 ? 180 : 0 
           end 
 
-          tmp_tri = String.new(triangle)
-          @svg.polyline(tmp_tri, {
+          @svg.polyline(triangle, {
             "opacity"   => opacity,
             "fill"      => fill,
             "stroke"    => "#444",
@@ -618,8 +614,7 @@ module GeoPattern
 
           # Add an extra row at the end that matches the first row, for tiling.
           if (y == 0)
-            tmp_tri = String.new(triangle)
-            @svg.polyline(tmp_tri, {
+            @svg.polyline(triangle, {
               "opacity"   => opacity,
               "fill"      => fill,
               "stroke"    => "#444",
@@ -649,8 +644,7 @@ module GeoPattern
 
           dx = (y % 2 == 0) ? 0 : diamond_width / 2
 
-          tmp_diamond = String.new(diamond)
-          @svg.polyline(tmp_diamond, {
+          @svg.polyline(diamond, {
             "opacity"   => opacity,
             "fill"      => fill,
             "transform" => "translate(#{x*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*y - diamond_height/2})"
@@ -658,8 +652,7 @@ module GeoPattern
 
           # Add an extra one at top-right, for tiling.
           if (x == 0)
-            tmp_diamond = String.new(diamond)
-            @svg.polyline(tmp_diamond, {
+            @svg.polyline(diamond, {
               "opacity"   => opacity,
               "fill"      => fill,
               "transform" => "translate(#{6*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*y - diamond_height/2})"
@@ -668,8 +661,7 @@ module GeoPattern
 
           # Add an extra row at the end that matches the first row, for tiling.
           if (y == 0)
-            tmp_diamond = String.new(diamond)
-            @svg.polyline(tmp_diamond, {
+            @svg.polyline(diamond, {
               "opacity"   => opacity,
               "fill"      => fill,
               "transform" => "translate(#{x*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*6 - diamond_height/2})"
@@ -678,8 +670,7 @@ module GeoPattern
 
           # Add an extra one at bottom-right, for tiling.
           if (x == 0 and y == 0)
-            tmp_diamond = String.new(diamond)
-            @svg.polyline(tmp_diamond, {
+            @svg.polyline(diamond, {
               "opacity"   => opacity,
               "fill"      => fill,
               "transform" => "translate(#{6*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*6 - diamond_height/2})"
@@ -849,31 +840,23 @@ module GeoPattern
         when 3 # center / bottom square
           @svg.rect(hex_width/2 + triangle_height, hex_height * 1.5 + side_length, side_length, side_length, styles)
         when 4 # left top / bottom triangle
-          tmp_tri = String.new(triangle)
-          @svg.polyline(tmp_tri, styles.merge({"transform" => "translate(#{side_length/2}, #{-side_length/2}) rotate(0, #{side_length/2}, #{triangle_height/2})"}))
-          @svg.polyline(tmp_tri, styles.merge({"transform" => "translate(#{side_length/2}, #{tile_height--side_length/2}) rotate(0, #{side_length/2}, #{triangle_height/2}) scale(1, -1)"}))
+          @svg.polyline(triangle, styles.merge({"transform" => "translate(#{side_length/2}, #{-side_length/2}) rotate(0, #{side_length/2}, #{triangle_height/2})"}))
+          @svg.polyline(triangle, styles.merge({"transform" => "translate(#{side_length/2}, #{tile_height--side_length/2}) rotate(0, #{side_length/2}, #{triangle_height/2}) scale(1, -1)"}))
         when 5 # right top / bottom triangle
-          tmp_tri = String.new(triangle)
-          @svg.polyline(tmp_tri, styles.merge({"transform" => "translate(#{tile_width-side_length/2}, #{-side_length/2}) rotate(0, #{side_length/2}, #{triangle_height/2}) scale(-1, 1)"}))
-          @svg.polyline(tmp_tri, styles.merge({"transform" => "translate(#{tile_width-side_length/2}, #{tile_height+side_length/2}) rotate(0, #{side_length/2}, #{triangle_height/2}) scale(-1, -1)"}))
+          @svg.polyline(triangle, styles.merge({"transform" => "translate(#{tile_width-side_length/2}, #{-side_length/2}) rotate(0, #{side_length/2}, #{triangle_height/2}) scale(-1, 1)"}))
+          @svg.polyline(triangle, styles.merge({"transform" => "translate(#{tile_width-side_length/2}, #{tile_height+side_length/2}) rotate(0, #{side_length/2}, #{triangle_height/2}) scale(-1, -1)"}))
         when 6 # center / top / right triangle
-          tmp_tri = String.new(triangle)
-          @svg.polyline(tmp_tri, styles.merge({"transform" => "translate(#{tile_width/2+side_length/2}, #{hex_height/2})"}))
+          @svg.polyline(triangle, styles.merge({"transform" => "translate(#{tile_width/2+side_length/2}, #{hex_height/2})"}))
         when 7 # center / top / left triangle
-          tmp_tri = String.new(triangle)
-          @svg.polyline(tmp_tri, styles.merge({"transform" => "translate(#{tile_width-tile_width/2-side_length/2}, #{hex_height/2}) scale(-1, 1)"}))
+          @svg.polyline(triangle, styles.merge({"transform" => "translate(#{tile_width-tile_width/2-side_length/2}, #{hex_height/2}) scale(-1, 1)"}))
         when 8 # center / bottom / right triangle
-          tmp_tri = String.new(triangle)
-          @svg.polyline(tmp_tri, styles.merge({"transform" => "translate(#{tile_width/2+side_length/2}, #{tile_height-hex_height/2}) scale(1, -1)"}))
+          @svg.polyline(triangle, styles.merge({"transform" => "translate(#{tile_width/2+side_length/2}, #{tile_height-hex_height/2}) scale(1, -1)"}))
         when 9 # center / bottom / left triangle
-          tmp_tri = String.new(triangle)
-          @svg.polyline(tmp_tri, styles.merge({"transform" => "translate(#{tile_width-tile_width/2-side_length/2}, #{tile_height-hex_height/2}) scale(-1, -1)"}))
+          @svg.polyline(triangle, styles.merge({"transform" => "translate(#{tile_width-tile_width/2-side_length/2}, #{tile_height-hex_height/2}) scale(-1, -1)"}))
         when 10 # left / middle triangle
-          tmp_tri = String.new(triangle)
-          @svg.polyline(tmp_tri, styles.merge({"transform" => "translate(#{side_length/2}, #{tile_height/2 - side_length/2})"}))
+          @svg.polyline(triangle, styles.merge({"transform" => "translate(#{side_length/2}, #{tile_height/2 - side_length/2})"}))
         when 11 # right / middle triangle
-          tmp_tri = String.new(triangle)
-          @svg.polyline(tmp_tri, styles.merge({"transform" => "translate(#{tile_width-side_length/2}, #{tile_height/2 - side_length/2}) scale(-1, 1)"}))
+          @svg.polyline(triangle, styles.merge({"transform" => "translate(#{tile_width-side_length/2}, #{tile_height/2 - side_length/2}) scale(-1, 1)"}))
         when 12 # left / top square
           @svg.rect(0, 0, side_length, side_length, 
                     styles.merge({"transform" => "translate(#{side_length/2}, #{side_length/2}) rotate(-30, 0, 0)"}))
