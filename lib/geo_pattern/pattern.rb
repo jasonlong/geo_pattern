@@ -83,7 +83,9 @@ module GeoPattern
           geo_tessellation
         when 13
           geo_nested_squares
-        when 14..16
+        when 14
+          geo_mosaic_squares
+        when 15..16
           geo_triangles_rotated
         end
       end
@@ -746,6 +748,34 @@ module GeoPattern
       end
     end
 
+    def geo_mosaic_squares
+      triangle_size = map(@hash[0, 1].to_i(16), 0, 15, 15, 50)
+
+      @svg.set_width(triangle_size * 8)
+      @svg.set_height(triangle_size * 8)
+
+      i = 0
+      for y in 0..3
+        for x in 0..3
+
+          if (x % 2 == 0)
+            if (y % 2 == 0)
+              draw_outer_mosaic_tile(x*triangle_size*2, y*triangle_size*2, triangle_size, @hash[i])
+            else
+              draw_inner_mosaic_tile(x*triangle_size*2, y*triangle_size*2, triangle_size, @hash[i..i+1])
+            end
+          else
+            if (y % 2 == 0)
+              draw_inner_mosaic_tile(x*triangle_size*2, y*triangle_size*2, triangle_size, @hash[i..i+1])
+            else
+              draw_outer_mosaic_tile(x*triangle_size*2, y*triangle_size*2, triangle_size, @hash[i])
+            end
+          end
+
+        end
+      end
+    end
+
     def geo_plaid
       height = 0
       width  = 0
@@ -909,8 +939,50 @@ module GeoPattern
       "0, 0, #{width}, #{half_height}, 0, #{side_length}, 0, 0"
     end
 
+    def build_right_triangle_shape(side_length)
+      "0, 0, #{side_length}, #{side_length}, 0, #{side_length}, 0, 0"
+    end
+
     def build_diamond_shape(width, height)
       "#{width/2}, 0, #{width}, #{height/2}, #{width/2}, #{height}, 0, #{height/2}"
+    end
+
+    def draw_inner_mosaic_tile(x, y, triangle_size, vals)
+      triangle = build_right_triangle_shape(triangle_size)
+
+      opacity = map(vals[0], 0, 15, 0.02, 0.16)
+      fill = (vals[0] % 2 == 0) ? "#ddd" : "#222"
+      styles = {
+        "opacity" => opacity,
+        "fill"    => fill
+      }
+      @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x+triangle_size}, #{y}) scale(-1, 1)"}))
+      @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x+triangle_size}, #{y+triangle_size*2}) scale(1, -1)"}))
+
+      opacity = map(vals[1], 0, 15, 0.02, 0.16)
+      fill = (vals[1] % 2 == 0) ? "#ddd" : "#222"
+      styles = {
+        "opacity" => opacity,
+        "fill"    => fill
+      }
+      @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x+triangle_size}, #{y+triangle_size*2}) scale(-1, -1)"}))
+      @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x+triangle_size}, #{y}) scale(1, 1)"}))
+    end
+
+    def draw_outer_mosaic_tile(x, y, triangle_size, val)
+      opacity = map(val, 0, 15, 0.02, 0.16)
+      fill = (val % 2 == 0) ? "#ddd" : "#222"
+      triangle = build_right_triangle_shape(triangle_size)
+
+      styles = {
+        "opacity" => opacity,
+        "fill"    => fill
+      }
+
+      @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x}, #{y+triangle_size}) scale(1, -1)"}))
+      @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x+triangle_size*2}, #{y+triangle_size}) scale(-1, -1)"}))
+      @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x}, #{y+triangle_size}) scale(1, 1)"}))
+      @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x+triangle_size*2}, #{y+triangle_size}) scale(-1, 1)"}))
     end
 
     # Ruby implementation of Processing's map function
