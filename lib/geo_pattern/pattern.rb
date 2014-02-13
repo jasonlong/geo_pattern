@@ -48,8 +48,8 @@ module GeoPattern
     end
 
     def generate_background
-      hue_offset = map(@hash[14, 3].to_i(16), 0, 4095, 0, 359)
-      sat_offset = @hash[17, 1].to_i(16)
+      hue_offset = map(hex_val(@hash, 14, 3), 0, 4095, 0, 359)
+      sat_offset = hex_val(@hash, 17, 1)
       base_color = Color::RGB.from_html(@opts[:base_color]).to_hsl
       base_color.hue = base_color.hue - hue_offset;
 
@@ -73,13 +73,13 @@ module GeoPattern
           abort("Error: the requested generator is invalid.")
         end
       else
-        pattern = @hash[20, 1].to_i(16)
+        pattern = hex_val(@hash, 20, 1)
         send("geo_#{PATTERNS[pattern]}")
       end
     end
       
     def geo_hexagons
-      scale       = @hash[1, 1].to_i(16)
+      scale       = hex_val(@hash, 1, 1)
       side_length = map(scale, 0, 15, 5, 120)
       hex_height  = side_length * Math.sqrt(3)
       hex_width   = side_length * 2
@@ -91,7 +91,7 @@ module GeoPattern
       i = 0
       for y in 0..5
         for x in 0..5
-          val     = @hash[i, 1].to_i(16)
+          val     = hex_val(@hash, i, 1)
           dy      = x % 2 == 0 ? y*hex_height : y*hex_height + hex_height/2
           opacity = map(val, 0, 15, 0.02, 0.18)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
@@ -140,15 +140,15 @@ module GeoPattern
     end
 
     def geo_sine_waves
-      period     = map(@hash[1, 1].to_i(16), 0, 15, 100, 400).floor
-      amplitude  = map(@hash[2, 1].to_i(16), 0, 15, 30, 100).floor
-      wave_width = map(@hash[3, 1].to_i(16), 0, 15, 3, 30).floor
+      period     = map(hex_val(@hash, 1, 1), 0, 15, 100, 400).floor
+      amplitude  = map(hex_val(@hash, 2, 1), 0, 15, 30, 100).floor
+      wave_width = map(hex_val(@hash, 3, 1), 0, 15, 3, 30).floor
 
       @svg.set_width(period)
       @svg.set_height(wave_width * 36)
 
       for i in 0..35
-        val      = @hash[i, 1].to_i(16)
+        val      = hex_val(@hash, i, 1)
         fill     = (val % 2 == 0) ? "#ddd" : "#222"
         opacity  = map(val, 0, 15, 0.02, 0.15)
         x_offset = period / 4 * 0.7
@@ -181,7 +181,7 @@ module GeoPattern
     end
 
     def geo_plus_signs
-      square_size = map(@hash[0, 1].to_i(16), 0, 15, 10, 25)
+      square_size = map(hex_val(@hash, 0, 1), 0, 15, 10, 25)
       plus_size   = square_size * 3
       plus_shape  = build_plus_shape(square_size)
 
@@ -191,7 +191,7 @@ module GeoPattern
       i = 0
       for y in 0..5
         for x in 0..5
-          val     = @hash[i, 1].to_i(16)
+          val     = hex_val(@hash, i, 1)
           opacity = map(val, 0, 15, 0.02, 0.15)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
           dx      = (y % 2 == 0) ? 0 : 1
@@ -242,7 +242,7 @@ module GeoPattern
     end
 
     def geo_xes
-      square_size = map(@hash[0, 1].to_i(16), 0, 15, 10, 25)
+      square_size = map(hex_val(@hash, 0, 1), 0, 15, 10, 25)
       x_shape     = build_plus_shape(square_size) # rotated later
       x_size      = square_size * 3 * 0.943
 
@@ -252,7 +252,7 @@ module GeoPattern
       i = 0
       for y in 0..5
         for x in 0..5
-          val     = @hash[i, 1].to_i(16)
+          val     = hex_val(@hash, i, 1)
           opacity = map(val, 0, 15, 0.02, 0.15)
           dy      = x % 2 == 0 ? y*x_size - x_size*0.5 : y*x_size - x_size*0.5 + x_size/4
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
@@ -315,7 +315,7 @@ module GeoPattern
     end
 
     def geo_overlapping_circles
-      scale    = @hash[1, 1].to_i(16)
+      scale    = hex_val(@hash, 1, 1)
       diameter = map(scale, 0, 15, 20, 200)
       radius   = diameter/2;
 
@@ -325,7 +325,7 @@ module GeoPattern
       i = 0
       for y in 0..5
         for x in 0..5
-          val     = @hash[i, 1].to_i(16)
+          val     = hex_val(@hash, i, 1)
           opacity = map(val, 0, 15, 0.02, 0.1)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
           @svg.circle(x*radius, y*radius, radius, {
@@ -370,7 +370,7 @@ module GeoPattern
     end 
 
     def geo_bricks
-      square_size = map(@hash[0, 1].to_i(16), 0, 15, 6, 60)
+      square_size = map(hex_val(@hash, 0, 1), 0, 15, 6, 60)
       brick_width = square_size * 2
       gap_size    = square_size * 0.1
 
@@ -380,7 +380,7 @@ module GeoPattern
       i = 0
       for y in 0..5
         for x in 0..5
-          val     = @hash[i, 1].to_i(16)
+          val     = hex_val(@hash, i, 1)
           opacity = map(val, 0, 15, 0.02, 0.2)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
@@ -422,7 +422,7 @@ module GeoPattern
     end
 
     def geo_squares
-      square_size = map(@hash[0, 1].to_i(16), 0, 15, 10, 70)
+      square_size = map(hex_val(@hash, 0, 1), 0, 15, 10, 70)
 
       @svg.set_width(square_size * 6)
       @svg.set_height(square_size * 6)
@@ -430,7 +430,7 @@ module GeoPattern
       i = 0
       for y in 0..5
         for x in 0..5
-          val     = @hash[i, 1].to_i(16)
+          val     = hex_val(@hash, i, 1)
           opacity = map(val, 0, 15, 0.02, 0.2)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
@@ -446,7 +446,7 @@ module GeoPattern
     end
 
     def geo_rings
-      scale        = @hash[1, 1].to_i(16)
+      scale        = hex_val(@hash, 1, 1)
       ring_size    = map(scale, 0, 15, 5, 80)
       stroke_width = ring_size / 4
 
@@ -456,7 +456,7 @@ module GeoPattern
       i = 0
       for y in 0..5
         for x in 0..5
-          val     = @hash[i, 1].to_i(16)
+          val     = hex_val(@hash, i, 1).to_i(16)
           opacity = map(val, 0, 15, 0.02, 0.16)
 
           @svg.circle(
@@ -476,7 +476,7 @@ module GeoPattern
     end
 
     def geo_overlapping_rings
-      scale        = @hash[1, 1].to_i(16)
+      scale        = hex_val(@hash, 1, 1)
       ring_size    = map(scale, 0, 15, 5, 80)
       stroke_width = ring_size / 4
 
@@ -486,7 +486,7 @@ module GeoPattern
       i = 0
       for y in 0..5
         for x in 0..5
-          val     = @hash[i, 1].to_i(16)
+          val     = hex_val(@hash, i, 1)
           opacity = map(val, 0, 15, 0.02, 0.16)
 
           @svg.circle(x*ring_size, y*ring_size, ring_size, {
@@ -539,7 +539,7 @@ module GeoPattern
     end
 
     def geo_triangles
-      scale           = @hash[1, 1].to_i(16)
+      scale           = hex_val(@hash, 1, 1)
       side_length     = map(scale, 0, 15, 5, 120)
       triangle_height = side_length/2 * Math.sqrt(3)
       triangle        = build_triangle_shape(side_length, triangle_height)
@@ -550,7 +550,7 @@ module GeoPattern
       i = 0
       for y in 0..5
         for x in 0..5
-          val     = @hash[i, 1].to_i(16)
+          val     = hex_val(@hash, i, 1)
           opacity = map(val, 0, 15, 0.02, 0.15)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
@@ -585,7 +585,7 @@ module GeoPattern
     end
 
     def geo_triangles_rotated
-      scale           = @hash[1, 1].to_i(16)
+      scale           = hex_val(@hash, 1, 1)
       side_length     = map(scale, 0, 15, 5, 120)
       triangle_width  = side_length/2 * Math.sqrt(3)
       triangle        = build_rotated_triangle_shape(side_length, triangle_width)
@@ -596,7 +596,7 @@ module GeoPattern
       i = 0
       for y in 0..5
         for x in 0..5
-          val     = @hash[i, 1].to_i(16)
+          val     = hex_val(@hash, i, 1)
           opacity = map(val, 0, 15, 0.02, 0.15)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
@@ -633,8 +633,8 @@ module GeoPattern
     end
 
     def geo_diamonds
-      diamond_width  = map(@hash[0, 1].to_i(16), 0, 15, 10, 50)
-      diamond_height = map(@hash[1, 1].to_i(16), 0, 15, 10, 50)
+      diamond_width  = map(hex_val(@hash, 0, 1), 0, 15, 10, 50)
+      diamond_height = map(hex_val(@hash, 1, 1), 0, 15, 10, 50)
       diamond        = build_diamond_shape(diamond_width, diamond_height)
 
       @svg.set_width(diamond_width * 6)
@@ -643,7 +643,7 @@ module GeoPattern
       i = 0
       for y in 0..5
         for x in 0..5
-          val     = @hash[i, 1].to_i(16)
+          val     = hex_val(@hash, i, 1)
           opacity = map(val, 0, 15, 0.02, 0.15)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
@@ -692,7 +692,7 @@ module GeoPattern
     end
 
     def geo_nested_squares
-      block_size = map(@hash[0, 1].to_i(16), 0, 15, 4, 12)
+      block_size = map(hex_val(@hash, 0, 1), 0, 15, 4, 12)
       square_size = block_size * 7
 
       @svg.set_width((square_size + block_size)*6 + block_size*6)
@@ -701,7 +701,7 @@ module GeoPattern
       i = 0
       for y in 0..5
         for x in 0..5
-          val     = @hash[i, 1].to_i(16)
+          val     = hex_val(@hash, i, 1)
           opacity = map(val, 0, 15, 0.02, 0.16)
           fill = (val % 2 == 0) ? "#ddd" : "#222"
 
@@ -716,7 +716,7 @@ module GeoPattern
                     }
                   })
 
-          val     = @hash[40-i, 1].to_i(16)
+          val     = hex_val(@hash, 40-i, 1)
           opacity = map(val, 0, 15, 0.02, 0.16)
           fill = (val % 2 == 0) ? "#ddd" : "#222"
 
@@ -736,7 +736,7 @@ module GeoPattern
     end
 
     def geo_mosaic_squares
-      triangle_size = map(@hash[0, 1].to_i(16), 0, 15, 15, 50)
+      triangle_size = map(hex_val(@hash, 0, 1), 0, 15, 15, 50)
 
       @svg.set_width(triangle_size * 8)
       @svg.set_height(triangle_size * 8)
@@ -770,10 +770,10 @@ module GeoPattern
       # horizontal stripes
       i = 0
       for y in 0..17
-        space   = @hash[i, 1].to_i(16)
+        space   = hex_val(@hash, i, 1)
         height += space + 5
 
-        val  = @hash[i+1, 1].to_i(16)
+        val  = hex_val(@hash, i+1, 1)
         opacity = map(val, 0, 15, 0.02, 0.15)
         fill = (val % 2 == 0) ? "#ddd" : "#222"
         stripe_height = val + 5
@@ -789,10 +789,10 @@ module GeoPattern
       # vertical stripes
       i = 0
       for x in 0..17
-        space  = @hash[i, 1].to_i(16)
+        space  = hex_val(@hash, i, 1)
         width += space + 5
 
-        val  = @hash[i+1, 1].to_i(16)
+        val  = hex_val(@hash, i+1, 1)
         opacity = map(val, 0, 15, 0.02, 0.15)
         fill = (val % 2 == 0) ? "#ddd" : "#222"
         stripe_width = val + 5
@@ -811,7 +811,7 @@ module GeoPattern
 
     def geo_tessellation
       # 3.4.6.4 semi-regular tessellation
-      side_length     = map(@hash[0, 1].to_i(16), 0, 15, 5, 40)
+      side_length     = map(hex_val(@hash, 0, 1), 0, 15, 5, 40)
       hex_height      = side_length * Math.sqrt(3)
       hex_width       = side_length * 2
       triangle_height = side_length/2 * Math.sqrt(3)
@@ -823,7 +823,7 @@ module GeoPattern
       @svg.set_height(tile_height)
 
       for i in 0..19
-        val     = @hash[i, 1].to_i(16)
+        val     = hex_val(@hash, i, 1)
         opacity = map(val, 0, 15, 0.02, 0.15)
         fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
@@ -970,6 +970,10 @@ module GeoPattern
       @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x+triangle_size*2}, #{y+triangle_size}) scale(-1, -1)"}))
       @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x}, #{y+triangle_size}) scale(1, 1)"}))
       @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x+triangle_size*2}, #{y+triangle_size}) scale(-1, 1)"}))
+    end
+
+    def hex_val(sha, index, len)
+      sha[index, len || 1].to_i(16)
     end
 
     # Ruby implementation of Processing's map function
