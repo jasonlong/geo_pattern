@@ -63,6 +63,7 @@ TODO: add images for each
 * triangles_rotated
 * squares
 * nested_squares
+* mosaic_squares
 * rings
 * diamonds
 * tessellation
