@@ -1,12 +1,6 @@
-----
-
-**NOTE: This is currently a WIP with an incomplete set of patterns.**
-
-----
-
 # GeoPattern
 
-Generate beautiful tilng SVG patterns from a string.
+Generate beautiful tilng SVG patterns from a string. The string is converted into a SHA and a color and pattern are determined based on the values in the hash. The color is determined by shifting the hue and saturation from a default (or passed in) base color. One of 16 patterns is used (or you can specify one) and the sizing of the pattern elements is also determined by the hash values.
 
 ## Installation
 
@@ -49,24 +43,69 @@ Get the Base64 encoded string:
 
 ## Available patterns
 
-TODO: add images for each
+### octogons
 
-* octogons
-* overlapping_circles
-* plus_signs
-* xes
-* sine_waves
-* hexagons
-* overlapping_rings
-* plaid
-* triangles
-* triangles_rotated
-* squares
-* nested_squares
-* mosaic_squares
-* concentric_circles
-* diamonds
-* tessellation
+![](http://jasonlong.github.io/geo_pattern/examples/octogons.png)
+
+### overlapping_circles
+
+![](http://jasonlong.github.io/geo_pattern/examples/overlapping_circles.png)
+
+### plus_signs
+
+![](http://jasonlong.github.io/geo_pattern/examples/plus_signs.png)
+
+### xes
+
+![](http://jasonlong.github.io/geo_pattern/examples/xes.png)
+
+### sine_waves
+
+![](http://jasonlong.github.io/geo_pattern/examples/sine_waves.png)
+
+### hexagons
+
+![](http://jasonlong.github.io/geo_pattern/examples/hexagons.png)
+
+### overlapping_rings
+
+![](http://jasonlong.github.io/geo_pattern/examples/overlapping_rings.png)
+
+### plaid
+
+![](http://jasonlong.github.io/geo_pattern/examples/plaid.png)
+
+### triangles
+
+![](http://jasonlong.github.io/geo_pattern/examples/triangles.png)
+
+### triangles_rotated
+
+![](http://jasonlong.github.io/geo_pattern/examples/triangles_rotated.png)
+
+### squares
+
+![](http://jasonlong.github.io/geo_pattern/examples/squares.png)
+
+### nested_squares
+
+![](http://jasonlong.github.io/geo_pattern/examples/nested_squares.png)
+
+### mosaic_squares
+
+![](http://jasonlong.github.io/geo_pattern/examples/mosaic_squares.png)
+
+### concentric_circles
+
+![](http://jasonlong.github.io/geo_pattern/examples/concentric_circles.png)
+
+### diamonds
+
+![](http://jasonlong.github.io/geo_pattern/examples/diamonds.png)
+
+### tessellation
+
+![](http://jasonlong.github.io/geo_pattern/examples/tessellation.png)
 
 
 ## Contributing
