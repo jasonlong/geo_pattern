@@ -382,7 +382,7 @@ module GeoPattern
     end
 
     def geo_concentric_circles
-      scale        = hex_val(1, 1)
+      scale        = hex_val(0, 1)
       ring_size    = map(scale, 0, 15, 10, 60)
       stroke_width = ring_size / 5
 
