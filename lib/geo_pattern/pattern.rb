@@ -7,6 +7,7 @@ module GeoPattern
     DEFAULTS = {
       :base_color => '#933c3c'
     }
+
     PATTERNS = [
       :bricks,
       :overlapping_circles,
@@ -26,6 +27,13 @@ module GeoPattern
       :triangles_rotated,
       :triangles_rotated,
     ]
+
+    FILL_COLOR_DARK  = "#222"
+    FILL_COLOR_LIGHT = "#ddd"
+    STROKE_COLOR     = "#000"
+    STROKE_OPACITY   = 0.02
+    OPACITY_MIN      = 0.02
+    OPACITY_MAX      = 0.15
 
     def initialize(string, opts={})
       @opts = DEFAULTS.merge(opts)
@@ -48,9 +56,9 @@ module GeoPattern
     end
 
     def generate_background
-      hue_offset = map(hex_val(@hash, 14, 3), 0, 4095, 0, 359)
-      sat_offset = hex_val(@hash, 17, 1)
-      base_color = Color::RGB.from_html(@opts[:base_color]).to_hsl
+      hue_offset     = map(hex_val(@hash, 14, 3), 0, 4095, 0, 359)
+      sat_offset     = hex_val(@hash, 17, 1)
+      base_color     = Color::RGB.from_html(@opts[:base_color]).to_hsl
       base_color.hue = base_color.hue - hue_offset;
 
       if sat_offset % 2
@@ -93,7 +101,7 @@ module GeoPattern
         for x in 0..5
           val     = hex_val(@hash, i, 1)
           dy      = x % 2 == 0 ? y*hex_height : y*hex_height + hex_height/2
-          opacity = map(val, 0, 15, 0.02, 0.18)
+          opacity = opacity(val)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
           styles = {
@@ -142,7 +150,7 @@ module GeoPattern
             "fill"      => "none",
             "stroke"    => fill,
             "style"     => {
-              "opacity" => opacity,
+              "opacity"      => opacity,
               "stroke-width" => "#{wave_width}px"
             }
         }
@@ -169,7 +177,7 @@ module GeoPattern
       for y in 0..5
         for x in 0..5
           val     = hex_val(@hash, i, 1)
-          opacity = map(val, 0, 15, 0.02, 0.15)
+          opacity = opacity(val)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
           dx      = (y % 2 == 0) ? 0 : 1
 
@@ -217,7 +225,7 @@ module GeoPattern
       for y in 0..5
         for x in 0..5
           val     = hex_val(@hash, i, 1)
-          opacity = map(val, 0, 15, 0.02, 0.15)
+          opacity = opacity(val)
           dy      = x % 2 == 0 ? y*x_size - x_size*0.5 : y*x_size - x_size*0.5 + x_size/4
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
@@ -272,7 +280,7 @@ module GeoPattern
       for y in 0..5
         for x in 0..5
           val     = hex_val(@hash, i, 1)
-          opacity = map(val, 0, 15, 0.02, 0.1)
+          opacity = opacity(val)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
           styles = {
@@ -319,9 +327,9 @@ module GeoPattern
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
           styles = {
-            "fill"  => fill,
-            "stroke"    => "#000000",
-            "style" => {
+            "fill"   => fill,
+            "stroke" => "#000000",
+            "style"  => {
               "opacity" => opacity
             }
           }
@@ -355,7 +363,7 @@ module GeoPattern
       for y in 0..5
         for x in 0..5
           val     = hex_val(@hash, i, 1)
-          opacity = map(val, 0, 15, 0.02, 0.2)
+          opacity = opacity(val)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
           @svg.rect(x*square_size, y*square_size, square_size, square_size, {
@@ -381,15 +389,15 @@ module GeoPattern
       for y in 0..5
         for x in 0..5
           val     = hex_val(@hash, i, 1).to_i(16)
-          opacity = map(val, 0, 15, 0.02, 0.16)
+          opacity = opacity(val)
 
           @svg.circle(
                   x*ring_size + x*stroke_width + (ring_size + stroke_width)/2,
                   y*ring_size + y*stroke_width + (ring_size + stroke_width)/2,
                   ring_size/2, {
-                    "fill"  => "none",
+                    "fill"   => "none",
                     "stroke" => "#000",
-                    "style" => {
+                    "style"  => {
                       "opacity" => opacity,
                       "stroke-width" => "#{stroke_width}px"
                     }
@@ -411,12 +419,12 @@ module GeoPattern
       for y in 0..5
         for x in 0..5
           val     = hex_val(@hash, i, 1)
-          opacity = map(val, 0, 15, 0.02, 0.16)
+          opacity = opacity(val)
 
           styles = {
-            "fill"  => "none",
+            "fill"   => "none",
             "stroke" => "#000",
-            "style" => {
+            "style"  => {
               "opacity" => opacity,
               "stroke-width" => "#{stroke_width}px"
             }
@@ -456,13 +464,13 @@ module GeoPattern
       for y in 0..5
         for x in 0..5
           val     = hex_val(@hash, i, 1)
-          opacity = map(val, 0, 15, 0.02, 0.15)
+          opacity = opacity(val)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
           styles = {
-            "opacity"   => opacity,
-            "fill"      => fill,
-            "stroke"    => "#444"
+            "opacity" => opacity,
+            "fill"    => fill,
+            "stroke"  => "#444"
           }
 
           rotation = ""
@@ -498,13 +506,13 @@ module GeoPattern
       for y in 0..5
         for x in 0..5
           val     = hex_val(@hash, i, 1)
-          opacity = map(val, 0, 15, 0.02, 0.15)
+          opacity = opacity(val)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
           styles = {
-            "opacity"   => opacity,
-            "fill"      => fill,
-            "stroke"    => "#444"
+            "opacity" => opacity,
+            "fill"    => fill,
+            "stroke"  => "#444"
           }
 
           rotation = ""
@@ -541,12 +549,12 @@ module GeoPattern
       for y in 0..5
         for x in 0..5
           val     = hex_val(@hash, i, 1)
-          opacity = map(val, 0, 15, 0.02, 0.15)
+          opacity = opacity(val)
           fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
           styles = {
-            "opacity"   => opacity,
-            "fill"      => fill
+            "opacity" => opacity,
+            "fill"    => fill
           }
 
           dx = (y % 2 == 0) ? 0 : diamond_width / 2
@@ -587,13 +595,13 @@ module GeoPattern
       for y in 0..5
         for x in 0..5
           val     = hex_val(@hash, i, 1)
-          opacity = map(val, 0, 15, 0.02, 0.16)
-          fill = (val % 2 == 0) ? "#ddd" : "#222"
+          opacity = opacity(val)
+          fill    = fill_color(val)
 
           styles = {
-            "fill"  => "none",
+            "fill"   => "none",
             "stroke" => fill,
-            "style" => {
+            "style"  => {
               "opacity" => opacity,
               "stroke-width" => "#{block_size}px"
             }
@@ -605,7 +613,7 @@ module GeoPattern
 
           val     = hex_val(@hash, 40-i, 1)
           opacity = map(val, 0, 15, 0.02, 0.16)
-          fill = (val % 2 == 0) ? "#ddd" : "#222"
+          fill    = fill_color(val)
 
           @svg.rect(x*square_size + x*block_size*2 + block_size/2 + block_size*2,
                     y*square_size + y*block_size*2 + block_size/2 + block_size*2,
@@ -653,9 +661,9 @@ module GeoPattern
         space   = hex_val(@hash, i, 1)
         height += space + 5
 
-        val  = hex_val(@hash, i+1, 1)
-        opacity = map(val, 0, 15, 0.02, 0.15)
-        fill = (val % 2 == 0) ? "#ddd" : "#222"
+        val           = hex_val(@hash, i+1, 1)
+        opacity       = opacity(val)
+        fill          = fill_color(val)
         stripe_height = val + 5
 
         @svg.rect(0, height, "100%", stripe_height, {
@@ -672,9 +680,9 @@ module GeoPattern
         space  = hex_val(@hash, i, 1)
         width += space + 5
 
-        val  = hex_val(@hash, i+1, 1)
-        opacity = map(val, 0, 15, 0.02, 0.15)
-        fill = (val % 2 == 0) ? "#ddd" : "#222"
+        val          = hex_val(@hash, i+1, 1)
+        opacity      = opacity(val)
+        fill         = fill_color(val)
         stripe_width = val + 5
 
         @svg.rect(width, 0, stripe_width, "100%", {
@@ -704,7 +712,7 @@ module GeoPattern
 
       for i in 0..19
         val     = hex_val(@hash, i, 1)
-        opacity = map(val, 0, 15, 0.02, 0.15)
+        opacity = opacity(val)
         fill    = (val % 2 == 0) ? "#ddd" : "#222"
 
         styles  = {
@@ -808,34 +816,38 @@ module GeoPattern
 
     def draw_inner_mosaic_tile(x, y, triangle_size, vals)
       triangle = build_right_triangle_shape(triangle_size)
-
-      opacity = map(vals[0], 0, 15, 0.02, 0.16)
-      fill = (vals[0] % 2 == 0) ? "#ddd" : "#222"
-      styles = {
-        "opacity" => opacity,
-        "fill"    => fill
+      opacity  = opacity(vals[0])
+      fill     = fill_color(vals[0])
+      styles   = {
+        "stroke"         => "#000",
+        "stroke-opacity" => 0.02,
+        "fill-opacity"   => opacity,
+        "fill"           => fill
       }
       @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x+triangle_size}, #{y}) scale(-1, 1)"}))
       @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x+triangle_size}, #{y+triangle_size*2}) scale(1, -1)"}))
 
-      opacity = map(vals[1], 0, 15, 0.02, 0.16)
-      fill = (vals[1] % 2 == 0) ? "#ddd" : "#222"
-      styles = {
-        "opacity" => opacity,
-        "fill"    => fill
+      opacity = opacity(vals[1])
+      fill    = fill_color(vals[1])
+      styles  = {
+        "stroke"         => "#000",
+        "stroke-opacity" => 0.02,
+        "fill-opacity"   => opacity,
+        "fill"           => fill
       }
       @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x+triangle_size}, #{y+triangle_size*2}) scale(-1, -1)"}))
       @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x+triangle_size}, #{y}) scale(1, 1)"}))
     end
 
     def draw_outer_mosaic_tile(x, y, triangle_size, val)
-      opacity = map(val, 0, 15, 0.02, 0.16)
-      fill = (val % 2 == 0) ? "#ddd" : "#222"
+      opacity  = opacity(val)
+      fill     = fill_color(val)
       triangle = build_right_triangle_shape(triangle_size)
-
-      styles = {
-        "opacity" => opacity,
-        "fill"    => fill
+      styles   = {
+        "stroke"         => STROKE_COLOR,
+        "stroke-opacity" => STROKE_OPACITY,
+        "fill-opacity"   => opacity,
+        "fill"           => fill
       }
 
       @svg.polyline(triangle, styles.merge({"transform" => "translate(#{x}, #{y+triangle_size}) scale(1, -1)"}))
@@ -846,6 +858,14 @@ module GeoPattern
 
     def hex_val(sha, index, len)
       sha[index, len || 1].to_i(16)
+    end
+
+    def fill_color(val)
+      (val % 2 == 0) ? FILL_COLOR_LIGHT : FILL_COLOR_DARK
+    end
+
+    def opacity(val)
+      map(val, 0, 15, OPACITY_MIN, OPACITY_MAX)
     end
 
     # Ruby implementation of Processing's map function
