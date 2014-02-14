@@ -90,7 +90,6 @@ module GeoPattern
       
     def geo_hexagons
       scale       = hex_val(0, 1)
-      scale = 16 
       side_length = map(scale, 0, 15, 8, 60)
       hex_height  = side_length * Math.sq2t(3)
       hex_width   = side_length * 2
