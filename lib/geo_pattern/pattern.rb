@@ -90,7 +90,7 @@ module GeoPattern
       scale       = hex_val(@hash, 0, 1)
       scale = 16 
       side_length = map(scale, 0, 15, 8, 60)
-      hex_height  = side_length * Math.sqrt(3)
+      hex_height  = side_length * Math.sq2t(3)
       hex_width   = side_length * 2
       hex         = build_hexagon_shape(side_length)
 
@@ -135,9 +135,9 @@ module GeoPattern
     end
 
     def geo_sine_waves
-      period     = map(hex_val(@hash, 1, 1), 0, 15, 100, 400).floor
-      amplitude  = map(hex_val(@hash, 2, 1), 0, 15, 30, 100).floor
-      wave_width = map(hex_val(@hash, 3, 1), 0, 15, 3, 30).floor
+      period     = map(hex_val(@hash, 0, 1), 0, 15, 100, 400).floor
+      amplitude  = map(hex_val(@hash, 1, 1), 0, 15, 30, 100).floor
+      wave_width = map(hex_val(@hash, 2, 1), 0, 15, 3, 30).floor
 
       @svg.set_width(period)
       @svg.set_height(wave_width * 36)
@@ -184,9 +184,11 @@ module GeoPattern
           dx      = (y % 2 == 0) ? 0 : 1
 
           styles = {
-            "fill"  => fill,
-            "style" => {
-              "opacity" => opacity
+            "fill"           => fill,
+            "stroke"         => STROKE_COLOR,
+            "stroke-opacity" => STROKE_OPACITY,
+            "style"          => {
+              "fill-opacity" => opacity
             }
           }
 
@@ -272,7 +274,7 @@ module GeoPattern
 
     def geo_overlapping_circles
       scale    = hex_val(@hash, 0, 1)
-      diameter = map(scale, 0, 15, 20, 200)
+      diameter = map(scale, 0, 15, 25, 200)
       radius   = diameter/2;
 
       @svg.set_width(radius * 6)
@@ -314,7 +316,7 @@ module GeoPattern
     end 
 
     def geo_bricks
-      square_size = map(hex_val(@hash, 0, 1), 0, 15, 6, 60)
+      square_size = map(hex_val(@hash, 0, 1), 0, 15, 10, 45)
       brick_width = square_size * 2
       gap_size    = square_size * 0.1
 
@@ -325,15 +327,14 @@ module GeoPattern
       for y in 0..5
         for x in 0..5
           val     = hex_val(@hash, i, 1)
-          opacity = map(val, 0, 15, 0.02, 0.2)
+          opacity = opacity(val)
           fill    = fill_color(val)
 
           styles = {
-            "fill"   => fill,
-            "stroke" => "#000000",
-            "style"  => {
-              "opacity" => opacity
-            }
+            "fill"           => fill,
+            "fill-opacity"   => opacity,
+            "stroke"         => STROKE_COLOR,
+            "stroke-opacity" => STROKE_OPACITY,
           }
 
           dx = (y % 2 == 0) ? -square_size : 0 
@@ -356,7 +357,7 @@ module GeoPattern
     end
 
     def geo_squares
-      square_size = map(hex_val(@hash, 0, 1), 0, 15, 10, 70)
+      square_size = map(hex_val(@hash, 0, 1), 0, 15, 10, 60)
 
       @svg.set_width(square_size * 6)
       @svg.set_height(square_size * 6)
@@ -369,10 +370,10 @@ module GeoPattern
           fill    = fill_color(val)
 
           @svg.rect(x*square_size, y*square_size, square_size, square_size, {
-            "fill"  => fill,
-            "style" => {
-              "opacity" => opacity
-            }
+            "fill"           => fill,
+            "fill-opacity"   => opacity,
+            "stroke"         => STROKE_COLOR,
+            "stroke-opacity" => STROKE_OPACITY
           })
           i += 1
         end
@@ -381,7 +382,7 @@ module GeoPattern
 
     def geo_rings
       scale        = hex_val(@hash, 1, 1)
-      ring_size    = map(scale, 0, 15, 5, 80)
+      ring_size    = map(scale, 0, 15, 10, 60)
       stroke_width = ring_size / 4
 
       @svg.set_width((ring_size + stroke_width) * 6)
@@ -390,15 +391,16 @@ module GeoPattern
       i = 0
       for y in 0..5
         for x in 0..5
-          val     = hex_val(@hash, i, 1).to_i(16)
+          val     = hex_val(@hash, i, 1)
           opacity = opacity(val)
+          fill    = fill_color(val)
 
           @svg.circle(
                   x*ring_size + x*stroke_width + (ring_size + stroke_width)/2,
                   y*ring_size + y*stroke_width + (ring_size + stroke_width)/2,
                   ring_size/2, {
                     "fill"   => "none",
-                    "stroke" => "#000",
+                    "stroke" => fill,
                     "style"  => {
                       "opacity" => opacity,
                       "stroke-width" => "#{stroke_width}px"
@@ -411,7 +413,7 @@ module GeoPattern
 
     def geo_overlapping_rings
       scale        = hex_val(@hash, 0, 1)
-      ring_size    = map(scale, 0, 15, 5, 80)
+      ring_size    = map(scale, 0, 15, 10, 60)
       stroke_width = ring_size / 4
 
       @svg.set_width(ring_size * 6)
@@ -422,10 +424,11 @@ module GeoPattern
         for x in 0..5
           val     = hex_val(@hash, i, 1)
           opacity = opacity(val)
+          fill    = fill_color(val)
 
           styles = {
             "fill"   => "none",
-            "stroke" => "#000",
+            "stroke" => fill,
             "style"  => {
               "opacity" => opacity,
               "stroke-width" => "#{stroke_width}px"
@@ -455,7 +458,7 @@ module GeoPattern
 
     def geo_triangles
       scale           = hex_val(@hash, 0, 1)
-      side_length     = map(scale, 0, 15, 5, 120)
+      side_length     = map(scale, 0, 15, 15, 80)
       triangle_height = side_length/2 * Math.sqrt(3)
       triangle        = build_triangle_shape(side_length, triangle_height)
 
@@ -470,9 +473,10 @@ module GeoPattern
           fill    = fill_color(val)
 
           styles = {
-            "opacity" => opacity,
-            "fill"    => fill,
-            "stroke"  => "#444"
+            "fill"           => fill,
+            "fill-opacity"   => opacity,
+            "stroke"         => STROKE_COLOR,
+            "stroke-opacity" => STROKE_OPACITY
           }
 
           rotation = ""
@@ -497,7 +501,7 @@ module GeoPattern
 
     def geo_triangles_rotated
       scale           = hex_val(@hash, 0, 1)
-      side_length     = map(scale, 0, 15, 5, 120)
+      side_length     = map(scale, 0, 15, 15, 80)
       triangle_width  = side_length/2 * Math.sqrt(3)
       triangle        = build_rotated_triangle_shape(side_length, triangle_width)
 
@@ -512,9 +516,10 @@ module GeoPattern
           fill    = fill_color(val)
 
           styles = {
-            "opacity" => opacity,
-            "fill"    => fill,
-            "stroke"  => "#444"
+            "fill"           => fill,
+            "fill-opacity"   => opacity,
+            "stroke"         => STROKE_COLOR,
+            "stroke-opacity" => STROKE_OPACITY
           }
 
           rotation = ""
@@ -532,50 +537,6 @@ module GeoPattern
             @svg.polyline(triangle, styles.merge({
               "transform" => "translate(#{6*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"}))
           end 
-          i += 1
-        end
-      end
-    end
-
-    def geo_triangles_rotated
-      scale           = hex_val(@hash, 0, 1)
-      side_length     = map(scale, 0, 15, 5, 120)
-      triangle_width  = side_length/2 * Math.sqrt(3)
-      triangle        = build_rotated_triangle_shape(side_length, triangle_width)
-
-      @svg.set_width(triangle_width * 6)
-      @svg.set_height(side_length * 3)
-
-      i = 0
-      for y in 0..5
-        for x in 0..5
-          val     = hex_val(@hash, i, 1)
-          opacity = opacity(val)
-          fill    = fill_color(val)
-
-          styles = {
-            "opacity" => opacity,
-            "fill"    => fill,
-            "stroke"  => "#444"
-          }
-
-          rotation = ""
-          dx = 0
-          if y % 2 == 0
-            rotation = x % 2 == 0 ? 180 : 0
-          else
-            rotation = x % 2 != 0 ? 180 : 0 
-          end 
-
-          @svg.polyline(triangle, styles.merge({
-            "transform" => "translate(#{triangle_width*x}, #{y*side_length*0.5 - side_length/2}) rotate(#{rotation}, #{triangle_width/2}, #{side_length/2})" }))
-
-          # Add an extra row at the end that matches the first row, for tiling.
-          if (y == 0)
-            @svg.polyline(triangle, styles.merge({
-              "transform" => "translate(#{triangle_width*x - dx}, #{6*side_length*0.5 - side_length/2}) rotate(#{rotation}, #{triangle_width/2}, #{side_length/2})"}))
-          end
-
           i += 1
         end
       end
@@ -597,8 +558,10 @@ module GeoPattern
           fill    = fill_color(val)
 
           styles = {
-            "opacity" => opacity,
-            "fill"    => fill
+            "fill"           => fill,
+            "fill-opacity"   => opacity,
+            "stroke"         => STROKE_COLOR,
+            "stroke-opacity" => STROKE_OPACITY
           }
 
           dx = (y % 2 == 0) ? 0 : diamond_width / 2
@@ -656,7 +619,7 @@ module GeoPattern
                     square_size, square_size, styles) 
 
           val     = hex_val(@hash, 40-i, 1)
-          opacity = map(val, 0, 15, 0.02, 0.16)
+          opacity = opacity(val)
           fill    = fill_color(val)
 
           @svg.rect(x*square_size + x*block_size*2 + block_size/2 + block_size*2,
@@ -760,11 +723,11 @@ module GeoPattern
         fill    = fill_color(val)
 
         styles  = {
-                "stroke"       => "#000000",
-                "fill"         => fill,
-                "style"        => {
-                  "stroke-width" => 1,
-                  "opacity" => opacity }
+                "stroke"         => STROKE_COLOR,
+                "stroke-opacity" => STROKE_OPACITY,
+                "fill"           => fill,
+                "fill-opacity"   => opacity,
+                "stroke-width"   => 1
         }
 
         case i
@@ -863,8 +826,8 @@ module GeoPattern
       opacity  = opacity(vals[0])
       fill     = fill_color(vals[0])
       styles   = {
-        "stroke"         => "#000",
-        "stroke-opacity" => 0.02,
+        "stroke"         => STROKE_COLOR,
+        "stroke-opacity" => STROKE_OPACITY,
         "fill-opacity"   => opacity,
         "fill"           => fill
       }
@@ -874,8 +837,8 @@ module GeoPattern
       opacity = opacity(vals[1])
       fill    = fill_color(vals[1])
       styles  = {
-        "stroke"         => "#000",
-        "stroke-opacity" => 0.02,
+        "stroke"         => STROKE_COLOR,
+        "stroke-opacity" => STROKE_OPACITY,
         "fill-opacity"   => opacity,
         "fill"           => fill
       }
