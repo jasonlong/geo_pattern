@@ -87,8 +87,9 @@ module GeoPattern
     end
       
     def geo_hexagons
-      scale       = hex_val(@hash, 1, 1)
-      side_length = map(scale, 0, 15, 5, 120)
+      scale       = hex_val(@hash, 0, 1)
+      scale = 16 
+      side_length = map(scale, 0, 15, 8, 60)
       hex_height  = side_length * Math.sqrt(3)
       hex_width   = side_length * 2
       hex         = build_hexagon_shape(side_length)
@@ -102,12 +103,13 @@ module GeoPattern
           val     = hex_val(@hash, i, 1)
           dy      = x % 2 == 0 ? y*hex_height : y*hex_height + hex_height/2
           opacity = opacity(val)
-          fill    = (val % 2 == 0) ? "#ddd" : "#222"
+          fill    = fill_color(val)
 
           styles = {
-            "opacity"   => opacity,
-            "fill"      => fill,
-            "stroke"    => "#000000"
+            "fill"           => fill,
+            "fill-opacity"   => opacity,
+            "stroke"         => STROKE_COLOR,
+            "stroke-opacity" => STROKE_OPACITY
           }
 
           @svg.polyline(hex, styles.merge({"transform" => "translate(#{x*side_length*1.5 - hex_width/2}, #{dy - hex_height/2})"}))
@@ -142,8 +144,8 @@ module GeoPattern
 
       for i in 0..35
         val      = hex_val(@hash, i, 1)
-        fill     = (val % 2 == 0) ? "#ddd" : "#222"
-        opacity  = map(val, 0, 15, 0.02, 0.15)
+        opacity  = opacity(val)
+        fill     = fill_color(val)
         x_offset = period / 4 * 0.7
 
         styles = {
@@ -178,7 +180,7 @@ module GeoPattern
         for x in 0..5
           val     = hex_val(@hash, i, 1)
           opacity = opacity(val)
-          fill    = (val % 2 == 0) ? "#ddd" : "#222"
+          fill    = fill_color(val)
           dx      = (y % 2 == 0) ? 0 : 1
 
           styles = {
@@ -227,7 +229,7 @@ module GeoPattern
           val     = hex_val(@hash, i, 1)
           opacity = opacity(val)
           dy      = x % 2 == 0 ? y*x_size - x_size*0.5 : y*x_size - x_size*0.5 + x_size/4
-          fill    = (val % 2 == 0) ? "#ddd" : "#222"
+          fill    = fill_color(val)
 
           styles = {
             "fill"  => fill,
@@ -281,7 +283,7 @@ module GeoPattern
         for x in 0..5
           val     = hex_val(@hash, i, 1)
           opacity = opacity(val)
-          fill    = (val % 2 == 0) ? "#ddd" : "#222"
+          fill    = fill_color(val)
 
           styles = {
             "fill"  => fill,
@@ -324,7 +326,7 @@ module GeoPattern
         for x in 0..5
           val     = hex_val(@hash, i, 1)
           opacity = map(val, 0, 15, 0.02, 0.2)
-          fill    = (val % 2 == 0) ? "#ddd" : "#222"
+          fill    = fill_color(val)
 
           styles = {
             "fill"   => fill,
@@ -364,7 +366,7 @@ module GeoPattern
         for x in 0..5
           val     = hex_val(@hash, i, 1)
           opacity = opacity(val)
-          fill    = (val % 2 == 0) ? "#ddd" : "#222"
+          fill    = fill_color(val)
 
           @svg.rect(x*square_size, y*square_size, square_size, square_size, {
             "fill"  => fill,
@@ -465,7 +467,7 @@ module GeoPattern
         for x in 0..5
           val     = hex_val(@hash, i, 1)
           opacity = opacity(val)
-          fill    = (val % 2 == 0) ? "#ddd" : "#222"
+          fill    = fill_color(val)
 
           styles = {
             "opacity" => opacity,
@@ -507,7 +509,49 @@ module GeoPattern
         for x in 0..5
           val     = hex_val(@hash, i, 1)
           opacity = opacity(val)
-          fill    = (val % 2 == 0) ? "#ddd" : "#222"
+          fill    = fill_color(val)
+
+          styles = {
+            "opacity" => opacity,
+            "fill"    => fill,
+            "stroke"  => "#444"
+          }
+
+          rotation = ""
+          if y % 2 == 0
+            rotation = x % 2 == 0 ? 180 : 0
+          else
+            rotation = x % 2 != 0 ? 180 : 0 
+          end 
+
+          @svg.polyline(triangle, styles.merge({
+            "transform" => "translate(#{x*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"}))
+
+          # Add an extra one at top-right, for tiling.
+          if (x == 0)
+            @svg.polyline(triangle, styles.merge({
+              "transform" => "translate(#{6*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"}))
+          end 
+          i += 1
+        end
+      end
+    end
+
+    def geo_triangles_rotated
+      scale           = hex_val(@hash, 0, 1)
+      side_length     = map(scale, 0, 15, 5, 120)
+      triangle_width  = side_length/2 * Math.sqrt(3)
+      triangle        = build_rotated_triangle_shape(side_length, triangle_width)
+
+      @svg.set_width(triangle_width * 6)
+      @svg.set_height(side_length * 3)
+
+      i = 0
+      for y in 0..5
+        for x in 0..5
+          val     = hex_val(@hash, i, 1)
+          opacity = opacity(val)
+          fill    = fill_color(val)
 
           styles = {
             "opacity" => opacity,
@@ -550,7 +594,7 @@ module GeoPattern
         for x in 0..5
           val     = hex_val(@hash, i, 1)
           opacity = opacity(val)
-          fill    = (val % 2 == 0) ? "#ddd" : "#222"
+          fill    = fill_color(val)
 
           styles = {
             "opacity" => opacity,
@@ -713,7 +757,7 @@ module GeoPattern
       for i in 0..19
         val     = hex_val(@hash, i, 1)
         opacity = opacity(val)
-        fill    = (val % 2 == 0) ? "#ddd" : "#222"
+        fill    = fill_color(val)
 
         styles  = {
                 "stroke"       => "#000000",
