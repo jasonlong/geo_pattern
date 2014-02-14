@@ -468,21 +468,19 @@ module GeoPattern
             }
           }
 
-          svg.circle(x*ring_size, y*ring_size, ring_size, styles) 
+          svg.circle(x*ring_size, y*ring_size, ring_size - stroke_width/2, styles) 
 
           # Add an extra one at top-right, for tiling.
           if (x == 0)
-            svg.circle(6*ring_size, y*ring_size, ring_size, styles)
+            svg.circle(6*ring_size, y*ring_size, ring_size - stroke_width/2, styles) 
           end 
 
-          # Add an extra row at the end that matches the first row, for tiling.
           if (y == 0)
-            svg.circle(x*ring_size, 6*ring_size, ring_size, styles) 
+            svg.circle(x*ring_size, 6*ring_size, ring_size - stroke_width/2, styles) 
           end
 
-          # Add an extra one at bottom-right, for tiling.
           if (x == 0 and y == 0)
-            svg.circle(6*ring_size, 6*ring_size, ring_size, styles) 
+            svg.circle(6*ring_size, 6*ring_size, ring_size - stroke_width/2, styles) 
           end 
           i += 1
         end
