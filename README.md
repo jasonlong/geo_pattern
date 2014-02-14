@@ -51,7 +51,7 @@ Get the Base64 encoded string:
 
 TODO: add images for each
 
-* bricks
+* octogons
 * overlapping_circles
 * plus_signs
 * xes
