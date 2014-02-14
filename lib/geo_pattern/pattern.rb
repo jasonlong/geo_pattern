@@ -657,7 +657,7 @@ module GeoPattern
 
       # horizontal stripes
       i = 0
-      for y in 0..17
+      18.times do 
         space   = hex_val(@hash, i, 1)
         height += space + 5
 
@@ -676,7 +676,7 @@ module GeoPattern
 
       # vertical stripes
       i = 0
-      for x in 0..17
+      18.times do
         space  = hex_val(@hash, i, 1)
         width += space + 5
 
@@ -875,7 +875,7 @@ module GeoPattern
 
       v_range = v_max - v_min
       d_range = d_max - d_min
-      d_value = (v_value - v_min) * d_range / v_range + d_min
+      (v_value - v_min) * d_range / v_range + d_min
     end
   end
 end
