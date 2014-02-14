@@ -53,10 +53,10 @@ module GeoPattern
       args.each {|key, value|
         if value.is_a?(Hash)
           str << %Q{#{key}="}
-          value.each {|key, value|
-            str << %Q{#{key}:#{value};}
+          value.each {|k, v|
+            str << %Q{#{k}:#{v};}
           } 
-          str << %Q{"}
+          str << %Q{" }
         else
           str << %Q{#{key}="#{value}" }
         end
