@@ -655,7 +655,7 @@ module GeoPattern
               draw_outer_mosaic_tile(x*triangle_size*2, y*triangle_size*2, triangle_size, hash[i])
             end
           end
-
+          i += 1
         end
       end
     end
