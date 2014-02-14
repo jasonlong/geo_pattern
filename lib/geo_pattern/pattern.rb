@@ -9,7 +9,7 @@ module GeoPattern
     }
 
     PATTERNS = [
-      :bricks,
+      :octogons,
       :overlapping_circles,
       :plus_signs,
       :xes,
@@ -316,13 +316,12 @@ module GeoPattern
       end
     end 
 
-    def geo_bricks
-      square_size = map(hex_val(0, 1), 0, 15, 10, 45)
-      brick_width = square_size * 2
-      gap_size    = square_size * 0.1
+    def geo_octogons
+      square_size = map(hex_val(0, 1), 0, 15, 10, 60)
+      tile        = build_octogon_shape(square_size)
 
-      svg.set_width((brick_width + gap_size) * 6)
-      svg.set_height((square_size + gap_size) * 6)
+      svg.set_width(square_size * 6)
+      svg.set_height(square_size * 6)
 
       i = 0
       for y in 0..5
@@ -331,27 +330,13 @@ module GeoPattern
           opacity = opacity(val)
           fill    = fill_color(val)
 
-          styles = {
+          svg.polyline(tile, {
             "fill"           => fill,
             "fill-opacity"   => opacity,
             "stroke"         => STROKE_COLOR,
             "stroke-opacity" => STROKE_OPACITY,
-          }
-
-          dx = (y % 2 == 0) ? -square_size : 0 
-
-          svg.rect(x*(brick_width + gap_size) + dx, y*(square_size + gap_size), brick_width, square_size, styles) 
-
-          # Add an extra one at top-right, for tiling.
-          if (x == 0)
-            svg.rect(6*(brick_width + gap_size) + dx, y*(square_size + gap_size), brick_width, square_size, styles) 
-          end
-
-          # Add an extra one at bottom-right, for tiling.
-          if (x == 0 and y == 0)
-            svg.rect(6*(brick_width + gap_size) + dx, 6*(square_size + gap_size), brick_width, square_size, styles) 
-          end
-
+            "transform"      => "translate(#{x*square_size}, #{y*square_size})"
+          })
           i += 1
         end
       end
@@ -788,6 +773,12 @@ module GeoPattern
                     styles.merge({"transform" => "scale(-1, -1) translate(#{-tile_width+side_length/2}, #{-tile_height+side_length/2}) rotate(-30, 0, 0)"}))
         end
       end
+    end
+
+    def build_octogon_shape(square_size)
+      s = square_size
+      c = s * 0.33
+      "#{c},0,#{s-c},0,#{s},#{c},#{s},#{s-c},#{s-c},#{s},#{c},#{s},0,#{s-c},0,#{c},#{c},0"
     end
 
     def build_hexagon_shape(sideLength)
