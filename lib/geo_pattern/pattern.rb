@@ -563,12 +563,13 @@ module GeoPattern
           end 
 
           svg.polyline(triangle, styles.merge({
-            "transform" => "translate(#{x*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"}))
+            "transform" => "translate(#{triangle_width*x}, #{y*side_length*0.5 - side_length/2}) rotate(#{rotation}, #{triangle_width/2}, #{side_length/2})"}))
 
           # Add an extra one at top-right, for tiling.
-          if (x == 0)
+          if (y == 0)
             svg.polyline(triangle, styles.merge({
-              "transform" => "translate(#{6*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"}))
+              "transform" => "translate(#{triangle_width*x}, #{6*side_length*0.5 - side_length/2}) rotate(#{rotation}, #{triangle_width/2}, #{side_length/2})"}))
+              
           end 
           i += 1
         end
