@@ -9,7 +9,7 @@ module GeoPattern
     }
 
     PATTERNS = [
-      :bricks,
+      :octogons,
       :overlapping_circles,
       :plus_signs,
       :xes,
@@ -19,7 +19,7 @@ module GeoPattern
       :plaid,
       :triangles,
       :squares,
-      :rings,
+      :concentric_circles,
       :diamonds,
       :tessellation,
       :nested_squares,
@@ -350,13 +350,12 @@ module GeoPattern
       end
     end 
 
-    def geo_bricks
-      square_size = map(hex_val(0, 1), 0, 15, 10, 45)
-      brick_width = square_size * 2
-      gap_size    = square_size * 0.1
+    def geo_octogons
+      square_size = map(hex_val(0, 1), 0, 15, 10, 60)
+      tile        = build_octogon_shape(square_size)
 
-      svg.set_width((brick_width + gap_size) * 6)
-      svg.set_height((square_size + gap_size) * 6)
+      svg.set_width(square_size * 6)
+      svg.set_height(square_size * 6)
 
       i = 0
       for y in 0..5
@@ -365,27 +364,13 @@ module GeoPattern
           opacity = opacity(val)
           fill    = fill_color(val)
 
-          styles = {
+          svg.polyline(tile, {
             "fill"           => fill,
             "fill-opacity"   => opacity,
             "stroke"         => STROKE_COLOR,
             "stroke-opacity" => STROKE_OPACITY,
-          }
-
-          dx = (y % 2 == 0) ? -square_size : 0 
-
-          svg.rect(x*(brick_width + gap_size) + dx, y*(square_size + gap_size), brick_width, square_size, styles) 
-
-          # Add an extra one at top-right, for tiling.
-          if (x == 0)
-            svg.rect(6*(brick_width + gap_size) + dx, y*(square_size + gap_size), brick_width, square_size, styles) 
-          end
-
-          # Add an extra one at bottom-right, for tiling.
-          if (x == 0 and y == 0)
-            svg.rect(6*(brick_width + gap_size) + dx, 6*(square_size + gap_size), brick_width, square_size, styles) 
-          end
-
+            "transform"      => "translate(#{x*square_size}, #{y*square_size})"
+          })
           i += 1
         end
       end
@@ -415,10 +400,10 @@ module GeoPattern
       end
     end
 
-    def geo_rings
-      scale        = hex_val(1, 1)
+    def geo_concentric_circles
+      scale        = hex_val(0, 1)
       ring_size    = map(scale, 0, 15, 10, 60)
-      stroke_width = ring_size / 4
+      stroke_width = ring_size / 5
 
       svg.set_width((ring_size + stroke_width) * 6)
       svg.set_height((ring_size + stroke_width) * 6)
@@ -441,6 +426,19 @@ module GeoPattern
                       "stroke-width" => "#{stroke_width}px"
                     }
                   })
+
+          val     = hex_val(40-i, 1)
+          opacity = opacity(val)
+          fill    = fill_color(val)
+
+          svg.circle(
+                  x*ring_size + x*stroke_width + (ring_size + stroke_width)/2,
+                  y*ring_size + y*stroke_width + (ring_size + stroke_width)/2,
+                  ring_size/4, {
+                    "fill"         => fill,
+                    "fill-opacity" => opacity
+                  })
+
           i += 1
         end
       end
@@ -830,6 +828,12 @@ module GeoPattern
         %Q{polyline("0,0,#{width/2},#{height-e},#{width/2},#{height},0,#{e},0,0")},
         %Q{polyline("#{width/2},#{height-e},#{width},0,#{width},#{e},#{width/2},#{height},#{width/2},#{height-e}")}
       ]
+    end
+
+    def build_octogon_shape(square_size)
+      s = square_size
+      c = s * 0.33
+      "#{c},0,#{s-c},0,#{s},#{c},#{s},#{s-c},#{s-c},#{s},#{c},#{s},0,#{s-c},0,#{c},#{c},0"
     end
 
     def build_hexagon_shape(sideLength)
