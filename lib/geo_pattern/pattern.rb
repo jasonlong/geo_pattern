@@ -19,7 +19,7 @@ module GeoPattern
       :plaid,
       :triangles,
       :squares,
-      :rings,
+      :concentric_circles,
       :diamonds,
       :tessellation,
       :nested_squares,
@@ -381,10 +381,10 @@ module GeoPattern
       end
     end
 
-    def geo_rings
+    def geo_concentric_circles
       scale        = hex_val(1, 1)
       ring_size    = map(scale, 0, 15, 10, 60)
-      stroke_width = ring_size / 4
+      stroke_width = ring_size / 5
 
       svg.set_width((ring_size + stroke_width) * 6)
       svg.set_height((ring_size + stroke_width) * 6)
@@ -407,6 +407,19 @@ module GeoPattern
                       "stroke-width" => "#{stroke_width}px"
                     }
                   })
+
+          val     = hex_val(40-i, 1)
+          opacity = opacity(val)
+          fill    = fill_color(val)
+
+          svg.circle(
+                  x*ring_size + x*stroke_width + (ring_size + stroke_width)/2,
+                  y*ring_size + y*stroke_width + (ring_size + stroke_width)/2,
+                  ring_size/4, {
+                    "fill"         => fill,
+                    "fill-opacity" => opacity
+                  })
+
           i += 1
         end
       end
