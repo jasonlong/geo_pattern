@@ -2,6 +2,8 @@
 
 Generate beautiful tilng SVG patterns from a string. The string is converted into a SHA and a color and pattern are determined based on the values in the hash. The color is determined by shifting the hue and saturation from a default (or passed in) base color. One of 16 patterns is used (or you can specify one) and the sizing of the pattern elements is also determined by the hash values.
 
+You can use the generated pattern as the `background-image` for a container. Using the `base64` representation of the pattern still results in SVG rendering, so it looks great on retina displays.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -39,6 +41,10 @@ Get the Base64 encoded string:
 
     puts pattern.base64_string
     # => PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC...
+    
+You can then use this string to set the background:
+
+    <div style="background-image:<%=pattern.base64_string%>"></div>
 
 
 ## Available patterns
