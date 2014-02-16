@@ -116,8 +116,16 @@ You can then use this string to set the background:
 
 ## Contributing
 
-1. Fork it ( http://github.com/jasonlong/geo_patterns/fork )
+1. Fork it ( http://github.com/jasonlong/geo_pattern/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Ports
+
+Brandon Mills is working on completing my original Javascript version:
+https://github.com/btmills/geopatterns-js
+
+Bryan Veloso is porting the library to Python:
+https://github.com/bryanveloso/geopatterns
