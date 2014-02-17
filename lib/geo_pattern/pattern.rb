@@ -57,6 +57,10 @@ module GeoPattern
       Base64.strict_encode64(svg.to_s)
     end
 
+    def background_image
+      "url(data:image/svg+xml;base64,#{base64_string});"
+    end
+
     def generate_background
       hue_offset     = map(hex_val(14, 3), 0, 4095, 0, 359)
       sat_offset     = hex_val(17, 1)
@@ -87,7 +91,7 @@ module GeoPattern
         send("geo_#{PATTERNS[pattern]}")
       end
     end
-      
+
     def geo_hexagons
       scale       = hex_val(0, 1)
       side_length = map(scale, 0, 15, 8, 60)
@@ -234,19 +238,19 @@ module GeoPattern
           if (x == 0)
             svg.group(plus_shape, styles.merge({
               "transform" => "translate(#{4*plus_size - x*square_size + dx*square_size - square_size},#{y*plus_size - y*square_size - plus_size/2})"}))
-          end 
+          end
 
           # Add an extra row on the bottom that matches the first row, for tiling.
           if (y == 0)
             svg.group(plus_shape, styles.merge({
               "transform" => "translate(#{x*plus_size - x*square_size + dx*square_size - square_size},#{4*plus_size - y*square_size - plus_size/2})"}))
-          end 
+          end
 
           # Add an extra one at top-right and bottom-right, for tiling.
           if (x == 0 && y == 0)
             svg.group(plus_shape, styles.merge({
               "transform" => "translate(#{4*plus_size - x*square_size + dx*square_size - square_size},#{4*plus_size - y*square_size - plus_size/2})"}))
-          end 
+          end
           i += 1
         end
       end
@@ -282,29 +286,29 @@ module GeoPattern
           if (x == 0)
             svg.group(x_shape, styles.merge({
               "transform" => "translate(#{6*x_size/2 - x_size/2},#{dy - y*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})"}))
-          end 
+          end
 
           # Add an extra row on the bottom that matches the first row, for tiling.
           if (y == 0)
             dy = x % 2 == 0 ? 6*x_size - x_size/2 : 6*x_size - x_size/2 + x_size/4;
             svg.group(x_shape, styles.merge({
               "transform" => "translate(#{x*x_size/2 - x_size/2},#{dy - 6*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})"}))
-          end 
+          end
 
           # These can hang off the bottom, so put a row at the top for tiling.
           if (y == 5)
             svg.group(x_shape, styles.merge({
               "transform" => "translate(#{x*x_size/2 - x_size/2},#{dy - 11*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})"}))
-          end 
+          end
 
           # Add an extra one at top-right and bottom-right, for tiling.
           if (x == 0 && y == 0)
             svg.group(x_shape, styles.merge({
               "transform" => "translate(#{6*x_size/2 - x_size/2},#{dy - 6*x_size/2}) rotate(45, #{x_size/2}, #{x_size/2})"}))
-          end 
+          end
           i += 1
-        end 
-      end 
+        end
+      end
     end
 
     def geo_overlapping_circles
@@ -334,7 +338,7 @@ module GeoPattern
           # Add an extra one at top-right, for tiling.
           if (x == 0)
             svg.circle(6*radius, y*radius, radius, styles)
-          end 
+          end
 
           # Add an extra row at the end that matches the first row, for tiling.
           if (y == 0)
@@ -343,12 +347,12 @@ module GeoPattern
 
           # Add an extra one at bottom-right, for tiling.
           if (x == 0 and y == 0)
-            svg.circle(6*radius, 6*radius, radius, styles) 
-          end 
+            svg.circle(6*radius, 6*radius, radius, styles)
+          end
           i += 1
-        end 
+        end
       end
-    end 
+    end
 
     def geo_octogons
       square_size = map(hex_val(0, 1), 0, 15, 10, 60)
@@ -468,20 +472,20 @@ module GeoPattern
             }
           }
 
-          svg.circle(x*ring_size, y*ring_size, ring_size - stroke_width/2, styles) 
+          svg.circle(x*ring_size, y*ring_size, ring_size - stroke_width/2, styles)
 
           # Add an extra one at top-right, for tiling.
           if (x == 0)
-            svg.circle(6*ring_size, y*ring_size, ring_size - stroke_width/2, styles) 
-          end 
+            svg.circle(6*ring_size, y*ring_size, ring_size - stroke_width/2, styles)
+          end
 
           if (y == 0)
-            svg.circle(x*ring_size, 6*ring_size, ring_size - stroke_width/2, styles) 
+            svg.circle(x*ring_size, 6*ring_size, ring_size - stroke_width/2, styles)
           end
 
           if (x == 0 and y == 0)
-            svg.circle(6*ring_size, 6*ring_size, ring_size - stroke_width/2, styles) 
-          end 
+            svg.circle(6*ring_size, 6*ring_size, ring_size - stroke_width/2, styles)
+          end
           i += 1
         end
       end
@@ -514,8 +518,8 @@ module GeoPattern
           if y % 2 == 0
             rotation = x % 2 == 0 ? 180 : 0
           else
-            rotation = x % 2 != 0 ? 180 : 0 
-          end 
+            rotation = x % 2 != 0 ? 180 : 0
+          end
 
           svg.polyline(triangle, styles.merge({
             "transform" => "translate(#{x*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"}))
@@ -524,7 +528,7 @@ module GeoPattern
           if (x == 0)
             svg.polyline(triangle, styles.merge({
               "transform" => "translate(#{6*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"}))
-          end 
+          end
           i += 1
         end
       end
@@ -557,8 +561,8 @@ module GeoPattern
           if y % 2 == 0
             rotation = x % 2 == 0 ? 180 : 0
           else
-            rotation = x % 2 != 0 ? 180 : 0 
-          end 
+            rotation = x % 2 != 0 ? 180 : 0
+          end
 
           svg.polyline(triangle, styles.merge({
             "transform" => "translate(#{triangle_width*x}, #{y*side_length*0.5 - side_length/2}) rotate(#{rotation}, #{triangle_width/2}, #{side_length/2})"}))
@@ -567,8 +571,8 @@ module GeoPattern
           if (y == 0)
             svg.polyline(triangle, styles.merge({
               "transform" => "translate(#{triangle_width*x}, #{6*side_length*0.5 - side_length/2}) rotate(#{rotation}, #{triangle_width/2}, #{side_length/2})"}))
-              
-          end 
+
+          end
           i += 1
         end
       end
@@ -605,7 +609,7 @@ module GeoPattern
           if (x == 0)
             svg.polyline(diamond, styles.merge({
               "transform" => "translate(#{6*diamond_width - diamond_width/2 + dx}, #{diamond_height/2*y - diamond_height/2})"}))
-          end 
+          end
 
           # Add an extra row at the end that matches the first row, for tiling.
           if (y == 0)
@@ -648,7 +652,7 @@ module GeoPattern
 
           svg.rect(x*square_size + x*block_size*2 + block_size/2,
                     y*square_size + y*block_size*2 + block_size/2,
-                    square_size, square_size, styles) 
+                    square_size, square_size, styles)
 
           val     = hex_val(40-i, 1)
           opacity = opacity(val)
@@ -696,7 +700,7 @@ module GeoPattern
 
       # horizontal stripes
       i = 0
-      18.times do 
+      18.times do
         space   = hex_val(i, 1)
         height += space + 5
 
@@ -794,28 +798,28 @@ module GeoPattern
         when 11 # right / middle triangle
           svg.polyline(triangle, styles.merge({"transform" => "translate(#{tile_width-side_length/2}, #{tile_height/2 - side_length/2}) scale(-1, 1)"}))
         when 12 # left / top square
-          svg.rect(0, 0, side_length, side_length, 
+          svg.rect(0, 0, side_length, side_length,
                     styles.merge({"transform" => "translate(#{side_length/2}, #{side_length/2}) rotate(-30, 0, 0)"}))
         when 13 # right / top square
-          svg.rect(0, 0, side_length, side_length, 
+          svg.rect(0, 0, side_length, side_length,
                     styles.merge({"transform" => "scale(-1, 1) translate(#{-tile_width+side_length/2}, #{side_length/2}) rotate(-30, 0, 0)" }))
         when 14 # left / center-top square
-          svg.rect(0, 0, side_length, side_length, 
+          svg.rect(0, 0, side_length, side_length,
                     styles.merge({"transform" => "translate(#{side_length/2}, #{tile_height/2-side_length/2-side_length}) rotate(30, 0, #{side_length})" }))
         when 15 # right / center-top square
-          svg.rect(0, 0, side_length, side_length, 
+          svg.rect(0, 0, side_length, side_length,
                     styles.merge({"transform" => "scale(-1, 1) translate(#{-tile_width+side_length/2}, #{tile_height/2-side_length/2-side_length}) rotate(30, 0, #{side_length})" }))
         when 16 # left / center-top square
-          svg.rect(0, 0, side_length, side_length, 
+          svg.rect(0, 0, side_length, side_length,
                     styles.merge({"transform" => "scale(1, -1) translate(#{side_length/2}, #{-tile_height+tile_height/2-side_length/2-side_length}) rotate(30, 0, #{side_length})" }))
         when 17 # right / center-bottom square
-          svg.rect(0, 0, side_length, side_length, 
+          svg.rect(0, 0, side_length, side_length,
                     styles.merge({"transform" => "scale(-1, -1) translate(#{-tile_width+side_length/2}, #{-tile_height+tile_height/2-side_length/2-side_length}) rotate(30, 0, #{side_length})" }))
         when 18 # left / bottom square
-          svg.rect(0, 0, side_length, side_length, 
+          svg.rect(0, 0, side_length, side_length,
                     styles.merge({"transform" => "scale(1, -1) translate(#{side_length/2}, #{-tile_height+side_length/2}) rotate(-30, 0, 0)"}))
         when 19 # right / bottom square
-          svg.rect(0, 0, side_length, side_length, 
+          svg.rect(0, 0, side_length, side_length,
                     styles.merge({"transform" => "scale(-1, -1) translate(#{-tile_width+side_length/2}, #{-tile_height+side_length/2}) rotate(-30, 0, 0)"}))
         end
       end
