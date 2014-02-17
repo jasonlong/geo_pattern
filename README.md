@@ -44,7 +44,7 @@ Get the Base64 encoded string:
 
 You can then use this string to set the background:
 
-    <div style="background-image: <%=pattern.background_image%>"></div>
+    <div style="background-image: <%=pattern.uri_image%>"></div>
 
 ## Available patterns
 

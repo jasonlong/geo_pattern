@@ -57,7 +57,7 @@ module GeoPattern
       Base64.strict_encode64(svg.to_s)
     end
 
-    def background_image
+    def uri_image
       "url(data:image/svg+xml;base64,#{base64_string});"
     end
 
