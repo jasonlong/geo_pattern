@@ -41,11 +41,10 @@ Get the Base64 encoded string:
 
     puts pattern.base64_string
     # => PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC...
-    
+
 You can then use this string to set the background:
 
-    <div style="background-image:<%=pattern.base64_string%>"></div>
-
+    <div style="background-image: url(data:image/svg+xml;base64,<%=pattern.base64_string%>);"></div>
 
 ## Available patterns
 
