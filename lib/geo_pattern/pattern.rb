@@ -8,25 +8,25 @@ module GeoPattern
       :base_color => '#933c3c'
     }
 
-    PATTERNS = [
-      :octogons,
-      :overlapping_circles,
-      :plus_signs,
-      :xes,
-      :sine_waves,
-      :hexagons,
-      :overlapping_rings,
-      :plaid,
-      :triangles,
-      :squares,
-      :concentric_circles,
-      :diamonds,
-      :tessellation,
-      :nested_squares,
-      :mosaic_squares,
-      :triangles_rotated,
-      :chevrons
-    ]
+    PATTERNS = %w[
+      octogons
+      overlapping_circles
+      plus_signs
+      xes
+      sine_waves
+      hexagons
+      overlapping_rings
+      plaid
+      triangles
+      squares
+      concentric_circles
+      diamonds
+      tessellation
+      nested_squares
+      mosaic_squares
+      triangles_rotated
+      chevrons
+    ].freeze
 
     FILL_COLOR_DARK  = "#222"
     FILL_COLOR_LIGHT = "#ddd"
@@ -81,7 +81,7 @@ module GeoPattern
 
     def generate_pattern
       if opts[:generator]
-        if PATTERNS.include?(opts[:generator].to_sym)
+        if PATTERNS.include?(opts[:generator])
           send("geo_#{opts[:generator]}")
         else
           abort("Error: the requested generator is invalid.")
