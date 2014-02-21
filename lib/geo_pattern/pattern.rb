@@ -431,7 +431,7 @@ module GeoPattern
                     }
                   })
 
-          val     = hex_val(40-i, 1)
+          val     = hex_val(39-i, 1)
           opacity = opacity(val)
           fill    = fill_color(val)
 
@@ -654,7 +654,7 @@ module GeoPattern
                     y*square_size + y*block_size*2 + block_size/2,
                     square_size, square_size, styles)
 
-          val     = hex_val(40-i, 1)
+          val     = hex_val(39-i, 1)
           opacity = opacity(val)
           fill    = fill_color(val)
 
