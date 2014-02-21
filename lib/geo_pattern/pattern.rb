@@ -81,9 +81,9 @@ module GeoPattern
 
     def generate_pattern
       if opts[:generator]
-        begin
+        if PATTERNS.include?(opts[:generator].to_sym)
           send("geo_#{opts[:generator]}")
-        rescue
+        else
           abort("Error: the requested generator is invalid.")
         end
       else
