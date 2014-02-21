@@ -678,15 +678,15 @@ module GeoPattern
 
           if (x % 2 == 0)
             if (y % 2 == 0)
-              draw_outer_mosaic_tile(x*triangle_size*2, y*triangle_size*2, triangle_size, hash[i])
+              draw_outer_mosaic_tile(x*triangle_size*2, y*triangle_size*2, triangle_size, hex_val(i, 1))
             else
-              draw_inner_mosaic_tile(x*triangle_size*2, y*triangle_size*2, triangle_size, hash[i..i+1])
+              draw_inner_mosaic_tile(x*triangle_size*2, y*triangle_size*2, triangle_size, [hex_val(i, 1), hex_val(i+1, 1)])
             end
           else
             if (y % 2 == 0)
-              draw_inner_mosaic_tile(x*triangle_size*2, y*triangle_size*2, triangle_size, hash[i..i+1])
+              draw_inner_mosaic_tile(x*triangle_size*2, y*triangle_size*2, triangle_size, [hex_val(i, 1), hex_val(i+1, 1)])
             else
-              draw_outer_mosaic_tile(x*triangle_size*2, y*triangle_size*2, triangle_size, hash[i])
+              draw_outer_mosaic_tile(x*triangle_size*2, y*triangle_size*2, triangle_size, hex_val(i, 1))
             end
           end
           i += 1
