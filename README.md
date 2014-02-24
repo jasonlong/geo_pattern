@@ -4,6 +4,8 @@ Generate beautiful tilng SVG patterns from a string. The string is converted int
 
 You can use the generated pattern as the `background-image` for a container. Using the `base64` representation of the pattern still results in SVG rendering, so it looks great on retina displays.
 
+See the [GitHub Guides](http://guides.github.com) site as an example of this library in action.
+
 ## Installation
 
 Add this line to your application's Gemfile:
