@@ -1,4 +1,4 @@
-Copyright (c) 2014 Jason Long
+Copyright (c) 2014 GitHub, Inc.
 
 MIT License
 
