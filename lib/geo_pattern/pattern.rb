@@ -658,6 +658,15 @@ module GeoPattern
           opacity = opacity(val)
           fill    = fill_color(val)
 
+          styles = {
+            "fill"   => "none",
+            "stroke" => fill,
+            "style"  => {
+              "opacity" => opacity,
+              "stroke-width" => "#{block_size}px"
+            }
+          }
+
           svg.rect(x*square_size + x*block_size*2 + block_size/2 + block_size*2,
                     y*square_size + y*block_size*2 + block_size/2 + block_size*2,
                     block_size * 3, block_size * 3, styles)
