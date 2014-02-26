@@ -130,3 +130,6 @@ https://github.com/btmills/geopatterns-js
 
 Bryan Veloso is porting the library to Python:
 https://github.com/bryanveloso/geopatterns
+
+Anand Capur is porting the library to PHP:
+https://github.com/redeyeventures/geopattern-php
