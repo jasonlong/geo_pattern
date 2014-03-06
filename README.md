@@ -26,9 +26,13 @@ Make a new pattern:
 
     pattern = GeoPattern.generate("Mastering Markdown")
 
-To specify a base background color:
+To specify a base background color (with a hue and saturation that adjusts depending on the string):
 
     pattern = GeoPattern.generate("Mastering Markdown", {:base_color => "#fc0"})
+
+To use a specific background color (w/o any hue or saturation adjustments):
+
+    pattern = GeoPattern.generate("Mastering Markdown", {:color => "#fc0"})
 
 To use a specific [pattern generator](#available-patterns):
 
