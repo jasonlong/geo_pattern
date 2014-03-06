@@ -62,17 +62,21 @@ module GeoPattern
     end
 
     def generate_background
-      hue_offset     = map(hex_val(14, 3), 0, 4095, 0, 359)
-      sat_offset     = hex_val(17, 1)
-      base_color     = Color::RGB.from_html(opts[:base_color]).to_hsl
-      base_color.hue = base_color.hue - hue_offset;
-
-      if (sat_offset % 2 == 0)
-        base_color.saturation = base_color.saturation + sat_offset
+      if opts[:color]
+        rgb = Color::RGB.from_html(opts[:color])
       else
-        base_color.saturation = base_color.saturation - sat_offset
+        hue_offset     = map(hex_val(14, 3), 0, 4095, 0, 359)
+        sat_offset     = hex_val(17, 1)
+        base_color     = Color::RGB.from_html(opts[:base_color]).to_hsl
+        base_color.hue = base_color.hue - hue_offset;
+
+        if (sat_offset % 2 == 0)
+          base_color.saturation = base_color.saturation + sat_offset
+        else
+          base_color.saturation = base_color.saturation - sat_offset
+        end
+        rgb = base_color.to_rgb
       end
-      rgb = base_color.to_rgb
       r = (rgb.r * 255).round
       g = (rgb.g * 255).round
       b = (rgb.b * 255).round
