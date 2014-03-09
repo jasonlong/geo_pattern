@@ -91,7 +91,8 @@ module GeoPattern
           abort("Error: the requested generator is invalid.")
         end
       else
-        pattern = hex_val(20, 1)
+        val     = hex_val(20, 2)
+        pattern = map(val, 0, 255, 0, PATTERNS.size-1).to_i
         send("geo_#{PATTERNS[pattern]}")
       end
     end
