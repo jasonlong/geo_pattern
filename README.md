@@ -90,10 +90,6 @@ You can then use this string to set the background:
 
 ![](http://jasonlong.github.io/geo_pattern/examples/triangles.png)
 
-### triangles_rotated
-
-![](http://jasonlong.github.io/geo_pattern/examples/triangles_rotated.png)
-
 ### squares
 
 ![](http://jasonlong.github.io/geo_pattern/examples/squares.png)

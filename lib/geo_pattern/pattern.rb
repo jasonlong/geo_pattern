@@ -24,7 +24,6 @@ module GeoPattern
       tessellation
       nested_squares
       mosaic_squares
-      triangles_rotated
       chevrons
     ].freeze
 
@@ -91,8 +90,7 @@ module GeoPattern
           abort("Error: the requested generator is invalid.")
         end
       else
-        val     = hex_val(20, 2)
-        pattern = map(val, 0, 255, 0, PATTERNS.size-1).to_i
+        pattern = hex_val(20, 1)
         send("geo_#{PATTERNS[pattern]}")
       end
     end
@@ -533,50 +531,6 @@ module GeoPattern
           if (x == 0)
             svg.polyline(triangle, styles.merge({
               "transform" => "translate(#{6*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"}))
-          end
-          i += 1
-        end
-      end
-    end
-
-    def geo_triangles_rotated
-      scale           = hex_val(0, 1)
-      side_length     = map(scale, 0, 15, 15, 80)
-      triangle_width  = side_length/2 * Math.sqrt(3)
-      triangle        = build_rotated_triangle_shape(side_length, triangle_width)
-
-      svg.set_width(triangle_width * 6)
-      svg.set_height(side_length * 3)
-
-      i = 0
-      for y in 0..5
-        for x in 0..5
-          val     = hex_val(i, 1)
-          opacity = opacity(val)
-          fill    = fill_color(val)
-
-          styles = {
-            "fill"           => fill,
-            "fill-opacity"   => opacity,
-            "stroke"         => STROKE_COLOR,
-            "stroke-opacity" => STROKE_OPACITY
-          }
-
-          rotation = ""
-          if y % 2 == 0
-            rotation = x % 2 == 0 ? 180 : 0
-          else
-            rotation = x % 2 != 0 ? 180 : 0
-          end
-
-          svg.polyline(triangle, styles.merge({
-            "transform" => "translate(#{triangle_width*x}, #{y*side_length*0.5 - side_length/2}) rotate(#{rotation}, #{triangle_width/2}, #{side_length/2})"}))
-
-          # Add an extra one at top-right, for tiling.
-          if (y == 0)
-            svg.polyline(triangle, styles.merge({
-              "transform" => "translate(#{triangle_width*x}, #{6*side_length*0.5 - side_length/2}) rotate(#{rotation}, #{triangle_width/2}, #{side_length/2})"}))
-
           end
           i += 1
         end
