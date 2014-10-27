@@ -128,11 +128,14 @@ You can then use this string to set the background:
 
 ## Ports
 
-Brandon Mills is working on completing my original Javascript version:
+JavaScript port by Brandon Mills:
 https://github.com/btmills/geopatterns-js
 
-Bryan Veloso is porting the library to Python:
+Python port by Bryan Veloso:
 https://github.com/bryanveloso/geopatterns
 
-Anand Capur is porting the library to PHP:
+PHP port by Anand Capur:
 https://github.com/redeyeventures/geopattern-php
+
+Go port by Pravendra Singh:
+https://github.com/pravj/geo_pattern
