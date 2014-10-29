@@ -7,7 +7,7 @@ Generate beautiful tiling SVG patterns from a string. The string is converted in
 
 You can use the generated pattern as the `background-image` for a container. Using the `base64` representation of the pattern still results in SVG rendering, so it looks great on retina displays.
 
-See the [GitHub Guides](http://guides.github.com) site as an example of this library in action. Brandon Mills has put together an awesome [live preview page](http://btmills.github.io/geopattern/geopattern.html) that's built on his Javascript port.
+See the [GitHub Guides](http://guides.github.com) site and the [Explore section of GitHub](https://github.com/explore) are examples of this library in action. Brandon Mills has put together an awesome [live preview page](http://btmills.github.io/geopattern/geopattern.html) that's built on his Javascript port.
 
 ## Installation
 
