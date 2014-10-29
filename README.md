@@ -139,3 +139,6 @@ https://github.com/redeyeventures/geopattern-php
 
 Go port by Pravendra Singh:
 https://github.com/pravj/geo_pattern
+
+CoffeeScript port by Aleks (muchweb):
+https://github.com/muchweb/geo-pattern-coffee
