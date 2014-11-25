@@ -3,7 +3,7 @@ require 'digest/sha1'
 require 'color'
 
 module GeoPattern
-  class Pattern
+  class PatternGenerator
     DEFAULTS = {
       :base_color => '#933c3c'
     }
