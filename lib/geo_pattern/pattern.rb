@@ -47,13 +47,10 @@ module GeoPattern
     def svg_string
       svg.to_s
     end
-
-    def to_s
-      svg_string
-    end
+    alias_method :to_s, :svg_string
 
     def base64_string
-      Base64.strict_encode64(svg.to_s)
+      Base64.strict_encode64(svg_string)
     end
 
     def uri_image
