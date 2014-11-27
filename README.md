@@ -27,33 +27,47 @@ Or install it yourself as:
 
 Make a new pattern:
 
-    pattern = GeoPattern.generate("Mastering Markdown")
+```ruby
+pattern = GeoPattern.generate("Mastering Markdown")
+```
 
 To specify a base background color (with a hue and saturation that adjusts depending on the string):
 
-    pattern = GeoPattern.generate("Mastering Markdown", {:base_color => "#fc0"})
+```ruby
+pattern = GeoPattern.generate("Mastering Markdown", {:base_color => "#fc0"})
+```
 
 To use a specific background color (w/o any hue or saturation adjustments):
 
-    pattern = GeoPattern.generate("Mastering Markdown", {:color => "#fc0"})
+```ruby
+pattern = GeoPattern.generate("Mastering Markdown", {:color => "#fc0"})
+```
 
 To use a specific [pattern generator](#available-patterns):
 
-    pattern = GeoPattern.generate("Mastering Markdown", {:generator => "sine_waves"})
+```ruby
+pattern = GeoPattern.generate("Mastering Markdown", {:generator => GeoPattern::SineWavePattern})
+```
 
 Get the SVG string:
 
-    puts pattern.svg_string
-    # => <svg xmlns="http://www.w3.org/2000/svg" ...
+```ruby
+puts pattern.svg_string
+# => <svg xmlns="http://www.w3.org/2000/svg" ...
+```
 
 Get the Base64 encoded string:
 
-    puts pattern.base64_string
-    # => PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC...
+```ruby
+puts pattern.base64_string
+# => PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC...
+```
 
 You can then use this string to set the background:
 
-    <div style="background-image: <%=pattern.uri_image%>"></div>
+```html
+<div style="background-image: <%=pattern.uri_image%>"></div>
+```
 
 ## Available patterns
 
