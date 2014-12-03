@@ -8,22 +8,24 @@ module GeoPattern
       :base_color => '#933c3c'
     }
 
-    PATTERNS = [
-      ChevronPattern,
-      ConcentricCirclesPattern,
-      DiamondsPattern,
-      HexagonPattern,
-      MosaicSquaresPattern,
-      NestedSquaresPattern,
-      OctagonPattern,
-      OverlappingCirclesPattern,
-      OverlappingRingsPattern,
-      PlaidPattern,
-      PlusSignPattern,
-      SineWavePattern,
-      TessellationPattern,
-      XesPattern
-    ].freeze
+    PATTERNS = {
+      'chevrons' => ChevronPattern,
+      'concentric_circles' => ConcentricCirclesPattern,
+      'diamonds' => DiamondsPattern,
+      'hexagons' => HexagonPattern,
+      'mosaic_squares' => MosaicSquaresPattern,
+      'nested_squares' => NestedSquaresPattern,
+      'octagons' => OctagonPattern,
+      'overlapping_circles' => OverlappingCirclesPattern,
+      'overlapping_rings' => OverlappingRingsPattern,
+      'plaid' => PlaidPattern,
+      'plus_signs' => PlusSignPattern,
+      'sine_waves' => SineWavePattern,
+      'squares' => SquarePattern,
+      'tessellation' => TessellationPattern,
+      'triangles' => TrianglePattern,
+      'xes' => XesPattern,
+    }.freeze
 
     FILL_COLOR_DARK  = "#222"
     FILL_COLOR_LIGHT = "#ddd"
@@ -79,14 +81,20 @@ module GeoPattern
     end
 
     def generate_pattern
-      # Use the given pattern, if available
-      generator = opts[:generator] if PATTERNS.include?(opts[:generator])
+      if opts[:generator].is_a? String
+        generator = PATTERNS[opts[:generator]]
+        puts "String pattern references are deprecated as of 1.2.2"
+      elsif opts[:generator].is_a? BasePattern
+        if PATTERNS.values.include? opts[:generator]
+          generator = opts[:generator]
+        else
+          abort("Error: the requested generator is invalid")
+          generator = nil
+        end
+      end
 
-      # Ensure that the pattern exists, if not, abort with an err
-      if generator.nil? and opts[:generator]
-        abort("Error: the requested generator is invalid")
-      else
-        generator = PATTERNS[[PatternHelpers.hex_val(hash, 20, 1), PATTERNS.length - 1].min]
+      if generator.nil?
+        generator = PATTERNS.values[[PatternHelpers.hex_val(hash, 20, 1), PATTERNS.length - 1].min]
       end
 
       # Instantiate the generator with the needed references
