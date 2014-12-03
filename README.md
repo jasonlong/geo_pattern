@@ -66,7 +66,7 @@ puts pattern.base64_string
 You can then use this string to set the background:
 
 ```html
-<div style="background-image: <%=pattern.uri_image%>"></div>
+<div style="background-image: <%= pattern.uri_image %>"></div>
 ```
 
 ## Available patterns
