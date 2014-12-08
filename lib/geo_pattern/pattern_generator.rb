@@ -83,7 +83,7 @@ module GeoPattern
     def generate_pattern
       if opts[:generator].is_a? String
         generator = PATTERNS[opts[:generator]]
-        puts "String pattern references are deprecated as of 1.3.0"
+        puts SVG.as_comment("String pattern references are deprecated as of 1.3.0")
       elsif opts[:generator].is_a? BasePattern
         if PATTERNS.values.include? opts[:generator]
           generator = opts[:generator]

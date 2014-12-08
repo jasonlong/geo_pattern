@@ -63,5 +63,9 @@ module GeoPattern
       }
       str
     end
+
+    def self.as_comment(str)
+      "<!-- #{str} -->"
+    end
   end
 end
