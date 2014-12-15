@@ -4,10 +4,6 @@ require 'color'
 
 module GeoPattern
   class Pattern
-    DEFAULTS = {
-      :base_color => '#933c3c'
-    }
-
     PATTERNS = %w[
       octogons
       overlapping_circles
@@ -26,6 +22,12 @@ module GeoPattern
       mosaic_squares
       chevrons
     ].freeze
+
+    DEFAULTS = {
+      :base_color => '#933c3c',
+      :patterns   => PATTERNS
+    }
+
 
     FILL_COLOR_DARK  = "#222"
     FILL_COLOR_LIGHT = "#ddd"
@@ -83,16 +85,11 @@ module GeoPattern
     end
 
     def generate_pattern
-      if opts[:generator]
-        if PATTERNS.include?(opts[:generator])
-          send("geo_#{opts[:generator]}")
-        else
-          abort("Error: the requested generator is invalid.")
-        end
-      else
-        pattern = hex_val(20, 1)
-        send("geo_#{PATTERNS[pattern]}")
-      end
+      abort("Error: the requested pattern is invalid.") unless (opts[:patterns] - PATTERNS).empty?
+
+      pattern = hex_val(20, 1) % (opts[:patterns].size - 1)
+
+      send("geo_#{opts[:patterns][pattern]}")
     end
 
     def geo_hexagons

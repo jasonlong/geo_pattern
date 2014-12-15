@@ -41,6 +41,10 @@ To use a specific [pattern generator](#available-patterns):
 
     pattern = GeoPattern.generate("Mastering Markdown", {:generator => "sine_waves"})
 
+To use a subset of the available patterns:
+
+    pattern = GeoPattern.generate("Mastering Markdown", {:patterns => %w(sine_waves xes)})
+
 Get the SVG string:
 
     puts pattern.svg_string
