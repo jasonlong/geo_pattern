@@ -84,7 +84,7 @@ module GeoPattern
       if opts[:generator].is_a? String
         generator = PATTERNS[opts[:generator]]
         puts SVG.as_comment("String pattern references are deprecated as of 1.3.0")
-      elsif opts[:generator].is_a? BasePattern
+      elsif opts[:generator] < BasePattern
         if PATTERNS.values.include? opts[:generator]
           generator = opts[:generator]
         else
