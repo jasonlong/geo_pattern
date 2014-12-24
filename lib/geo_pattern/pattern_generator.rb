@@ -11,7 +11,7 @@ module GeoPattern
     PATTERNS = {
       'chevrons' => ChevronPattern,
       'concentric_circles' => ConcentricCirclesPattern,
-      'diamonds' => DiamondsPattern,
+      'diamonds' => DiamondPattern,
       'hexagons' => HexagonPattern,
       'mosaic_squares' => MosaicSquaresPattern,
       'nested_squares' => NestedSquaresPattern,
