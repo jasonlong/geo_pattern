@@ -71,63 +71,65 @@ You can then use this string to set the background:
 
 ## Available patterns
 
-### octogons
+__Note: As of version `1.3.0`, string references (e.g. `overlapping_circles`) are deprecated in favor of class references (e.g. `GeoPattern::OverlappingCirclesPattern`).__
+
+### GeoPattern::OctagonPattern
 
 ![](http://jasonlong.github.io/geo_pattern/examples/octogons.png)
 
-### overlapping_circles
+### GeoPattern::OverlappingCirclesPattern
 
 ![](http://jasonlong.github.io/geo_pattern/examples/overlapping_circles.png)
 
-### plus_signs
+### GeoPattern::PlusSignPattern
 
 ![](http://jasonlong.github.io/geo_pattern/examples/plus_signs.png)
 
-### xes
+### GeoPattern::XesPattern
 
 ![](http://jasonlong.github.io/geo_pattern/examples/xes.png)
 
-### sine_waves
+### GeoPattern::SineWavePattern
 
 ![](http://jasonlong.github.io/geo_pattern/examples/sine_waves.png)
 
-### hexagons
+### GeoPattern::HexagonPattern
 
 ![](http://jasonlong.github.io/geo_pattern/examples/hexagons.png)
 
-### overlapping_rings
+### GeoPattern::OverlappingCirclesPattern
 
 ![](http://jasonlong.github.io/geo_pattern/examples/overlapping_rings.png)
 
-### plaid
+### GeoPattern::PlaidPattern
 
 ![](http://jasonlong.github.io/geo_pattern/examples/plaid.png)
 
-### triangles
+### GeoPattern::TrianglePattern
 
 ![](http://jasonlong.github.io/geo_pattern/examples/triangles.png)
 
-### squares
+### GeoPattern::SquarePattern
 
 ![](http://jasonlong.github.io/geo_pattern/examples/squares.png)
 
-### nested_squares
+### GeoPattern::NestedSquaresPattern
 
 ![](http://jasonlong.github.io/geo_pattern/examples/nested_squares.png)
 
-### mosaic_squares
+### GeoPattern::MosaicSquaresPattern
 
 ![](http://jasonlong.github.io/geo_pattern/examples/mosaic_squares.png)
 
-### concentric_circles
+### GeoPattern::ConcentricCirclesPattern
 
 ![](http://jasonlong.github.io/geo_pattern/examples/concentric_circles.png)
 
-### diamonds
+### GeoPattern::DiamondPattern
 
 ![](http://jasonlong.github.io/geo_pattern/examples/diamonds.png)
 
-### tessellation
+### GeoPattern::TessellationPattern
 
 ![](http://jasonlong.github.io/geo_pattern/examples/tessellation.png)
 
