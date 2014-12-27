@@ -71,7 +71,7 @@ You can then use this string to set the background:
 
 ## Available patterns
 
-__Note: As of version `1.3.0`, string references (e.g. `overlapping_circles`) are deprecated in favor of class references (e.g. `GeoPattern::OverlappingCirclesPattern`).__
+*Note: As of version `1.3.0`, string references (e.g. `overlapping_circles`) are deprecated in favor of class references (e.g. `GeoPattern::OverlappingCirclesPattern`).*
 
 ### GeoPattern::OctagonPattern
 
