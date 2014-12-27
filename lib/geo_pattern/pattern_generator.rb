@@ -81,21 +81,21 @@ module GeoPattern
     end
 
     def generate_pattern
-      if opts[:generator].is_a? String
-        generator = PATTERNS[opts[:generator]]
-        puts SVG.as_comment("String pattern references are deprecated as of 1.3.0")
-      elsif opts[:generator] < BasePattern
-        if PATTERNS.values.include? opts[:generator]
-          generator = opts[:generator]
-        else
-          abort("Error: the requested generator is invalid")
-          generator = nil
+      unless opts[:generator].nil?
+        if opts[:generator].is_a? String
+          generator = PATTERNS[opts[:generator]]
+          puts SVG.as_comment("String pattern references are deprecated as of 1.3.0")
+        elsif opts[:generator] < BasePattern
+          if PATTERNS.values.include? opts[:generator]
+            generator = opts[:generator]
+          else
+            abort("Error: the requested generator is invalid")
+            generator = nil
+          end
         end
       end
 
-      if generator.nil?
-        generator = PATTERNS.values[[PatternHelpers.hex_val(hash, 20, 1), PATTERNS.length - 1].min]
-      end
+      generator ||= PATTERNS.values[[PatternHelpers.hex_val(hash, 20, 1), PATTERNS.length - 1].min]
 
       # Instantiate the generator with the needed references
       # and render the pattern to the svg object
