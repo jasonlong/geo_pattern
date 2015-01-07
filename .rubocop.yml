@@ -1,0 +1,13 @@
+AllCops:
+  Exclude:
+    - 'tmp/**/*'
+
+# Configuration parameters: MaxSlashes.
+Style/RegexpLiteral:
+  MaxSlashes: 0
+
+Metrics/AbcSize:
+  Enabled: false
+
+Lint/Debugger:
+  Enabled: false
