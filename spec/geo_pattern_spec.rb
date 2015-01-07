@@ -32,5 +32,14 @@ RSpec.describe GeoPattern do
 
       expect(pattern.svg_string).to include(rgb_base_color)
     end
+
+    it 'uses the specified generator' do
+      string   = 'Mastering Markdown'
+
+      pattern1 = GeoPattern.generate(string, generator: GeoPattern::SineWavePattern)
+      pattern2  = GeoPattern.generate(string)
+
+      expect(pattern1.svg_string).not_to eq pattern2.svg_string
+    end
   end
 end
