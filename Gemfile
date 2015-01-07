@@ -12,4 +12,13 @@ group :development, :test do
   gem 'fuubar'
   gem 'inch'
   gem 'activesupport'
+  gem 'pry'
+
+  if RUBY_VERSION >= "2"
+    gem 'byebug'
+    gem 'pry-byebug'
+  else
+    gem 'debugger'
+    gem 'pry-debugger'
+  end
 end
