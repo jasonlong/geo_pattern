@@ -11,4 +11,5 @@ group :development, :test do
   gem 'simplecov'
   gem 'fuubar'
   gem 'inch'
+  gem 'activesupport'
 end
