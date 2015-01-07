@@ -46,7 +46,13 @@ pattern = GeoPattern.generate('Mastering Markdown', color: '#fc0')
 To use a specific [pattern generator](#available-patterns):
 
 ```ruby
-pattern = GeoPattern.generate('Mastering Markdown', generator: GeoPattern::SineWavePattern)
+pattern = GeoPattern.generate('Mastering Markdown', patterns: GeoPattern::SineWavePattern)
+```
+
+To use a subset of the [available patterns](#available-patterns):
+
+```ruby
+pattern = GeoPattern.generate('Mastering Markdown', patterns: [GeoPattern::SineWavePattern, GeoPattern::XesPattern])
 ```
 
 Get the SVG string:
