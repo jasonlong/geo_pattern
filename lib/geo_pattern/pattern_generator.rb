@@ -41,25 +41,13 @@ module GeoPattern
     end
 
     def generate_background
-      if opts[:color]
-        rgb = Color::RGB.from_html(opts[:color])
-      else
-        hue_offset     = PatternHelpers.map(PatternHelpers.hex_val(hash, 14, 3), 0, 4095, 0, 359)
-        sat_offset     = PatternHelpers.hex_val(hash, 17, 1)
-        base_color     = Color::RGB.from_html(opts[:base_color]).to_hsl
-        base_color.hue = base_color.hue - hue_offset;
+      color = if opts[:color]
+                PatternHelpers.html_to_rgb(opts[:color])
+              else
+                PatternHelpers.html_to_rgb_for_string(hash, opts[:base_color])
+              end
 
-        if (sat_offset % 2 == 0)
-          base_color.saturation = base_color.saturation + sat_offset
-        else
-          base_color.saturation = base_color.saturation - sat_offset
-        end
-        rgb = base_color.to_rgb
-      end
-      r = (rgb.r * 255).round
-      g = (rgb.g * 255).round
-      b = (rgb.b * 255).round
-      svg.rect(0, 0, "100%", "100%", {"fill" => "rgb(#{r}, #{g}, #{b})"})
+      svg.rect(0, 0, "100%", "100%", "fill" => color)
     end
 
     def generate_pattern
