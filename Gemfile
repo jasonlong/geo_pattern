@@ -9,4 +9,6 @@ group :development, :test do
   gem 'rake'
   gem 'rubocop'
   gem 'simplecov'
+  gem 'fuubar'
+  gem 'inch'
 end
