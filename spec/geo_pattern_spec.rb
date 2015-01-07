@@ -66,5 +66,31 @@ RSpec.describe GeoPattern do
       expect(pattern1.svg_string).to eq pattern2.svg_string
       expect(pattern1.svg_string).to eq pattern3.svg_string
     end
+
+    it 'fails if an invalid generator was chosen' do
+      string   = 'Mastering Markdown'
+
+      expect {
+        GeoPattern.generate(string, generator: 'xz')
+      }.to raise_error
+    end
+
+    it 'fails if an invalid pattern was chosen' do
+      string   = 'Mastering Markdown'
+
+      class XZ; end
+
+      expect {
+        GeoPattern.generate(string, generator: XZ)
+      }.to raise_error
+    end
+
+    it 'fails if string and classes are mixed' do
+      string   = 'Mastering Markdown'
+
+      expect {
+        GeoPattern.generate(string, patterns: [GeoPattern::SineWavePattern, 'xz'])
+      }.to raise_error
+    end
   end
 end
