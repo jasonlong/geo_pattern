@@ -1,5 +1,9 @@
 module SpecHelpers
-  def html_to_rgb(string, base_color)
+  def html_to_rgb(color)
+    generate_rgb_string(Color::RGB.from_html(color))
+  end
+
+  def html_to_rgb_for_string(string, base_color)
     hash = Digest::SHA1.hexdigest string
 
     hue_offset     = GeoPattern::PatternHelpers.map(GeoPattern::PatternHelpers.hex_val(hash, 14, 3), 0, 4095, 0, 359)
@@ -13,8 +17,10 @@ module SpecHelpers
       base_color.saturation = base_color.saturation - sat_offset
     end
 
-    rgb = base_color.to_rgb
+    generate_rgb_string(base_color.to_rgb)
+  end
 
+  def generate_rgb_string(rgb)
     r = (rgb.r * 255).round
     g = (rgb.g * 255).round
     b = (rgb.b * 255).round
