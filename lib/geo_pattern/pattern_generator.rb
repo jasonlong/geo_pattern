@@ -1,27 +1,8 @@
 module GeoPattern
   class PatternGenerator
     DEFAULTS = {
-      :base_color => '#933c3c'
+      base_color: '#933c3c'
     }
-
-    PATTERNS = {
-      'chevrons' => ChevronPattern,
-      'concentric_circles' => ConcentricCirclesPattern,
-      'diamonds' => DiamondPattern,
-      'hexagons' => HexagonPattern,
-      'mosaic_squares' => MosaicSquaresPattern,
-      'nested_squares' => NestedSquaresPattern,
-      'octagons' => OctagonPattern,
-      'overlapping_circles' => OverlappingCirclesPattern,
-      'overlapping_rings' => OverlappingRingsPattern,
-      'plaid' => PlaidPattern,
-      'plus_signs' => PlusSignPattern,
-      'sine_waves' => SineWavePattern,
-      'squares' => SquarePattern,
-      'tessellation' => TessellationPattern,
-      'triangles' => TrianglePattern,
-      'xes' => XesPattern,
-    }.freeze
 
     FILL_COLOR_DARK  = "#222"
     FILL_COLOR_LIGHT = "#ddd"
@@ -30,12 +11,17 @@ module GeoPattern
     OPACITY_MIN      = 0.02
     OPACITY_MAX      = 0.15
 
-    attr_reader :opts, :hash, :svg
+    private
+
+    attr_reader :opts, :hash, :svg, :pattern_db
+
+    public
 
     def initialize(string, opts={})
-      @opts = DEFAULTS.merge(opts)
-      @hash = Digest::SHA1.hexdigest string
-      @svg  = SVG.new
+      @opts       = DEFAULTS.merge(opts)
+      @hash       = Digest::SHA1.hexdigest string
+      @svg        = SVG.new
+      @pattern_db = PatternDb.new
 
       generate_background
       generate_pattern
@@ -77,21 +63,10 @@ module GeoPattern
     end
 
     def generate_pattern
-      unless opts[:generator].nil?
-        if opts[:generator].is_a? String
-          generator = PATTERNS[opts[:generator]]
-          puts SVG.as_comment("String pattern references are deprecated as of 1.3.0")
-        elsif opts[:generator] < BasePattern
-          if PATTERNS.values.include? opts[:generator]
-            generator = opts[:generator]
-          else
-            abort("Error: the requested generator is invalid")
-            generator = nil
-          end
-        end
-      end
+      puts SVG.as_comment('Using generator key is deprecated as of 1.3.1') if opts.key? :generator
 
-      generator ||= PATTERNS.values[[PatternHelpers.hex_val(hash, 20, 1), PATTERNS.length - 1].min]
+      patterns  = pattern_db.fetch(Array(opts[:generator]) | Array(opts[:patterns]))
+      generator = patterns[[PatternHelpers.hex_val(hash, 20, 1), patterns.length - 1].min]
 
       # Instantiate the generator with the needed references
       # and render the pattern to the svg object
