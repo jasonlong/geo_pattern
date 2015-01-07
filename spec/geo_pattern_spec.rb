@@ -40,5 +40,23 @@ RSpec.describe GeoPattern do
 
       expect(pattern1.svg_string).not_to eq pattern2.svg_string
     end
+
+    it 'uses the specified patterns only' do
+      string   = 'Mastering Markdown'
+      pattern = GeoPattern.generate(string, patterns: [GeoPattern::SineWavePattern, GeoPattern::XesPattern])
+
+      expect(pattern.svg_string).not_to be_nil
+    end
+
+    it 'makes no difference if you use generator or pattern' do
+      string   = 'Mastering Markdown'
+
+      pattern1 = GeoPattern.generate(string, generator: GeoPattern::SineWavePattern)
+      pattern2 = GeoPattern.generate(string, patterns: GeoPattern::SineWavePattern)
+      pattern3 = GeoPattern.generate(string, patterns: [GeoPattern::SineWavePattern])
+
+      expect(pattern1.svg_string).to eq pattern2.svg_string
+      expect(pattern1.svg_string).to eq pattern3.svg_string
+    end
   end
 end
