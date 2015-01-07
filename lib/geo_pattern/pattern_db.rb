@@ -41,7 +41,7 @@ module GeoPattern
       return all if patterns.empty?
 
       output_warning = false
-      abort("Error: the requested generator is invalid") unless valid?(patterns)
+      abort("Error: At least one of the requested patterns \"#{patterns.join(", ")}\" is invalid") unless valid?(patterns)
 
       result = patterns.map do |p|
         if p.kind_of? String
