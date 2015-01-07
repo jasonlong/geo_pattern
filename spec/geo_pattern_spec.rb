@@ -37,7 +37,10 @@ RSpec.describe GeoPattern do
     it 'uses the specified generator' do
       string   = 'Mastering Markdown'
 
-      pattern1 = GeoPattern.generate(string, generator: GeoPattern::SineWavePattern)
+      pattern1 = nil
+      silence :stdout do
+        pattern1 = GeoPattern.generate(string, generator: GeoPattern::SineWavePattern)
+      end
       pattern2  = GeoPattern.generate(string)
 
       expect(pattern1.svg_string).not_to eq pattern2.svg_string
@@ -53,7 +56,10 @@ RSpec.describe GeoPattern do
     it 'makes no difference if you use generator or pattern' do
       string   = 'Mastering Markdown'
 
-      pattern1 = GeoPattern.generate(string, generator: GeoPattern::SineWavePattern)
+      pattern1 = nil
+      silence :stdout do
+        pattern1 = GeoPattern.generate(string, generator: GeoPattern::SineWavePattern)
+      end
       pattern2 = GeoPattern.generate(string, patterns: GeoPattern::SineWavePattern)
       pattern3 = GeoPattern.generate(string, patterns: [GeoPattern::SineWavePattern])
 
