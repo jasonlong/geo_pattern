@@ -14,5 +14,14 @@ RSpec.describe GeoPattern do
 
       expect(pattern1.svg_string).to eq pattern2.svg_string
     end
+
+    it 'sets background color' do
+      string = 'Mastering Markdown'
+      html_base_color = '#fc0'
+      rgb_base_color  = html_to_rgb(string, html_base_color)
+      pattern         = GeoPattern.generate(string, base_color: html_base_color)
+
+      expect(pattern.svg_string).to include(rgb_base_color)
+    end
   end
 end
