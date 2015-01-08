@@ -71,17 +71,17 @@ RSpec.describe GeoPattern do
       string   = 'Mastering Markdown'
 
       expect {
-        GeoPattern.generate(string, generator: 'xz')
+        GeoPattern.generate(string, patterns: 'invalid_pattern')
       }.to raise_error
     end
 
     it 'fails if an invalid pattern was chosen' do
       string   = 'Mastering Markdown'
 
-      class XZ; end
+      class InvalidPattern; end
 
       expect {
-        GeoPattern.generate(string, generator: XZ)
+        GeoPattern.generate(string, patterns: InvalidPattern)
       }.to raise_error
     end
 
@@ -89,7 +89,7 @@ RSpec.describe GeoPattern do
       string   = 'Mastering Markdown'
 
       expect {
-        GeoPattern.generate(string, patterns: [GeoPattern::SineWavePattern, 'xz'])
+        GeoPattern.generate(string, patterns: [GeoPattern::SineWavePattern, 'invalid_pattern'])
       }.to raise_error
     end
   end
