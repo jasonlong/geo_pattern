@@ -4,14 +4,15 @@ source 'https://rubygems.org'
 gemspec
 
 group :development, :test do
-  gem 'rspec'
-  gem 'aruba'
-  gem 'rake'
-  gem 'rubocop'
-  gem 'simplecov'
-  gem 'fuubar'
-  gem 'inch'
-  gem 'activesupport'
+  gem 'rspec', require: false
+  gem 'aruba', require: false, git: 'https://github.com/cucumber/aruba.git'
+  gem 'rake', require: false
+  gem 'rubocop', require: false
+  gem 'simplecov', require: false
+  gem 'fuubar', require: false
+  gem 'inch', require: false
+  gem 'activesupport', require: false
+  gem 'cucumber', require: false
   gem 'pry'
 
   if RUBY_VERSION >= "2"

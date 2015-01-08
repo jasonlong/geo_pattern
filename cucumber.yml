@@ -1,0 +1,2 @@
+default: --tags @wip:3 --tags ~@broken --tags ~@broken-external
+all: --tags ~@wip --tags ~@broken --tags ~@broken-external
