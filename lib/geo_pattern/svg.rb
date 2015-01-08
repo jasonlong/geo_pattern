@@ -1,5 +1,7 @@
 module GeoPattern
   class SVG
+    include Comparable
+
     def initialize
       @width      = 100
       @height     = 100
@@ -66,6 +68,10 @@ module GeoPattern
 
     def self.as_comment(str)
       "<!-- #{str} -->"
+    end
+
+    def <=>(other)
+      to_s <=> other.to_s
     end
   end
 end

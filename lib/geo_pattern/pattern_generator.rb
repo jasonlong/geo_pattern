@@ -1,7 +1,3 @@
-require 'base64'
-require 'digest/sha1'
-require 'color'
-
 module GeoPattern
   class PatternGenerator
     DEFAULTS = {

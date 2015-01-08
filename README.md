@@ -28,25 +28,25 @@ Or install it yourself as:
 Make a new pattern:
 
 ```ruby
-pattern = GeoPattern.generate("Mastering Markdown")
+pattern = GeoPattern.generate('Mastering Markdown')
 ```
 
 To specify a base background color (with a hue and saturation that adjusts depending on the string):
 
 ```ruby
-pattern = GeoPattern.generate("Mastering Markdown", {:base_color => "#fc0"})
+pattern = GeoPattern.generate('Mastering Markdown', base_color: '#fc0')
 ```
 
 To use a specific background color (w/o any hue or saturation adjustments):
 
 ```ruby
-pattern = GeoPattern.generate("Mastering Markdown", {:color => "#fc0"})
+pattern = GeoPattern.generate('Mastering Markdown', color: '#fc0')
 ```
 
 To use a specific [pattern generator](#available-patterns):
 
 ```ruby
-pattern = GeoPattern.generate("Mastering Markdown", {:generator => GeoPattern::SineWavePattern})
+pattern = GeoPattern.generate('Mastering Markdown', generator: GeoPattern::SineWavePattern)
 ```
 
 Get the SVG string:
