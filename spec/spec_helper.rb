@@ -14,3 +14,6 @@ require 'geo_pattern'
 # Loading support files
 Dir.glob(::File.expand_path('../support/*.rb', __FILE__)).each { |f| require_relative f }
 Dir.glob(::File.expand_path('../shared_examples/*.rb', __FILE__)).each { |f| require_relative f }
+
+# No need to add the namespace to every class tested
+include GeoPattern
