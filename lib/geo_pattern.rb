@@ -5,6 +5,7 @@ require 'color'
 require 'geo_pattern/version'
 require 'geo_pattern/svg'
 require 'geo_pattern/pattern_helpers'
+require 'geo_pattern/helpers'
 
 require 'geo_pattern/pattern/base_pattern'
 require 'geo_pattern/pattern/chevron_pattern'
