@@ -2,12 +2,12 @@ module GeoPattern
   class PatternDb
     private
 
-    attr_reader :db
+    attr_reader :patterns
 
     public
 
     def initialize
-      @db = {
+      @patterns = {
         'chevrons'            => ChevronPattern,
         'concentric_circles'  => ConcentricCirclesPattern,
         'diamonds'            => DiamondPattern,
@@ -28,11 +28,11 @@ module GeoPattern
     end
 
     def count
-      db.count
+      patterns.count
     end
 
     def all
-      db.values
+      patterns.values
     end
 
     def fetch(*patterns)
@@ -47,7 +47,7 @@ module GeoPattern
         if p.kind_of? String
           output_warning = true
 
-          db[p]
+          patterns[p]
         else
           p
         end
@@ -60,9 +60,9 @@ module GeoPattern
 
     private
 
-    def valid?(patterns)
-      return false unless (patterns.select { |p| p.kind_of? String } - db.keys).empty?
-      return false unless (patterns.select { |p| p.kind_of? Class } - db.values).empty?
+    def valid?(requested_patterns)
+      return false unless (requested_patterns.select { |p| p.kind_of? String } - patterns.keys).empty?
+      return false unless (requested_patterns.select { |p| p.kind_of? Class } - patterns.values).empty?
 
       true
     end
