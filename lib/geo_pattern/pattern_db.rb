@@ -61,10 +61,22 @@ module GeoPattern
     private
 
     def valid?(requested_patterns)
-      return false unless (requested_patterns.select { |p| p.kind_of? String } - patterns.keys).empty?
-      return false unless (requested_patterns.select { |p| p.kind_of? Class } - patterns.values).empty?
+      return false if unknown_string_patterns_included?(requested_patterns)
+      return false if unknown_class_patterns_included?(requested_patterns)
 
       true
+    end
+
+    def unknown_string_patterns_included?(requested_patterns)
+      unknown_patterns_included?(requested_patterns, patterns.keys, String)
+    end
+
+    def unknown_class_patterns_included?(requested_patterns)
+      unknown_patterns_included?(requested_patterns, patterns.values, Class)
+    end
+
+    def unknown_patterns_included?(a, b, klass)
+      !(a.select { |p| p.kind_of? klass } - b).empty?
     end
   end
 end
