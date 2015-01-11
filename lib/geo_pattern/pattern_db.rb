@@ -35,15 +35,15 @@ module GeoPattern
       patterns.values
     end
 
-    def fetch(*patterns)
-      patterns = patterns.flatten
+    def fetch(*requested_patterns)
+      requested_patterns = requested_patterns.flatten.compact
 
-      return all if patterns.empty?
+      return all if requested_patterns.empty?
 
       output_warning = false
-      abort("Error: At least one of the requested patterns \"#{patterns.join(", ")}\" is invalid") unless valid?(patterns)
+      fail InvalidPatternError, "Error: At least one of the requested patterns \"#{requested_patterns.join(", ")}\" is invalid" unless valid?(requested_patterns)
 
-      result = patterns.map do |pattern|
+      result = requested_patterns.map do |pattern|
         if pattern.kind_of? String
           output_warning = true
 
