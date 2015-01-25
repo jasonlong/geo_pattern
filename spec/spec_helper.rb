@@ -16,8 +16,7 @@ include GeoPattern::Helpers
 
 # Loading support files
 #::File.expand_path('../support/*.rb', __FILE__)
-require_files_matching_pattern ::File.expand_path('../support/*.rb', __FILE__)
-require_files_matching_pattern ::File.expand_path('../shared_examples/*.rb', __FILE__)
+require_files_matching_pattern ::File.expand_path('../support/**/*.rb', __FILE__)
 
 # No need to add the namespace to every class tested
 include GeoPattern

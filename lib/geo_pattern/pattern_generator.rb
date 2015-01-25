@@ -21,7 +21,6 @@ module GeoPattern
       @opts       = DEFAULTS.merge(opts)
       @hash       = Digest::SHA1.hexdigest string
       @svg        = SVG.new
-      @pattern_db = PatternDb.new
 
       generate_background
       generate_pattern
@@ -53,7 +52,14 @@ module GeoPattern
     def generate_pattern
       puts SVG.as_comment('Using generator key is deprecated as of 1.3.1') if opts.key? :generator
 
-      patterns  = pattern_db.fetch(Array(opts[:generator]) | Array(opts[:patterns]))
+      requested_patterns = (Array(opts[:generator]) | Array(opts[:patterns])).flatten.compact
+
+      validator = PatternValidator.new
+      validator.validate(requested_patterns)
+
+      sieve = PatternSieve.new
+      patterns = sieve.fetch(requested_patterns)
+
       generator = patterns[[PatternHelpers.hex_val(hash, 20, 1), patterns.length - 1].min]
 
       # Instantiate the generator with the needed references
