@@ -13,7 +13,7 @@ module GeoPattern
 
     private
 
-    attr_reader :opts, :hash, :svg, :pattern_db
+    attr_reader :opts, :hash, :svg
 
     public
 
