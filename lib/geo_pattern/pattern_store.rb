@@ -31,12 +31,17 @@ module GeoPattern
     end
 
     def [](pattern)
-      if pattern.kind_of?(String ) || pattern.kind_of?(Symbol)
-        $stderr.puts 'String pattern references are deprecated as of 1.3.0' 
+      if pattern.kind_of?(String) || pattern.kind_of?(Symbol)
+        $stderr.puts 'String pattern references are deprecated as of 1.3.0' if pattern.kind_of?(String)
+
         return store[pattern]
       end
 
-      return pattern if store.value? pattern
+      if store.value? pattern
+        $stderr.puts 'Class pattern references are deprecated as of 1.3.0' 
+
+        return pattern 
+      end
 
       nil
     end
