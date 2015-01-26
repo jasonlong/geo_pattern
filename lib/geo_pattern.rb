@@ -13,6 +13,7 @@ require 'geo_pattern/pattern_sieve'
 require 'geo_pattern/hash_store'
 require 'geo_pattern/pattern'
 require 'geo_pattern/seed'
+require 'geo_pattern/preset'
 
 require 'geo_pattern/pattern/base_pattern'
 require 'geo_pattern/pattern/chevron_pattern'

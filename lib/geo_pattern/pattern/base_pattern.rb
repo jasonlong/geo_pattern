@@ -2,16 +2,16 @@ module GeoPattern
   class BasePattern
     attr_reader :svg, :hash, :fill_color_dark, :fill_color_light, :stroke_color, :stroke_opacity, :opacity_min, :opacity_max
 
-    def initialize(svg, hash, options = {})
+    def initialize(svg, hash, preset)
       @svg  = svg
       @hash = hash
 
-      @fill_color_dark  = options.fetch(:fill_color_dark, '#222')
-      @fill_color_light = options.fetch(:fill_color_light,'#ddd')
-      @stroke_color     = options.fetch(:stroke_color,    '#000')
-      @stroke_opacity   = options.fetch(:stroke_opacity,  0.02)
-      @opacity_min      = options.fetch(:opacity_min,     0.02)
-      @opacity_max      = options.fetch(:opacity_max,     0.15)
+      @fill_color_dark  = preset.fill_color_dark
+      @fill_color_light = preset.fill_color_light
+      @stroke_color     = preset.stroke_color
+      @stroke_opacity   = preset.stroke_opacity
+      @opacity_min      = preset.opacity_min
+      @opacity_max      = preset.opacity_max
     end
 
     # Public: mutate the given `svg` object with a rendered pattern

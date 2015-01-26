@@ -3,29 +3,25 @@ module GeoPattern
 
     private
 
-    attr_reader :opts, :hash, :svg, :base_color, :fill_color_dark, :fill_color_light, :stroke_color, :stroke_opacity, :opacity_min, :opacity_max
+    attr_reader :opts, :hash, :svg, :base_color, :preset
 
     public
 
     def initialize(string, opts = {})
       @opts = {
         base_color: '#933c3c',
+      }.merge opts
+
+      @preset = Preset.new(
         fill_color_dark: '#222',
         fill_color_light: '#ddd',
         stroke_color: '#000',
         stroke_opacity: 0.02,
         opacity_min: 0.02,
         opacity_max: 0.15
-      }.merge opts
+      )
 
       @base_color       = @opts[:base_color]
-      @fill_color_dark  = @opts[:fill_color_dark]
-      @fill_color_light = @opts[:fill_color_light]
-      @stroke_color     = @opts[:stroke_color]
-      @stroke_opacity   = @opts[:stroke_opacity]
-      @opacity_min      = @opts[:opacity_min]
-      @opacity_max      = @opts[:opacity_max]
-
       @hash             = Seed.new(string)
       @svg              = SVG.new
 
@@ -76,12 +72,7 @@ module GeoPattern
       generator.new(
         svg,
         hash,
-        fill_color_dark: fill_color_dark,
-        fill_color_light: fill_color_light,
-        stroke_color: stroke_color,
-        stroke_opacity: stroke_opacity,
-        opacity_min: opacity_min,
-        opacity_max: opacity_max
+        preset
       ).render_to_svg
     end
   end
