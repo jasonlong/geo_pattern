@@ -148,6 +148,15 @@ You can then use this string to set the background:
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
+## Development
+
+Prefix rspec-commandline with `RSPEC_PROFILE=1` to output the ten slowest
+examples of the test suite.
+
+```bash
+RSPEC_PROFILE=1 bundle exec rspec
+```
+
 ## Ports
 
 JavaScript port by Brandon Mills:
