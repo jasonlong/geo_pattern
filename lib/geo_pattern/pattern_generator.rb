@@ -26,7 +26,7 @@ module GeoPattern
       @opacity_min      = @opts[:opacity_min]
       @opacity_max      = @opts[:opacity_max]
 
-      @hash             = Digest::SHA1.hexdigest string
+      @hash             = Seed.new(string)
       @svg              = SVG.new
 
       generate_background
