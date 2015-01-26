@@ -1,4 +1,4 @@
 require 'spec_helper'
 
-RSpec.describe Pattern do
+RSpec.describe Pattern, :focus do
 end
