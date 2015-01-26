@@ -75,6 +75,19 @@ You can then use this string to set the background:
 <div style="background-image: <%= pattern.uri_image %>"></div>
 ```
 
+Get the base color:
+
+```ruby
+puts pattern.color.html
+# => "#3f904d"
+```
+
+You can use it as a fallback for browsers without SVG support, or to style other elements accordingly:
+
+```html
+<div style="background-color: <%= pattern.color.html %>"></div>
+```
+
 ## Available patterns
 
 *Note: As of version `1.3.0`, string references (e.g. `overlapping_circles`) are deprecated in favor of class references (e.g. `GeoPattern::OverlappingCirclesPattern`).*
