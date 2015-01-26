@@ -2,7 +2,7 @@ module GeoPattern
   class BasePattern
     attr_reader :svg, :hash, :fill_color_dark, :fill_color_light, :stroke_color, :stroke_opacity, :opacity_min, :opacity_max
 
-    def initialize(svg, hash, preset)
+    def initialize(svg = SVG.new, hash, preset)
       @svg  = svg
       @hash = hash
 
@@ -23,7 +23,7 @@ module GeoPattern
     #
     # Returns a reference to the same `svg` object
     # only this time with more patterns.
-    def render_to_svg
+    def generate
       raise NotImplementedError
     end
 
@@ -44,6 +44,7 @@ module GeoPattern
     end
 
     protected
+
     def build_plus_shape(square_size)
       [
         "rect(#{square_size},0,#{square_size},#{square_size * 3})",

@@ -1,6 +1,6 @@
 module GeoPattern
   class SquarePattern < BasePattern
-    def render_to_svg
+    def generate
       square_size = map(hex_val(0, 1), 0, 15, 10, 60)
 
       svg.set_width(square_size * 6)
@@ -22,6 +22,8 @@ module GeoPattern
           i += 1
         end
       end
+
+      svg
     end
   end
 end

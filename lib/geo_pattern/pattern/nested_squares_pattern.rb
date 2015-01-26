@@ -1,6 +1,6 @@
 module GeoPattern
   class NestedSquaresPattern < BasePattern
-    def render_to_svg
+    def generate
       block_size = map(hex_val(0, 1), 0, 15, 4, 12)
       square_size = block_size * 7
 
@@ -46,6 +46,8 @@ module GeoPattern
           i += 1
         end
       end
+
+      svg
     end
   end
 end

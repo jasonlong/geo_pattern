@@ -1,6 +1,6 @@
 module GeoPattern
   class TrianglePattern < BasePattern
-    def render_to_svg
+    def generate
       scale           = hex_val(0, 1)
       side_length     = map(scale, 0, 15, 15, 80)
       triangle_height = side_length/2 * Math.sqrt(3)
@@ -41,6 +41,8 @@ module GeoPattern
           i += 1
         end
       end
+
+      svg
     end
 
     def build_triangle_shape(side_length, height)

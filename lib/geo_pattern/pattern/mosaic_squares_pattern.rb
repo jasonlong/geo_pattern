@@ -1,6 +1,6 @@
 module GeoPattern
   class MosaicSquaresPattern < BasePattern
-    def render_to_svg
+    def generate
       triangle_size = map(hex_val(0, 1), 0, 15, 15, 50)
 
       svg.set_width(triangle_size * 8)
@@ -25,6 +25,8 @@ module GeoPattern
           i += 1
         end
       end
+
+      svg
     end
 
     def draw_inner_mosaic_tile(x, y, triangle_size, vals)

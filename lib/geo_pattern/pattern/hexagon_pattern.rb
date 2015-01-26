@@ -1,6 +1,6 @@
 module GeoPattern
   class HexagonPattern < BasePattern
-    def render_to_svg
+    def generate
       scale       = hex_val(0, 1)
       side_length = map(scale, 0, 15, 8, 60)
       hex_height  = side_length * Math.sqrt(3)
@@ -45,6 +45,8 @@ module GeoPattern
           i += 1
         end
       end
+
+      svg
     end
 
     def build_hexagon_shape(sideLength)

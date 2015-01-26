@@ -1,6 +1,6 @@
 module GeoPattern
   class ChevronPattern < BasePattern
-    def render_to_svg
+    def generate
       chevron_width  = map(hex_val(0, 1), 0, 15, 30, 80)
       chevron_height = map(hex_val(0, 1), 0, 15, 30, 80)
       chevron        = build_chevron_shape(chevron_width, chevron_height)
@@ -32,6 +32,8 @@ module GeoPattern
           i += 1
         end
       end
+
+      svg
     end
 
     def build_chevron_shape(width, height)

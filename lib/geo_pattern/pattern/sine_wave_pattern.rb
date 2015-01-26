@@ -1,6 +1,6 @@
 module GeoPattern
   class SineWavePattern < BasePattern
-    def render_to_svg
+    def generate
       period     = map(hex_val(0, 1), 0, 15, 100, 400).floor
       amplitude  = map(hex_val(1, 1), 0, 15, 30, 100).floor
       wave_width = map(hex_val(2, 1), 0, 15, 3, 30).floor
@@ -31,6 +31,8 @@ module GeoPattern
         svg.path(str, styles.merge({"transform" => "translate(-#{period/4}, #{wave_width*i-amplitude*1.5})"}))
         svg.path(str, styles.merge({"transform" => "translate(-#{period/4}, #{wave_width*i-amplitude*1.5 + wave_width*36})"}))
       end
+
+      svg
     end
   end
 end

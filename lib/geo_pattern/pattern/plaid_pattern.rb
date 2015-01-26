@@ -1,6 +1,6 @@
 module GeoPattern
   class PlaidPattern < BasePattern
-    def render_to_svg
+    def generate
       height = 0
       width  = 0
 
@@ -44,6 +44,8 @@ module GeoPattern
 
       svg.set_width(width)
       svg.set_height(height)
+
+      svg
     end
   end
 end

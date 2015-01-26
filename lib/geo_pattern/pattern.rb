@@ -3,7 +3,7 @@ module GeoPattern
     private
 
     attr_reader :svg
-    attr_accessor :background
+    attr_accessor :background, :structure
 
     public
 
@@ -15,8 +15,13 @@ module GeoPattern
       self.background =  generator.generate
     end
 
+    def add_structure(generator)
+      self.structure = generator.generate
+    end
+
     def to_svg_raw
-      svg << background
+      svg << background if background
+      svg << structure if structure
 
       svg
     end

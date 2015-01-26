@@ -1,6 +1,6 @@
 module GeoPattern
   class TessellationPattern < BasePattern
-    def render_to_svg
+    def generate
       # 3.4.6.4 semi-regular tessellation
       side_length     = map(hex_val(0, 1), 0, 15, 5, 40)
       hex_height      = side_length * Math.sqrt(3)
@@ -83,6 +83,8 @@ module GeoPattern
                     styles.merge({"transform" => "scale(-1, -1) translate(#{-tile_width+side_length/2}, #{-tile_height+side_length/2}) rotate(-30, 0, 0)"}))
         end
       end
+
+      svg
     end
 
     def build_rotated_triangle_shape(side_length, width)

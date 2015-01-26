@@ -1,6 +1,6 @@
 module GeoPattern
   class OverlappingRingsPattern < BasePattern
-    def render_to_svg
+    def generate
       scale        = hex_val(0, 1)
       ring_size    = map(scale, 0, 15, 10, 60)
       stroke_width = ring_size / 4
@@ -41,6 +41,8 @@ module GeoPattern
           i += 1
         end
       end
+
+      svg
     end
   end
 end

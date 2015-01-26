@@ -61,15 +61,10 @@ module GeoPattern
       sieve = PatternSieve.new
       patterns = sieve.fetch(requested_patterns)
 
-      generator = patterns[[PatternHelpers.hex_val(seed, 20, 1), patterns.length - 1].min]
+      generator_klass = patterns[[PatternHelpers.hex_val(seed, 20, 1), patterns.length - 1].min]
+      structure_generator = generator_klass.new(seed, pattern_preset)
 
-      # Instantiate the generator with the needed references
-      # and render the pattern to the svg object
-      generator.new(
-        pattern.to_svg_raw,
-        seed,
-        pattern_preset
-      ).render_to_svg
+      pattern.add_structure(structure_generator)
 
       @svg = pattern.to_svg_raw
     end

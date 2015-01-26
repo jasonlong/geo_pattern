@@ -1,6 +1,6 @@
 module GeoPattern
   class PlusSignPattern < BasePattern
-    def render_to_svg
+    def generate
       square_size = map(hex_val(0, 1), 0, 15, 10, 25)
       plus_size   = square_size * 3
       plus_shape  = build_plus_shape(square_size)
@@ -48,6 +48,8 @@ module GeoPattern
           i += 1
         end
       end
+
+      svg
     end
   end
 end

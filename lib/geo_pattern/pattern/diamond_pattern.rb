@@ -1,6 +1,6 @@
 module GeoPattern
   class DiamondPattern < BasePattern
-    def render_to_svg
+    def generate
       diamond_width  = map(hex_val(0, 1), 0, 15, 10, 50)
       diamond_height = map(hex_val(1, 1), 0, 15, 10, 50)
       diamond        = build_diamond_shape(diamond_width, diamond_height)
@@ -47,6 +47,8 @@ module GeoPattern
           i += 1
         end
       end
+
+      svg
     end
 
     def build_diamond_shape(width, height)

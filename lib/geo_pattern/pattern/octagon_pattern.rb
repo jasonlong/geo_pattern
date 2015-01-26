@@ -1,6 +1,6 @@
 module GeoPattern
   class OctagonPattern < BasePattern
-    def render_to_svg
+    def generate
       square_size = map(hex_val(0, 1), 0, 15, 10, 60)
       tile        = build_octogon_shape(square_size)
 
@@ -24,6 +24,8 @@ module GeoPattern
           i += 1
         end
       end
+
+      svg
     end
 
     def build_octogon_shape(square_size)
