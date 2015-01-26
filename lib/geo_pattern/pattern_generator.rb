@@ -39,6 +39,8 @@ module GeoPattern
       "url(data:image/svg+xml;base64,#{base64_string});"
     end
 
+    private
+
     def generate_background
       color = if opts[:color]
                 PatternHelpers.html_to_rgb(opts[:color])
