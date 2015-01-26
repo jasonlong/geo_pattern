@@ -13,12 +13,17 @@ RSpec.describe PatternStore do
       subject(:pattern_store) { PatternStore.new }
       context 'when a known pattern is requested' do
         context 'as string' do
-          let(:pattern_name) { XesPattern }
+          let(:pattern_name) { 'xes' }
           it_behaves_like 'a valid pattern name'
         end
 
         context 'as klass' do
-          let(:pattern_name) { 'xes' }
+          let(:pattern_name) { XesPattern }
+          it_behaves_like 'a valid pattern name'
+        end
+
+        context 'as symbol' do
+          let(:pattern_name) { :xes }
           it_behaves_like 'a valid pattern name'
         end
       end
@@ -42,11 +47,7 @@ RSpec.describe PatternStore do
           allow(hash_store).to receive(:[]).with(:pattern1).and_return(Pattern1)
         end
 
-        it do 
-          silence :stderr do
-            expect(pattern_store[:pattern1]).to eq Pattern1
-          end
-        end
+        it { expect(pattern_store[:pattern1]).to eq Pattern1 }
       end
 
       context 'as klass' do
@@ -54,7 +55,7 @@ RSpec.describe PatternStore do
           allow(hash_store).to receive(:value?).with(Pattern1).and_return(true)
         end
 
-        it { expect(pattern_store[Pattern1]).to eq Pattern1 }
+        it { silence(:stderr) { expect(pattern_store[Pattern1]).to eq Pattern1 } }
       end
     end
 
@@ -73,15 +74,13 @@ RSpec.describe PatternStore do
       end
 
       context 'as symbol' do
-        it do 
-          silence :stderr do
-            expect(pattern_store[:pattern1]).to be_nil
-          end
-        end
+        it { expect(pattern_store[:pattern1]).to be_nil }
       end
 
       context 'as klass' do
-        it { expect(pattern_store[Pattern1]).to be_nil }
+        silence :stderr do
+          it { expect(pattern_store[Pattern1]).to be_nil }
+        end
       end
     end
   end
