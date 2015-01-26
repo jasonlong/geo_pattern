@@ -32,8 +32,8 @@ module GeoPattern
       opacity  = opacity(vals[0])
       fill     = fill_color(vals[0])
       styles   = {
-        "stroke"         => STROKE_COLOR,
-        "stroke-opacity" => STROKE_OPACITY,
+        "stroke"         => stroke_color,
+        "stroke-opacity" => stroke_opacity,
         "fill-opacity"   => opacity,
         "fill"           => fill
       }
@@ -43,8 +43,8 @@ module GeoPattern
       opacity = opacity(vals[1])
       fill    = fill_color(vals[1])
       styles  = {
-        "stroke"         => STROKE_COLOR,
-        "stroke-opacity" => STROKE_OPACITY,
+        "stroke"         => stroke_color,
+        "stroke-opacity" => stroke_opacity,
         "fill-opacity"   => opacity,
         "fill"           => fill
       }
@@ -57,8 +57,8 @@ module GeoPattern
       fill     = fill_color(val)
       triangle = build_right_triangle_shape(triangle_size)
       styles   = {
-        "stroke"         => STROKE_COLOR,
-        "stroke-opacity" => STROKE_OPACITY,
+        "stroke"         => stroke_color,
+        "stroke-opacity" => stroke_opacity,
         "fill-opacity"   => opacity,
         "fill"           => fill
       }

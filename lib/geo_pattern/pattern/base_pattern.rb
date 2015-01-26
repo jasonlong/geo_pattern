@@ -1,11 +1,18 @@
 module GeoPattern
-  class BasePattern < Struct.new(:svg, :hash)
-    FILL_COLOR_DARK  = "#222"
-    FILL_COLOR_LIGHT = "#ddd"
-    STROKE_COLOR     = "#000"
-    STROKE_OPACITY   = 0.02
-    OPACITY_MIN      = 0.02
-    OPACITY_MAX      = 0.15
+  class BasePattern
+    attr_reader :svg, :hash, :fill_color_dark, :fill_color_light, :stroke_color, :stroke_opacity, :opacity_min, :opacity_max
+
+    def initialize(svg, hash, options = {})
+      @svg  = svg
+      @hash = hash
+
+      @fill_color_dark  = options.fetch(:fill_color_dark, '#222')
+      @fill_color_light = options.fetch(:fill_color_light,'#ddd')
+      @stroke_color     = options.fetch(:stroke_color,    '#000')
+      @stroke_opacity   = options.fetch(:stroke_opacity,  0.02)
+      @opacity_min      = options.fetch(:opacity_min,     0.02)
+      @opacity_max      = options.fetch(:opacity_max,     0.15)
+    end
 
     # Public: mutate the given `svg` object with a rendered pattern
     #
@@ -25,11 +32,11 @@ module GeoPattern
     end
 
     def fill_color(val)
-      (val.even?) ? FILL_COLOR_LIGHT : FILL_COLOR_DARK
+      (val.even?) ? fill_color_light : fill_color_dark
     end
 
     def opacity(val)
-      map(val, 0, 15, OPACITY_MIN, OPACITY_MAX)
+      map(val, 0, 15, opacity_min, opacity_max)
     end
 
     def map(value, v_min, v_max, d_min, d_max)

@@ -21,8 +21,8 @@ module GeoPattern
           styles = {
             "fill"           => fill,
             "fill-opacity"   => opacity,
-            "stroke"         => STROKE_COLOR,
-            "stroke-opacity" => STROKE_OPACITY
+            "stroke"         => stroke_color,
+            "stroke-opacity" => stroke_opacity
           }
 
           svg.polyline(hex, styles.merge({"transform" => "translate(#{x*side_length*1.5 - hex_width/2}, #{dy - hex_height/2})"}))

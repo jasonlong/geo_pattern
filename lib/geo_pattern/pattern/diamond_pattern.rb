@@ -18,8 +18,8 @@ module GeoPattern
           styles = {
             "fill"           => fill,
             "fill-opacity"   => opacity,
-            "stroke"         => STROKE_COLOR,
-            "stroke-opacity" => STROKE_OPACITY
+            "stroke"         => stroke_color,
+            "stroke-opacity" => stroke_opacity
           }
 
           dx = (y % 2 == 0) ? 0 : diamond_width / 2

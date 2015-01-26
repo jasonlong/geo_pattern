@@ -16,8 +16,8 @@ module GeoPattern
           svg.rect(x*square_size, y*square_size, square_size, square_size, {
             "fill"           => fill,
             "fill-opacity"   => opacity,
-            "stroke"         => STROKE_COLOR,
-            "stroke-opacity" => STROKE_OPACITY
+            "stroke"         => stroke_color,
+            "stroke-opacity" => stroke_opacity
           })
           i += 1
         end

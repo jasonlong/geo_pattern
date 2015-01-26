@@ -1,26 +1,33 @@
 module GeoPattern
   class PatternGenerator
-    DEFAULTS = {
-      base_color: '#933c3c'
-    }
-
-    FILL_COLOR_DARK  = "#222"
-    FILL_COLOR_LIGHT = "#ddd"
-    STROKE_COLOR     = "#000"
-    STROKE_OPACITY   = 0.02
-    OPACITY_MIN      = 0.02
-    OPACITY_MAX      = 0.15
 
     private
 
-    attr_reader :opts, :hash, :svg
+    attr_reader :opts, :hash, :svg, :base_color, :fill_color_dark, :fill_color_light, :stroke_color, :stroke_opacity, :opacity_min, :opacity_max
 
     public
 
-    def initialize(string, opts={})
-      @opts       = DEFAULTS.merge(opts)
-      @hash       = Digest::SHA1.hexdigest string
-      @svg        = SVG.new
+    def initialize(string, opts = {})
+      @opts = {
+        base_color: '#933c3c',
+        fill_color_dark: '#222',
+        fill_color_light: '#ddd',
+        stroke_color: '#000',
+        stroke_opacity: 0.02,
+        opacity_min: 0.02,
+        opacity_max: 0.15
+      }.merge opts
+
+      @base_color       = @opts[:base_color]
+      @fill_color_dark  = @opts[:fill_color_dark]
+      @fill_color_light = @opts[:fill_color_light]
+      @stroke_color     = @opts[:stroke_color]
+      @stroke_opacity   = @opts[:stroke_opacity]
+      @opacity_min      = @opts[:opacity_min]
+      @opacity_max      = @opts[:opacity_max]
+
+      @hash             = Digest::SHA1.hexdigest string
+      @svg              = SVG.new
 
       generate_background
       generate_pattern
@@ -66,7 +73,16 @@ module GeoPattern
 
       # Instantiate the generator with the needed references
       # and render the pattern to the svg object
-      generator.new(svg, hash).render_to_svg
+      generator.new(
+        svg,
+        hash,
+        fill_color_dark: fill_color_dark,
+        fill_color_light: fill_color_light,
+        stroke_color: stroke_color,
+        stroke_opacity: stroke_opacity,
+        opacity_min: opacity_min,
+        opacity_max: opacity_max
+      ).render_to_svg
     end
   end
 end
