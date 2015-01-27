@@ -16,7 +16,7 @@ require 'geo_pattern/seed'
 require 'geo_pattern/pattern_preset'
 require 'geo_pattern/color_preset'
 
-require 'geo_pattern/generators/background_generator'
+require 'geo_pattern/background_generators/solid_generator'
 
 require 'geo_pattern/structure_generators/base_generator'
 require 'geo_pattern/structure_generators/chevrons_generator'

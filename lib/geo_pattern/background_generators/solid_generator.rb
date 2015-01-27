@@ -1,6 +1,6 @@
 module GeoPattern
-  module Generators
-    class BackgroundGenerator
+  module BackgroundGenerators
+    class SolidGenerator
       private
 
       attr_reader :color, :seed
@@ -11,14 +11,18 @@ module GeoPattern
         @color = color_for(seed, preset)
       end
 
-      def generate
+      def generate(pattern)
+        pattern.add_background generate_background
+      end
+
+      private
+
+      def generate_background
         svg   = SVG.new
         svg.rect(0, 0, "100%", "100%", "fill" => color)
 
         svg
       end
-
-      private
 
       def color_for(seed, preset)
         return PatternHelpers.html_to_rgb(preset.color) if preset.color?
