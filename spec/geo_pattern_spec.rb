@@ -4,13 +4,13 @@ require 'spec_helper'
 RSpec.describe GeoPattern do
   subject(:pattern) { GeoPattern.generate(input) }
   let(:input) { 'Mastering Markdown' }
-  let(:seed) { instance_double('GeoPattern::Seed') }
   let(:color) { '#fc0' }
   let(:rgb_base_color) { PatternHelpers.html_to_rgb_for_string(seed, color) }
+  let(:seed) { instance_double('GeoPattern::Seed') }
 
   before :each do
-    binding.pry
-    allow(seed).to receive(:to_i).and_return(1)
+    allow(seed).to receive(:to_i).with(14, 3).and_return(2616)
+    allow(seed).to receive(:to_i).with(17, 1).and_return(3)
   end
 
   it { expect(pattern).not_to be_nil }

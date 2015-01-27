@@ -11,11 +11,10 @@ RSpec.describe PatternSieve do
   let(:store) { instance_double('GeoPattern::PatternStore') }
   let(:available_patterns) { [Pattern1, Pattern2] }
   let(:requested_patterns) { [:pattern1, :pattern2] }
-  let(:filter) { 0 }
   let(:seed) { instance_double('GeoPattern::Seed') }
 
   before :each do
-    allow(seed).to receive(:[]).with(20, 1).and_return('f')
+    allow(seed).to receive(:to_i).with(20, 1).and_return(1)
     allow(store).to receive(:[])
   end
 

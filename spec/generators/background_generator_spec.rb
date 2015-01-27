@@ -9,8 +9,8 @@ RSpec.describe Generators::BackgroundGenerator do
   let(:color_should_be_used) { false }
 
   before :each do
-    allow(seed).to receive(:[]).with(14, 3).and_return('fff')
-    allow(seed).to receive(:[]).with(17, 1).and_return('f')
+    allow(seed).to receive(:to_i).with(14, 3).and_return(2616)
+    allow(seed).to receive(:to_i).with(17, 1).and_return(3)
 
     allow(color_preset).to receive(:color?).and_return(color_should_be_used)
     allow(color_preset).to receive(:color).and_return(color)
