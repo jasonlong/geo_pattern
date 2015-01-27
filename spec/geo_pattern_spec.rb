@@ -2,85 +2,75 @@
 require 'spec_helper'
 
 RSpec.describe GeoPattern do
-  let(:string) { 'Mastering Markdown' }
+  subject(:pattern) { GeoPattern.generate(input) }
+  let(:input) { 'Mastering Markdown' }
+  let(:hash) { Digest::SHA1.hexdigest(input) }
+  let(:color) { '#fc0' }
+  let(:rgb_base_color) { PatternHelpers.html_to_rgb_for_string(hash, color) }
 
-  context '.generate' do
-    it 'generates a pattern for a string' do
-      pattern = GeoPattern.generate(string)
-      expect(pattern).not_to be_nil
+  it { expect(pattern).not_to be_nil }
+
+  describe '.generate' do
+    context 'when invoked with the same input it returns the same output' do
+      let(:other_pattern) { GeoPattern.generate(input) }
+      it { expect(pattern.to_svg).to eq other_pattern.to_svg }
     end
 
-    it 'is always the same' do
-      pattern1 = GeoPattern.generate(string)
-      pattern2 = GeoPattern.generate(string)
+    context 'set background color of generated pattern' do
+      context 'when a base color is set' do
+        subject(:pattern) { GeoPattern.generate(input, base_color: color) }
 
-      expect(pattern1.to_svg).to eq pattern2.to_svg
-    end
-
-    it 'sets background color with adjusting hue and saturation based on string' do
-      string = 'Mastering Markdown'
-      hash = Digest::SHA1.hexdigest string
-      html_base_color = '#fc0'
-      rgb_base_color  = PatternHelpers.html_to_rgb_for_string(hash, html_base_color)
-      pattern         = GeoPattern.generate(string, base_color: html_base_color)
-
-      expect(pattern.to_svg).to include(rgb_base_color)
-    end
-
-    it 'sets background color' do
-      html_base_color = '#fc0'
-      rgb_base_color  = PatternHelpers.html_to_rgb(html_base_color)
-      pattern         = GeoPattern.generate(string, color: html_base_color)
-
-      expect(pattern.to_svg).to include(rgb_base_color)
-    end
-
-    it 'uses the specified generator' do
-
-      pattern1 = nil
-      silence :stdout do
-        pattern1 = GeoPattern.generate(string, generator: :sine_waves)
+        it { expect(pattern.to_svg).to include(rgb_base_color) }
       end
-      pattern2  = GeoPattern.generate(string)
 
-      expect(pattern1.to_svg).not_to eq pattern2.to_svg
-    end
+      context 'when a color is set' do
+        subject(:pattern) { GeoPattern.generate(input, color: color) }
+        let(:rgb_base_color) { PatternHelpers.html_to_rgb(color) }
 
-    it 'uses the specified patterns only' do
-      string   = 'Mastering Markdown'
-      pattern = GeoPattern.generate(string, patterns: [:sine_waves, :xes])
-
-      expect(pattern.to_svg).not_to be_nil
-    end
-
-    it 'makes no difference if you use generator or pattern' do
-      string   = 'Mastering Markdown'
-
-      pattern1 = nil
-      silence :stdout do
-        pattern1 = GeoPattern.generate(string, generator: :sine_waves)
+        it { expect(pattern.to_svg).to include(rgb_base_color) }
       end
-      pattern2 = GeoPattern.generate(string, patterns: :sine_waves)
-      pattern3 = GeoPattern.generate(string, patterns: [:sine_waves])
-
-      expect(pattern1.to_svg).to eq pattern2.to_svg
-      expect(pattern1.to_svg).to eq pattern3.to_svg
     end
 
-    it 'fails if an invalid generator was chosen' do
-      string   = 'Mastering Markdown'
+    context 'specify the generator' do
+      subject(:pattern) { GeoPattern.generate(input, pattern: chosen_pattern) }
+      let(:chosen_pattern) { :sine_waves }
 
-      expect {
-        GeoPattern.generate(string, patterns: 'invalid_pattern')
-      }.to raise_error
-    end
+      context 'when the deprecated generator option is used' do
+        subject(:pattern) { GeoPattern.generate(input, generator: chosen_pattern) }
+        subject(:other_pattern) { GeoPattern.generate(input, patterns: chosen_pattern) }
 
-    it 'fails if string and classes are mixed' do
-      string   = 'Mastering Markdown'
+        it { expect{ pattern.to_svg }.to output(/deprecated/).to_stderr }
+        it { expect(pattern.to_svg).to eq other_pattern.to_svg }
+      end
 
-      expect {
-        GeoPattern.generate(string, patterns: [:sine_waves, 'invalid_pattern'])
-      }.to raise_error
+      context 'when a single pattern is selected' do
+        it { expect(pattern).not_to be_nil }
+      end
+
+      context 'when multiple patterns are selected' do
+        let(:chosen_pattern) { [:sine_waves, :xes] }
+        it { expect(pattern).not_to be_nil }
+      end
+
+      context 'when an invalid generator was chosen' do
+        context 'single symbol pattern name' do
+          it { expect { GeoPattern.generate(input, patterns: :invalid_pattern) }.to raise_error InvalidPatternError }
+        end
+
+        context 'single string pattern name' do
+          it { expect { GeoPattern.generate(input, patterns: 'invalid_pattern') }.to raise_error InvalidPatternError }
+        end
+
+        context 'single class pattern name' do
+          class InvalidPatternClass; end
+
+          it { expect { GeoPattern.generate(input, patterns: InvalidPatternClass) }.to raise_error InvalidPatternError }
+        end
+
+        context 'multiple string patterns' do
+          it { expect { GeoPattern.generate(input, patterns: [:sine_waves, 'invalid_pattern']) }.to raise_error InvalidPatternError }
+        end
+      end
     end
   end
 end
