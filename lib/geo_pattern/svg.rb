@@ -34,6 +34,14 @@ module GeoPattern
       svg_header + svg_string + svg_closer
     end
 
+    def body
+      svg_string
+    end
+
+    def <<(svg)
+      svg_string << svg.body
+    end
+
     def rect(x, y, width, height, args={})
       svg_string << %Q{<rect x="#{x}" y="#{y}" width="#{width}" height="#{height}" #{write_args(args)} />}
     end

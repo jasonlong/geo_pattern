@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-RSpec.describe Preset do
-  subject(:preset) { Preset.new(options) }
+RSpec.describe PatternPreset do
+  subject(:preset) { PatternPreset.new(options) }
   let(:options) { 
     {
       fill_color_dark: '#222',

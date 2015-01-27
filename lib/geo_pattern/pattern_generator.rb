@@ -3,16 +3,14 @@ module GeoPattern
 
     private
 
-    attr_reader :opts, :hash, :svg, :base_color, :preset
+    attr_reader :opts, :seed, :base_color, :pattern_preset, :color_preset
 
     public
 
     def initialize(string, opts = {})
-      @opts = {
-        base_color: '#933c3c',
-      }.merge opts
+      @opts = opts
 
-      @preset = Preset.new(
+      @pattern_preset = PatternPreset.new(
         fill_color_dark: '#222',
         fill_color_light: '#ddd',
         stroke_color: '#000',
@@ -21,16 +19,17 @@ module GeoPattern
         opacity_max: 0.15
       )
 
-      @base_color       = @opts[:base_color]
-      @hash             = Seed.new(string)
-      @svg              = SVG.new
+      @color_preset = ColorPreset.new(
+        base_color: '#933c3c'
+      )
+      @color_preset.update opts
+      @seed             = Seed.new(string)
 
-      generate_background
       generate_pattern
     end
 
     def svg_string
-      svg.to_s
+      @svg.to_s
     end
     alias_method :to_s, :svg_string
 
@@ -44,20 +43,13 @@ module GeoPattern
 
     private
 
-    def generate_background
-      color = if opts[:color]
-                PatternHelpers.html_to_rgb(opts[:color])
-              else
-                PatternHelpers.html_to_rgb_for_string(hash, opts[:base_color])
-              end
-
-      svg.rect(0, 0, "100%", "100%", "fill" => color)
-    end
-
     def generate_pattern
       puts SVG.as_comment('Using generator key is deprecated as of 1.3.1') if opts.key? :generator
 
       requested_patterns = (Array(opts[:generator]) | Array(opts[:patterns])).flatten.compact
+
+      @svg = SVG.new
+      @svg << Generators::BackgroundGenerator.new.generate(seed, color_preset)
 
       validator = PatternValidator.new
       validator.validate(requested_patterns)
@@ -65,14 +57,14 @@ module GeoPattern
       sieve = PatternSieve.new
       patterns = sieve.fetch(requested_patterns)
 
-      generator = patterns[[PatternHelpers.hex_val(hash, 20, 1), patterns.length - 1].min]
+      generator = patterns[[PatternHelpers.hex_val(seed, 20, 1), patterns.length - 1].min]
 
       # Instantiate the generator with the needed references
       # and render the pattern to the svg object
       generator.new(
-        svg,
-        hash,
-        preset
+        @svg,
+        seed,
+        pattern_preset
       ).render_to_svg
     end
   end

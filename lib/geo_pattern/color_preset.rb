@@ -1,5 +1,5 @@
 module GeoPattern
-  class Preset
+  class ColorPreset
 
     private
 
@@ -11,10 +11,14 @@ module GeoPattern
       @options = options
     end
 
-    [:fill_color_dark, :fill_color_light, :stroke_color, :stroke_opacity, :opacity_min, :opacity_max].each do |m|
+    [:base_color, :color].each do |m|
       define_method m do
         options[m]
       end
+    end
+
+    def color?
+      !options[:color].nil? && !options[:color].empty?
     end
 
     def update(opts)
