@@ -18,7 +18,7 @@ RSpec.describe PatternStore do
         end
 
         context 'as klass' do
-          let(:pattern_name) { XesPattern }
+          let(:pattern_name) { StructureGenerators::XesGenerator }
           it_behaves_like 'a valid pattern name'
         end
 

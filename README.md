@@ -46,13 +46,13 @@ pattern = GeoPattern.generate('Mastering Markdown', color: '#fc0')
 To use a specific [pattern generator](#available-patterns):
 
 ```ruby
-pattern = GeoPattern.generate('Mastering Markdown', patterns: GeoPattern::SineWavePattern)
+pattern = GeoPattern.generate('Mastering Markdown', patterns: :sine_waves)
 ```
 
 To use a subset of the [available patterns](#available-patterns):
 
 ```ruby
-pattern = GeoPattern.generate('Mastering Markdown', patterns: [GeoPattern::SineWavePattern, GeoPattern::XesPattern])
+pattern = GeoPattern.generate('Mastering Markdown', patterns: [:sine_waves, :xes])
 ```
 
 Get the SVG string:
@@ -77,65 +77,66 @@ You can then use this string to set the background:
 
 ## Available patterns
 
-*Note: As of version `1.3.0`, string references (e.g. `overlapping_circles`) are deprecated in favor of class references (e.g. `GeoPattern::OverlappingCirclesPattern`).*
+*Note: As of version `1.3.0`, string references (e.g. `overlapping_circles`)
+are deprecated in favor of symbol references (e.g. `:overlapping_circles`).*
 
-### GeoPattern::OctagonPattern
+### :octagons
 
 ![](http://jasonlong.github.io/geo_pattern/examples/octogons.png)
 
-### GeoPattern::OverlappingCirclesPattern
+### :overlapping_circles
 
 ![](http://jasonlong.github.io/geo_pattern/examples/overlapping_circles.png)
 
-### GeoPattern::PlusSignPattern
+### :plus_signs
 
 ![](http://jasonlong.github.io/geo_pattern/examples/plus_signs.png)
 
-### GeoPattern::XesPattern
+### :xes
 
 ![](http://jasonlong.github.io/geo_pattern/examples/xes.png)
 
-### GeoPattern::SineWavePattern
+### :sine_waves
 
 ![](http://jasonlong.github.io/geo_pattern/examples/sine_waves.png)
 
-### GeoPattern::HexagonPattern
+### :hexagons
 
 ![](http://jasonlong.github.io/geo_pattern/examples/hexagons.png)
 
-### GeoPattern::OverlappingCirclesPattern
+### :overlapping_rings
 
 ![](http://jasonlong.github.io/geo_pattern/examples/overlapping_rings.png)
 
-### GeoPattern::PlaidPattern
+### :plaid
 
 ![](http://jasonlong.github.io/geo_pattern/examples/plaid.png)
 
-### GeoPattern::TrianglePattern
+### :triangles
 
 ![](http://jasonlong.github.io/geo_pattern/examples/triangles.png)
 
-### GeoPattern::SquarePattern
+### :squares
 
 ![](http://jasonlong.github.io/geo_pattern/examples/squares.png)
 
-### GeoPattern::NestedSquaresPattern
+### :nested_squares
 
 ![](http://jasonlong.github.io/geo_pattern/examples/nested_squares.png)
 
-### GeoPattern::MosaicSquaresPattern
+### :mosaic_squares
 
 ![](http://jasonlong.github.io/geo_pattern/examples/mosaic_squares.png)
 
-### GeoPattern::ConcentricCirclesPattern
+### :concentric_circles
 
 ![](http://jasonlong.github.io/geo_pattern/examples/concentric_circles.png)
 
-### GeoPattern::DiamondPattern
+### :diamonds
 
 ![](http://jasonlong.github.io/geo_pattern/examples/diamonds.png)
 
-### GeoPattern::TessellationPattern
+### :tessellation
 
 ![](http://jasonlong.github.io/geo_pattern/examples/tessellation.png)
 

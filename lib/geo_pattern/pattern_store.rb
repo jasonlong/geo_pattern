@@ -8,22 +8,22 @@ module GeoPattern
 
     def initialize(
       store = HashStore.new(
-        chevrons: ChevronPattern,
-        concentric_circles: ConcentricCirclesPattern,
-        diamonds:  DiamondPattern,
-        hexagons:  HexagonPattern,
-        mosaic_squares:  MosaicSquaresPattern,
-        nested_squares:  NestedSquaresPattern,
-        octagons:  OctagonPattern,
-        overlapping_circles:  OverlappingCirclesPattern,
-        overlapping_rings:  OverlappingRingsPattern,
-        plaid:  PlaidPattern,
-        plus_signs:  PlusSignPattern,
-        sine_waves:  SineWavePattern,
-        squares:  SquarePattern,
-        tessellation:  TessellationPattern,
-        triangles:  TrianglePattern,
-        xes:  XesPattern
+        chevrons: StructureGenerators::ChevronsGenerator,
+        concentric_circles: StructureGenerators::ConcentricCirclesGenerator,
+        diamonds: StructureGenerators::DiamondsGenerator,
+        hexagons: StructureGenerators::HexagonsGenerator,
+        mosaic_squares: StructureGenerators::MosaicSquaresGenerator,
+        nested_squares: StructureGenerators::NestedSquaresGenerator,
+        octagons: StructureGenerators::OctagonsGenerator,
+        overlapping_circles: StructureGenerators::OverlappingCirclesGenerator,
+        overlapping_rings: StructureGenerators::OverlappingRingsGenerator,
+        plaid: StructureGenerators::PlaidGenerator,
+        plus_signs: StructureGenerators::PlusSignsGenerator,
+        sine_waves: StructureGenerators::SineWavesGenerator,
+        squares: StructureGenerators::SquaresGenerator,
+        tessellation: StructureGenerators::TessellationGenerator,
+        triangles: StructureGenerators::TrianglesGenerator,
+        xes: StructureGenerators::XesGenerator
       )
     )
 
