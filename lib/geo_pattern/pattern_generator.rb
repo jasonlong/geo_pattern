@@ -24,32 +24,13 @@ module GeoPattern
       )
       @color_preset.update opts
       @seed             = Seed.new(string)
-
-      generate_pattern
     end
 
-    def svg_string
-      @svg.to_s
-    end
-    alias_method :to_s, :svg_string
-
-    def base64_string
-      Base64.strict_encode64(svg_string)
-    end
-
-    def uri_image
-      "url(data:image/svg+xml;base64,#{base64_string});"
-    end
-
-    private
-
-    def generate_pattern
+    def generate
       puts SVG.as_comment('Using generator key is deprecated as of 1.3.1') if opts.key? :generator
 
       requested_patterns = (Array(opts[:generator]) | Array(opts[:patterns])).flatten.compact
 
-      # @svg = SVG.new
-      # @svg << Generators::BackgroundGenerator.new(seed, color_preset).generate
       background_generator = Generators::BackgroundGenerator.new(seed, color_preset)
 
       pattern = Pattern.new
@@ -66,7 +47,7 @@ module GeoPattern
 
       pattern.add_structure(structure_generator)
 
-      @svg = pattern.to_svg_raw
+      pattern
     end
   end
 end
