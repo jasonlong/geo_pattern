@@ -12,13 +12,22 @@ module GeoPattern
     end
 
     # Add background to pattern
-    def add_background(generator)
-      self.background =  generator.generate
+    def add_background(background)
+      self.background =  background
     end
 
     # Add structure for pattern
-    def add_structure(generator)
-      self.structure = generator.generate
+    def add_structure(structure)
+      self.structure = structure
+    end
+
+    # Generate things for the pattern
+    #
+    # @param [#generate) generator
+    #   The generator which should do things with this pattern - e.g. adding
+    #   background or a structure
+    def generate_me(generator)
+      generator.generate self
     end
 
     # Convert pattern to svg

@@ -31,8 +31,9 @@ module GeoPattern
 
     def generate
       pattern = Pattern.new
-      pattern.add_background(background_generator)
-      pattern.add_structure(structure_generator)
+
+      pattern.generate_me background_generator
+      pattern.generate_me structure_generator
 
       pattern
     end
