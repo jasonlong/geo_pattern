@@ -4,9 +4,14 @@ require 'spec_helper'
 RSpec.describe GeoPattern do
   subject(:pattern) { GeoPattern.generate(input) }
   let(:input) { 'Mastering Markdown' }
-  let(:hash) { Digest::SHA1.hexdigest(input) }
+  let(:seed) { instance_double('GeoPattern::Seed') }
   let(:color) { '#fc0' }
-  let(:rgb_base_color) { PatternHelpers.html_to_rgb_for_string(hash, color) }
+  let(:rgb_base_color) { PatternHelpers.html_to_rgb_for_string(seed, color) }
+
+  before :each do
+    binding.pry
+    allow(seed).to receive(:to_i).and_return(1)
+  end
 
   it { expect(pattern).not_to be_nil }
 

@@ -1,11 +1,11 @@
 module GeoPattern
   module StructureGenerators
     class BaseGenerator
-      attr_reader :svg, :hash, :fill_color_dark, :fill_color_light, :stroke_color, :stroke_opacity, :opacity_min, :opacity_max
+      attr_reader :svg, :seed, :fill_color_dark, :fill_color_light, :stroke_color, :stroke_opacity, :opacity_min, :opacity_max
 
-      def initialize(svg = SVG.new, hash, preset)
+      def initialize(svg = SVG.new, seed, preset)
         @svg  = svg
-        @hash = hash
+        @seed = seed
 
         @fill_color_dark  = preset.fill_color_dark
         @fill_color_light = preset.fill_color_light
@@ -29,7 +29,7 @@ module GeoPattern
       end
 
       def hex_val(index, len)
-        PatternHelpers.hex_val(hash, index, len)
+        seed.to_i(index, len)
       end
 
       def fill_color(val)

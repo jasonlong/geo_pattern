@@ -22,7 +22,7 @@ module GeoPattern
     private
 
     def determine_index
-      [PatternHelpers.hex_val(seed, 20, 1), available_patterns.length - 1].min
+      [seed.to_i(20, 1), available_patterns.length - 1].min
     end
 
 
