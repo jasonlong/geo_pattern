@@ -32,21 +32,21 @@ namespace :fixtures do
     name: 'generate',
     description: 'Generate patterns to make them available as fixtures',
     data: {
-      'fixtures/octagons.svg'            => [string, :octagons],
-      'fixtures/overlapping_circles.svg' => [string, :overlapping_circles],
-      'fixtures/plus_signs.svg'          => [string, :plus_signs],
-      'fixtures/xes.svg'                 => [string, :xes],
-      'fixtures/sine_waves.svg'          => [string, :sine_waves],
-      'fixtures/hexagons.svg'            => [string, :hexagons],
-      'fixtures/overlapping_rings.svg'   => [string, :overlapping_rings],
-      'fixtures/plaid.svg'               => [string, :plaid],
-      'fixtures/triangles.svg'           => [string, :triangles],
-      'fixtures/squares.svg'             => [string, :squares],
-      'fixtures/nested_squares.svg'      => [string, :nested_squares],
-      'fixtures/mosaic_squares.svg'      => [string, :mosaic_squares],
-      'fixtures/concentric_circles.svg'  => [string, :concentric_circles],
-      'fixtures/diamonds.svg'            => [string, :diamonds],
-      'fixtures/tessellation.svg'        => [string, :tessellation]
+      'fixtures/generated_patterns/octagons.svg'            => [string, :octagons],
+      'fixtures/generated_patterns/overlapping_circles.svg' => [string, :overlapping_circles],
+      'fixtures/generated_patterns/plus_signs.svg'          => [string, :plus_signs],
+      'fixtures/generated_patterns/xes.svg'                 => [string, :xes],
+      'fixtures/generated_patterns/sine_waves.svg'          => [string, :sine_waves],
+      'fixtures/generated_patterns/hexagons.svg'            => [string, :hexagons],
+      'fixtures/generated_patterns/overlapping_rings.svg'   => [string, :overlapping_rings],
+      'fixtures/generated_patterns/plaid.svg'               => [string, :plaid],
+      'fixtures/generated_patterns/triangles.svg'           => [string, :triangles],
+      'fixtures/generated_patterns/squares.svg'             => [string, :squares],
+      'fixtures/generated_patterns/nested_squares.svg'      => [string, :nested_squares],
+      'fixtures/generated_patterns/mosaic_squares.svg'      => [string, :mosaic_squares],
+      'fixtures/generated_patterns/concentric_circles.svg'  => [string, :concentric_circles],
+      'fixtures/generated_patterns/diamonds.svg'            => [string, :diamonds],
+      'fixtures/generated_patterns/tessellation.svg'        => [string, :tessellation]
     }
   )
 end
