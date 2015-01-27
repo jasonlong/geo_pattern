@@ -35,9 +35,21 @@ module GeoPattern
 
     # @private
     def run_task(_verbose)
-      patterns.each do |path, string|
-        pattern = GeoPattern.generate(string, patterns: allowed_patterns)
-        File.write(File.expand_path(path), pattern.to_svg)
+      data.each do |path, string|
+        path    = File.expand_path(path)
+        patterns = if string.kind_of? String
+                     allowed_patterns
+                   elsif string.kind_of?(Array) && string.size > 1
+                     string[1]
+                   else
+                     nil
+                   end
+
+        pattern = GeoPattern.generate(string, patterns: patterns)
+
+        logger.info "Creating pattern at \"#{path}\"."
+        FileUtils.mkdir_p File.dirname(path)
+        File.write(path, pattern.to_svg)
       end
     end
   end

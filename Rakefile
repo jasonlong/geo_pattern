@@ -32,7 +32,21 @@ namespace :fixtures do
     name: 'generate',
     description: 'Generate patterns to make them available as fixtures',
     data: {
-      'fixtures/sine_waves.svg' => string
+      'fixtures/octagons.svg'            => [string, :octagons],
+      'fixtures/overlapping_circles.svg' => [string, :overlapping_circles],
+      'fixtures/plus_signs.svg'          => [string, :plus_signs],
+      'fixtures/xes.svg'                 => [string, :xes],
+      'fixtures/sine_waves.svg'          => [string, :sine_waves],
+      'fixtures/hexagons.svg'            => [string, :hexagons],
+      'fixtures/overlapping_rings.svg'   => [string, :overlapping_rings],
+      'fixtures/plaid.svg'               => [string, :plaid],
+      'fixtures/triangles.svg'           => [string, :triangles],
+      'fixtures/squares.svg'             => [string, :squares],
+      'fixtures/nested_squares.svg'      => [string, :nested_squares],
+      'fixtures/mosaic_squares.svg'      => [string, :mosaic_squares],
+      'fixtures/concentric_circles.svg'  => [string, :concentric_circles],
+      'fixtures/diamonds.svg'            => [string, :diamonds],
+      'fixtures/tessellation.svg'        => [string, :tessellation]
     }
   )
 end
