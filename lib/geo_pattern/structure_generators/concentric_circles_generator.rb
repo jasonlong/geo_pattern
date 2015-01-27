@@ -1,7 +1,9 @@
 module GeoPattern
   module StructureGenerators
     class ConcentricCirclesGenerator < BaseGenerator
-      def generate
+      private
+
+      def generate_structure
         scale        = hex_val(0, 1)
         ring_size    = map(scale, 0, 15, 10, 60)
         stroke_width = ring_size / 5

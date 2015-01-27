@@ -1,7 +1,9 @@
 module GeoPattern
   module StructureGenerators
     class MosaicSquaresGenerator < BaseGenerator
-      def generate
+      private
+
+      def generate_structure
         triangle_size = map(hex_val(0, 1), 0, 15, 15, 50)
 
         svg.set_width(triangle_size * 8)

@@ -1,7 +1,9 @@
 module GeoPattern
   module StructureGenerators
     class HexagonsGenerator < BaseGenerator
-      def generate
+      private
+
+      def generate_structure
         scale       = hex_val(0, 1)
         side_length = map(scale, 0, 15, 8, 60)
         hex_height  = side_length * Math.sqrt(3)

@@ -1,7 +1,9 @@
 module GeoPattern
   module StructureGenerators
     class TessellationGenerator < BaseGenerator
-      def generate
+      private
+
+      def generate_structure
         # 3.4.6.4 semi-regular tessellation
         side_length     = map(hex_val(0, 1), 0, 15, 5, 40)
         hex_height      = side_length * Math.sqrt(3)

@@ -1,7 +1,9 @@
 module GeoPattern
   module StructureGenerators
     class SineWavesGenerator < BaseGenerator
-      def generate
+      private
+
+      def generate_structure
         period     = map(hex_val(0, 1), 0, 15, 100, 400).floor
         amplitude  = map(hex_val(1, 1), 0, 15, 30, 100).floor
         wave_width = map(hex_val(2, 1), 0, 15, 3, 30).floor

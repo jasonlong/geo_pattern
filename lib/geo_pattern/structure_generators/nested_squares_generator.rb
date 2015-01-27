@@ -1,7 +1,9 @@
 module GeoPattern
   module StructureGenerators
     class NestedSquaresGenerator < BaseGenerator
-      def generate
+      private
+
+      def generate_structure
         block_size = map(hex_val(0, 1), 0, 15, 4, 12)
         square_size = block_size * 7
 

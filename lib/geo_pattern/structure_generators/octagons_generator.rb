@@ -1,7 +1,9 @@
 module GeoPattern
   module StructureGenerators
     class OctagonsGenerator < BaseGenerator
-      def generate
+      private
+
+      def generate_structure
         square_size = map(hex_val(0, 1), 0, 15, 10, 60)
         tile        = build_octogon_shape(square_size)
 

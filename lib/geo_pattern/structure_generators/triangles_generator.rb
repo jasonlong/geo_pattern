@@ -1,7 +1,9 @@
 module GeoPattern
   module StructureGenerators
     class TrianglesGenerator < BaseGenerator
-      def generate
+      private
+
+      def generate_structure
         scale           = hex_val(0, 1)
         side_length     = map(scale, 0, 15, 15, 80)
         triangle_height = side_length/2 * Math.sqrt(3)

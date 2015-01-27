@@ -1,7 +1,9 @@
 module GeoPattern
   module StructureGenerators
     class XesGenerator < BaseGenerator
-      def generate
+      private
+
+      def generate_structure
         square_size = map(hex_val(0, 1), 0, 15, 10, 25)
         x_shape     = build_plus_shape(square_size) # rotated later
         x_size      = square_size * 3 * 0.943

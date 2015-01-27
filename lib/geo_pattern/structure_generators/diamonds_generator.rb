@@ -1,7 +1,9 @@
 module GeoPattern
   module StructureGenerators
     class DiamondsGenerator < BaseGenerator
-      def generate
+      private
+
+      def generate_structure
         diamond_width  = map(hex_val(0, 1), 0, 15, 10, 50)
         diamond_height = map(hex_val(1, 1), 0, 15, 10, 50)
         diamond        = build_diamond_shape(diamond_width, diamond_height)

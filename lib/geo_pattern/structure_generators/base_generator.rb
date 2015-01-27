@@ -15,16 +15,14 @@ module GeoPattern
         @opacity_max      = preset.opacity_max
       end
 
-      # Public: mutate the given `svg` object with a rendered pattern
-      #
-      # Note: this method _must_ be implemented by sub-
-      # classes.
-      #
-      # svg - the SVG container
-      #
-      # Returns a reference to the same `svg` object
-      # only this time with more patterns.
-      def generate
+      def generate(pattern)
+        pattern.add_structure generate_structure
+      end
+
+      private
+
+      # Generate the structure
+      def generate_structure
         raise NotImplementedError
       end
 

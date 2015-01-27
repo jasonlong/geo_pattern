@@ -1,7 +1,9 @@
 module GeoPattern
   module StructureGenerators
     class ChevronsGenerator < BaseGenerator
-      def generate
+      private
+
+      def generate_structure
         chevron_width  = map(hex_val(0, 1), 0, 15, 30, 80)
         chevron_height = map(hex_val(0, 1), 0, 15, 30, 80)
         chevron        = build_chevron_shape(chevron_width, chevron_height)

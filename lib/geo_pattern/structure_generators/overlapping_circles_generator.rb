@@ -1,7 +1,9 @@
 module GeoPattern
   module StructureGenerators
     class OverlappingCirclesGenerator < BaseGenerator
-      def generate
+      private
+
+      def generate_structure
         scale    = hex_val(0, 1)
         diameter = map(scale, 0, 15, 25, 200)
         radius   = diameter/2;

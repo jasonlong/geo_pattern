@@ -1,7 +1,9 @@
 module GeoPattern
   module StructureGenerators
     class PlaidGenerator < BaseGenerator
-      def generate
+      private
+
+      def generate_structure
         height = 0
         width  = 0
 
