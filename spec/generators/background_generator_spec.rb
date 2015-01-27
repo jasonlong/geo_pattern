@@ -4,9 +4,10 @@ RSpec.describe Generators::BackgroundGenerator do
   subject(:generator) { Generators::BackgroundGenerator.new(seed, color_preset) }
   let(:seed) { instance_double('GeoPattern::Seed' ) }
   let(:color_preset) { instance_double('GeoPattern::ColorPreset' ) }
-  let(:base_color) { '#bbbbbb' }
   let(:color) { '#aaaaaa' }
+  let(:base_color) { '#bbbbbb' }
   let(:color_should_be_used) { false }
+  let(:svg) { generator.generate.body }
 
   before :each do
     allow(seed).to receive(:to_i).with(14, 3).and_return(2616)
@@ -21,12 +22,15 @@ RSpec.describe Generators::BackgroundGenerator do
 
   describe '#generate' do
     context 'when base color is given' do
-      it { expect(generator.generate).to eq 'adf' }
+      let(:generated_color) { 'rgb(187, 187, 187)' }
+      it { expect(svg).to include generated_color }
     end
 
     context 'when color is given' do
       let(:color_should_be_used) { true }
-      it { expect(generator.generate).to eq 'adf' }
+      let(:generated_color) { 'rgb(170, 170, 170)' }
+
+      it { expect(svg).to include generated_color }
     end
   end
 end
