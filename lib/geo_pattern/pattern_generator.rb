@@ -48,10 +48,12 @@ module GeoPattern
 
       requested_patterns = (Array(opts[:generator]) | Array(opts[:patterns])).flatten.compact
 
-      pattern = Pattern.new
+      # @svg = SVG.new
+      # @svg << Generators::BackgroundGenerator.new(seed, color_preset).generate
+      background_generator = Generators::BackgroundGenerator.new(seed, color_preset)
 
-      @svg = SVG.new
-      @svg << Generators::BackgroundGenerator.new.generate(seed, color_preset)
+      pattern = Pattern.new
+      pattern.add_background(background_generator)
 
       validator = PatternValidator.new
       validator.validate(requested_patterns)
@@ -64,10 +66,12 @@ module GeoPattern
       # Instantiate the generator with the needed references
       # and render the pattern to the svg object
       generator.new(
-        @svg,
+        pattern.to_svg_raw,
         seed,
         pattern_preset
       ).render_to_svg
+
+      @svg = pattern.to_svg_raw
     end
   end
 end
