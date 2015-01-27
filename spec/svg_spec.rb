@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-RSpec.describe SVG do
+RSpec.describe SvgImage do
   context '#<=>' do
     it 'is comparable' do
-      svg1 = SVG.new
-      svg2 = SVG.new
+      svg1 = SvgImage.new
+      svg2 = SvgImage.new
 
       expect(svg1).to eq svg2
     end

@@ -18,7 +18,7 @@ module GeoPattern
       private
 
       def generate_background
-        svg   = SVG.new
+        svg   = SvgImage.new
         svg.rect(0, 0, "100%", "100%", "fill" => color)
 
         svg

@@ -1,5 +1,5 @@
 module GeoPattern
-  class SVG
+  class SvgImage
     include Comparable
 
     private

@@ -3,7 +3,7 @@ module GeoPattern
     class BaseGenerator
       attr_reader :svg, :seed, :fill_color_dark, :fill_color_light, :stroke_color, :stroke_opacity, :opacity_min, :opacity_max
 
-      def initialize(svg = SVG.new, seed, preset)
+      def initialize(svg = SvgImage.new, seed, preset)
         @svg  = svg
         @seed = seed
 

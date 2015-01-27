@@ -7,7 +7,7 @@ module GeoPattern
 
     public
 
-    def initialize(svg = SVG.new)
+    def initialize(svg = SvgImage.new)
       @svg = svg
     end
 
