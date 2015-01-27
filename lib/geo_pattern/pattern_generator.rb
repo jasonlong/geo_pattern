@@ -48,6 +48,8 @@ module GeoPattern
 
       requested_patterns = (Array(opts[:generator]) | Array(opts[:patterns])).flatten.compact
 
+      pattern = Pattern.new
+
       @svg = SVG.new
       @svg << Generators::BackgroundGenerator.new.generate(seed, color_preset)
 
