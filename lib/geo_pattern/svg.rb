@@ -22,6 +22,14 @@ module GeoPattern
       @height = height.floor
     end
 
+    # Pattern includes string
+    #
+    # @param [String] string
+    #   The string which should be included in the body of the SvgImage
+    def include?(string)
+      body.include? string
+    end
+
     def svg_header
       %Q{<svg xmlns="http://www.w3.org/2000/svg" width="#{@width}" height="#{@height}">}
     end
