@@ -12,7 +12,7 @@ module GeoPattern
       end
 
       def generate(pattern)
-        pattern.add_background generate_background
+        pattern.background = generate_background
       end
 
       private

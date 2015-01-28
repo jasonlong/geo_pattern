@@ -16,7 +16,7 @@ module GeoPattern
       end
 
       def generate(pattern)
-        pattern.add_structure generate_structure
+        pattern.structure = generate_structure
       end
 
       private

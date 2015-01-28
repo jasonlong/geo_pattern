@@ -3,23 +3,15 @@ module GeoPattern
     private
 
     attr_reader :svg
-    attr_accessor :background, :structure
 
     public
+
+    attr_accessor :background, :structure
 
     def initialize(svg = SvgImage.new)
       @svg = svg
     end
 
-    # Add background to pattern
-    def add_background(background)
-      self.background =  background
-    end
-
-    # Add structure for pattern
-    def add_structure(structure)
-      self.structure = structure
-    end
 
     # Generate things for the pattern
     #
