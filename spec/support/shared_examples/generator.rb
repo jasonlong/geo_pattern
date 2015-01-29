@@ -24,7 +24,7 @@ shared_examples 'a structure generator' do
   it { is_expected.not_to be_nil }
 end
 
-shared_examples 'a named generator' do
+shared_examples 'a named generator' do |name|
   it { is_expected.to have_name name }
   it { is_expected.to have_name name.to_s }
 end
