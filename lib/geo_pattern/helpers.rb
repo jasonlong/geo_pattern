@@ -17,6 +17,26 @@ module GeoPattern
       word
     end
 
-    module_function :underscore
+    # Removes the module part from the expression in the string.
+    #
+    # @exmple Use demodulize
+    #
+    #   'ActiveRecord::CoreExtensions::String::Inflections'.demodulize # => "Inflections"
+    #   'Inflections'.demodulize                                       # => "Inflections"
+    #   '::Inflections'.demodulize                                     # => "Inflections"
+    #   ''.demodulize                                                  # => ""
+    #
+    # See also +deconstantize+.
+    def demodulize(path)
+      path = path.to_s
+
+      if i = path.rindex('::')
+        path[(i+2)..-1]
+      else
+        path
+      end
+    end
+
+    module_function :underscore, :demodulize
   end
 end
