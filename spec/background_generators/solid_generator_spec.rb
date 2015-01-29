@@ -45,7 +45,6 @@ RSpec.describe BackgroundGenerators::SolidGenerator do
       it { generator.generate(pattern) }
     end
 
-    let(:name) { :solid }
-    it_behaves_like 'a named generator'
+    it_behaves_like 'a named generator', :solid
   end
 end
