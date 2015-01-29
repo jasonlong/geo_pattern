@@ -1,0 +1,11 @@
+sudo: false
+env:
+  - CI=1
+language: ruby
+bundler_args: --without debug
+rvm:
+  - 2.1.5
+  - 2.2.0
+install: scripts/bootstrap
+script: scripts/test
+cache: bundler

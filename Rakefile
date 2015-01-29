@@ -9,15 +9,11 @@ desc 'Default task running Tests'
 task default: :test
 
 desc 'Run test suite'
-task test: 'test:rspec'
-# task test: %w(test:rspec test:rubocop)
-
+task test: ['test:rubocop', 'test:rspec']
+task 'test:ci' => ['bootstrap:gem_requirements', :test]
 namespace :test do
-
   RSpec::Core::RakeTask.new(:rspec)
-
   RuboCop::RakeTask.new
-
   Inch::Rake::Suggest.new
 end
 
@@ -49,4 +45,28 @@ namespace :fixtures do
       'fixtures/generated_patterns/tessellation.svg'        => [string, :tessellation]
     }
   )
+end
+
+desc 'Bootstrap project'
+task bootstrap: %w(bootstrap:bundler)
+
+desc 'Bootstrap project for ci'
+task 'bootstrap:ci' do
+  Rake::Task['bootstrap'].invoke
+end
+
+namespace :bootstrap do
+  desc 'Bootstrap bundler'
+  task :bundler do |t|
+    puts t.comment
+    sh 'gem install bundler'
+    sh 'bundle install'
+  end
+
+  desc 'Require gems'
+  task :gem_requirements do |t|
+    puts t.comment
+    require 'bundler'
+    Bundler.require
+  end
 end
