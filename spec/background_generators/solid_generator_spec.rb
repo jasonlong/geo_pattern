@@ -2,9 +2,12 @@ require 'spec_helper'
 
 RSpec.describe BackgroundGenerators::SolidGenerator do
   subject(:generator) { described_class.new(seed, color_preset) }
+
   let(:seed) { instance_double('GeoPattern::Seed' ) }
   let(:color_preset) { instance_double('GeoPattern::ColorPreset' ) }
   let(:pattern) { instance_double('GeoPattern::Pattern' ) }
+  let(:background_metadata) { instance_double('GeoPattern::BackgroundMetadata' ) }
+
   let(:color) { '#aaaaaa' }
   let(:base_color) { '#bbbbbb' }
   let(:color_should_be_used) { false }
@@ -23,10 +26,10 @@ RSpec.describe BackgroundGenerators::SolidGenerator do
 
   describe '#generate' do
     context 'when base color is given' do
-      let(:generated_color) { 'rgb(187, 187, 187)' }
+      let(:generated_color) { %w(187 187 187) }
 
       before :each do
-        expect(pattern).to receive(:add_background).with(include(generated_color))
+        expect(pattern).to receive(:background=).with(has_image_with_rgb_color(generated_color))
       end
 
       it { expect(generator.generate(pattern)) }
@@ -34,10 +37,10 @@ RSpec.describe BackgroundGenerators::SolidGenerator do
 
     context 'when color is given' do
       let(:color_should_be_used) { true }
-      let(:generated_color) { 'rgb(170, 170, 170)' }
+      let(:generated_color) { %w(170 170 170) }
 
       before :each do
-        expect(pattern).to receive(:add_background).with(include(generated_color))
+        expect(pattern).to receive(:background=).with(has_image_with_rgb_color(generated_color))
       end
 
       it { expect(generator.generate(pattern)) }

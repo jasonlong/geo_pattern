@@ -2,16 +2,23 @@ module GeoPattern
   class Pattern
     private
 
-    attr_reader :svg
+    attr_reader :svg_image
 
     public
 
     attr_accessor :background, :structure
 
-    def initialize(svg = SvgImage.new)
-      @svg = svg
+    def initialize(svg_image = SvgImage.new)
+      @svg_image = svg_image
     end
 
+    # Check if string is included in pattern
+    #
+    # @param [String] string
+    #   The checked string
+    def include?(string)
+      image.include?(string)
+    end
 
     # Generate things for the pattern
     #
@@ -27,22 +34,6 @@ module GeoPattern
       image.to_s
     end
     alias_method :to_s, :to_svg
-
-    # @see #to_svg
-    # @deprecated
-    def svg_string
-      $stderr.puts 'Using "#svg_string" is deprecated as of 1.3.1. Please use "#to_svg" instead.'
-
-      to_svg
-    end
-
-    # @see #to_base64
-    # @deprecated
-    def base64_string
-      $stderr.puts 'Using "#base64_string" is deprecated as of 1.3.1. Please use "#to_base64" instead.'
-
-      to_base64
-    end
 
     # Convert to base64
     def to_base64
@@ -62,13 +53,29 @@ module GeoPattern
       to_data_uri
     end
 
+    # @see #to_svg
+    # @deprecated
+    def svg_string
+      $stderr.puts 'Using "#svg_string" is deprecated as of 1.3.1. Please use "#to_svg" instead.'
+
+      to_svg
+    end
+
+    # @see #to_base64
+    # @deprecated
+    def base64_string
+      $stderr.puts 'Using "#base64_string" is deprecated as of 1.3.1. Please use "#to_base64" instead.'
+
+      to_base64
+    end
+
     private
 
     def image
-      svg << background if background
-      svg << structure if structure
+      svg_image << background.image if background
+      svg_image << structure.image if structure
 
-      svg
+      svg_image
     end
   end
 end

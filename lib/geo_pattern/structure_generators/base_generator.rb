@@ -1,22 +1,25 @@
 module GeoPattern
   module StructureGenerators
     class BaseGenerator
-      attr_reader :svg, :seed, :fill_color_dark, :fill_color_light, :stroke_color, :stroke_opacity, :opacity_min, :opacity_max
+      attr_reader :svg, :seed, :fill_color_dark, :fill_color_light, :stroke_color, :stroke_opacity, :opacity_min, :opacity_max, :preset
 
-      def initialize(svg = SvgImage.new, seed, preset)
-        @svg  = svg
-        @seed = seed
+      def initialize(seed, preset, svg = SvgImage.new)
+        @svg    = svg
+        @seed   = seed
+        @preset = preset
 
-        @fill_color_dark  = preset.fill_color_dark
-        @fill_color_light = preset.fill_color_light
-        @stroke_color     = preset.stroke_color
-        @stroke_opacity   = preset.stroke_opacity
-        @opacity_min      = preset.opacity_min
-        @opacity_max      = preset.opacity_max
+        @fill_color_dark  = @preset.fill_color_dark
+        @fill_color_light = @preset.fill_color_light
+        @stroke_color     = @preset.stroke_color
+        @stroke_opacity   = @preset.stroke_opacity
+        @opacity_min      = @preset.opacity_min
+        @opacity_max      = @preset.opacity_max
       end
 
       def generate(pattern)
-        pattern.structure = generate_structure
+        pattern.structure = Structure.new(image: generate_structure, preset: preset)
+
+        self
       end
 
       private

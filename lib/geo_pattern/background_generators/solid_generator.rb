@@ -3,22 +3,25 @@ module GeoPattern
     class SolidGenerator
       private
 
-      attr_reader :color, :seed
+      attr_reader :color, :seed, :preset
 
       public
 
       def initialize(seed, preset)
-        @color = color_for(seed, preset)
+        @color  = color_for(seed, preset)
+        @preset = preset
       end
 
       def generate(pattern)
-        pattern.background = generate_background
+        pattern.background = Background.new(image: generate_background, preset: preset, color: color)
+
+        self
       end
 
       private
 
       def generate_background
-        svg   = SvgImage.new
+        svg = SvgImage.new
         svg.rect(0, 0, "100%", "100%", "fill" => color)
 
         svg
