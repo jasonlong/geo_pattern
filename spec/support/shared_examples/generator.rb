@@ -3,7 +3,8 @@ shared_examples 'a structure generator' do |name|
 
   let(:seed) { instance_double('GeoPattern::Seed') }
   let(:preset) { instance_double('GeoPattern::PatternPreset') }
-  let(:svg_image) { instance_double('GeoPattern::SvgImage') }
+  let(:svg_image) { SvgImage.new }
+  let(:pattern) { instance_double('GeoPattern::Pattern') }
 
   let(:name) { name }
 
@@ -23,8 +24,16 @@ shared_examples 'a structure generator' do |name|
     allow(preset).to receive(:opacity_max).and_return(opacity_max)
   end
 
+
   it { is_expected.not_to be_nil }
   it { is_expected.to respond_to(:generate) }
+
+  it do
+    allow(seed).to receive(:to_i).and_return(1)
+    expect(pattern).to receive(:structure=).with(kind_of(Structure))
+
+    subject.generate(pattern)
+  end
 
   it_behaves_like 'a named generator', name
 end
