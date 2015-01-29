@@ -4,6 +4,11 @@ module GeoPattern
       Dir.glob(pattern).each { |f| require_relative f }
     end
 
+    # Makes an underscored, lowercase form from the expression in the string.
+    #
+    # @see ActiveSupport
+    #   It's MIT-Licensed
+    #
     def underscore(camel_cased_word)
       return camel_cased_word unless camel_cased_word =~ /[A-Z-]/
 
@@ -18,6 +23,9 @@ module GeoPattern
     end
 
     # Removes the module part from the expression in the string.
+    #
+    # @see ActiveSupport
+    #   It's MIT-Licensed
     #
     # @exmple Use demodulize
     #

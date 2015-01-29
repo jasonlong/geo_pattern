@@ -1,6 +1,8 @@
 module GeoPattern
   module BackgroundGenerators
     class SolidGenerator
+      include Roles::NamedGenerator
+
       private
 
       attr_reader :color, :seed, :preset

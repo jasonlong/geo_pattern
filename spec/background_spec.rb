@@ -2,6 +2,17 @@ require 'spec_helper'
 
 RSpec.describe Background do
 
+  subject { described_class.new(options) }
+
+  let(:preset) { instance_double('GeoPattern::PatternPreset') }
+
+  let(:options) { 
+    {
+      preset: preset,
+
+    }
+  }
+
   describe '#base_color' do
   end
 

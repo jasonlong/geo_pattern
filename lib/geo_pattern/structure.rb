@@ -1,6 +1,6 @@
 module GeoPattern
   class Structure
-    attr_reader :image
+    attr_reader :image, :preset
 
     def initialize(options)
       @image  = options[:image]

@@ -1,6 +1,8 @@
 module GeoPattern
   module StructureGenerators
     class BaseGenerator
+      include Roles::NamedGenerator
+
       attr_reader :svg, :seed, :fill_color_dark, :fill_color_light, :stroke_color, :stroke_opacity, :opacity_min, :opacity_max, :preset
 
       def initialize(seed, preset, svg = SvgImage.new)
