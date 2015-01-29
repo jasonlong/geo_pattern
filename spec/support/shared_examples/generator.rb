@@ -1,9 +1,11 @@
-shared_examples 'a structure generator' do
+shared_examples 'a structure generator' do |name|
   subject {  described_class.new(seed, preset, svg_image) }
 
   let(:seed) { instance_double('GeoPattern::Seed') }
   let(:preset) { instance_double('GeoPattern::PatternPreset') }
   let(:svg_image) { instance_double('GeoPattern::SvgImage') }
+
+  let(:name) { name }
 
   let(:fill_color_dark) { '#222' }
   let(:fill_color_light) { '#ddd' }
@@ -22,6 +24,9 @@ shared_examples 'a structure generator' do
   end
 
   it { is_expected.not_to be_nil }
+  it { is_expected.to respond_to(:generate) }
+
+  it_behaves_like 'a named generator', name
 end
 
 shared_examples 'a named generator' do |name|
