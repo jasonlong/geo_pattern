@@ -19,7 +19,7 @@ module GeoPattern
       end
 
       def generate(pattern)
-        pattern.structure = Structure.new(image: generate_structure, preset: preset)
+        pattern.structure = Structure.new(image: generate_structure, preset: preset, generator: self.class, name: name)
 
         self
       end
