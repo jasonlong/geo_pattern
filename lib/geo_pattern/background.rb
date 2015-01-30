@@ -6,7 +6,7 @@ module GeoPattern
 
     attr_reader :image, :preset, :color, :generator
 
-    def_delegators :@preset, :base_color, :color
+    def_delegators :@preset, :base_color
 
     def initialize(options)
       @image     = options[:image]
