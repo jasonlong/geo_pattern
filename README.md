@@ -141,6 +141,63 @@ are deprecated in favor of symbol references (e.g. `:overlapping_circles`).*
 ![](http://jasonlong.github.io/geo_pattern/examples/tessellation.png)
 
 
+## Inspection of pattern
+
+If you want to get some more information about a pattern, please use the
+following methods.
+
+```ruby
+pattern = GeoPattern.generate('Mastering Markdown', patterns: [:sine_waves, :xes])
+
+# The color of the background
+pattern.background.color
+
+# The input colors
+pattern.background.preset.color
+pattern.background.preset.base_color
+
+# The generator
+pattern.background.generator
+```
+
+To get more information about the structure of the pattern, please use the following methods:
+
+```ruby
+pattern = GeoPattern.generate('Mastering Markdown', patterns: [:sine_waves, :xes])
+
+# The name of the structure
+pattern.pattern.name
+
+# The generator of the structure
+pattern.pattern.generator
+```
+
+## Rake Support
+
+```ruby
+GeoPattern::GeoPatternTask.new(
+  name: 'generate',
+  description: 'Generate patterns to make them available as fixtures',
+  data: {
+    'fixtures/generated_patterns/octagons.svg' => [string, :octagons],
+  }
+)
+```
+
+## Developing
+
+### Generate Fixtures
+
+```ruby
+rake fixtures:generate
+```
+
+### Run tests
+
+```ruby
+rake test
+```
+
 ## Contributing
 
 1. Fork it ( http://github.com/jasonlong/geo_pattern/fork )
