@@ -1,5 +1,7 @@
 module GeoPattern
+  # Generating backgrounds
   module BackgroundGenerators
+    # Generating a solid background
     class SolidGenerator
       include Roles::NamedGenerator
 
@@ -9,11 +11,22 @@ module GeoPattern
 
       public
 
+      # New generator
+      #
+      # @param [Seed] seed
+      #   The seed used during generation the background
+      #
+      # @param [ColorPreset] preset
+      #   A preset of values which are used during generating the background 
       def initialize(seed, preset)
         @color  = color_for(seed, preset)
         @preset = preset
       end
 
+      # Generate the background for pattern
+      #
+      # @param [#background=] pattern
+      #   The pattern for which the background should be generated
       def generate(pattern)
         pattern.background = Background.new(image: generate_background, preset: preset, color: color, generator: self.class)
 

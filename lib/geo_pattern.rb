@@ -3,6 +3,10 @@ require 'digest/sha1'
 require 'color'
 
 require 'geo_pattern/version'
+
+require 'geo_pattern/roles/named_generator'
+require 'geo_pattern/roles/comparable_metadata'
+
 require 'geo_pattern/errors'
 require 'geo_pattern/svg_image'
 require 'geo_pattern/pattern_helpers'
@@ -18,8 +22,6 @@ require 'geo_pattern/color_preset'
 
 require 'geo_pattern/structure'
 require 'geo_pattern/background'
-
-require 'geo_pattern/roles/named_generator'
 
 require 'geo_pattern/background_generators/solid_generator'
 

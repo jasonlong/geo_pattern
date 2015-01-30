@@ -1,5 +1,7 @@
 module GeoPattern
   class Structure
+    include  Roles::ComparableMetadata
+
     extend Forwardable
 
     attr_reader :image, :preset, :name, :generator
@@ -18,23 +20,6 @@ module GeoPattern
       fail ArgumentError, 'Argument generator is missing' if @generator.nil?
     end
 
-
-    [:name, :fill_color_dark, :fill_color_light, :stroke_color, :stroke_opacity, :opacity_min, :opacity_max].each do |m|
-      define_method "#{m}?".to_sym do |value|
-        return true if value.nil? && public_send(m)
-        return true if value == public_send(m)
-
-        false
-      end
-    end
-
-    def generator?(value)
-      return false unless value.kind_of?(Class) || value == nil
-      return true if value.nil? && @generator
-
-      return true if value == generator
-
-      false
-    end
+    def_comparators :name, :fill_color_dark, :fill_color_light, :stroke_color, :stroke_opacity, :opacity_min, :opacity_max
   end
 end
