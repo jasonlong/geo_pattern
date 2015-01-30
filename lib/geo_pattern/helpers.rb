@@ -45,6 +45,10 @@ module GeoPattern
       end
     end
 
-    module_function :underscore, :demodulize
+    def build_arguments(*methods)
+      methods.flatten.map { |m| [m, "#{m}?"] }.flatten
+    end
+
+    module_function :underscore, :demodulize, :build_arguments
   end
 end

@@ -15,7 +15,7 @@ module GeoPattern
       end
 
       def generate(pattern)
-        pattern.background = Background.new(image: generate_background, preset: preset, color: color)
+        pattern.background = Background.new(image: generate_background, preset: preset, color: color, generator: self.class)
 
         self
       end

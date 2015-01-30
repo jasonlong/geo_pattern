@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe Structure do
   subject(:structure) { described_class.new(image: svg_image, preset: preset, generator: generator, name: name) }
 
@@ -5,73 +7,33 @@ RSpec.describe Structure do
   let(:svg_image_content) { fixtures_path('generated_patterns/sine_waves.svg').read.chomp }
   let(:preset) { instance_double('GeoPattern::PatternPreset') }
   let(:generator) { stub_const('GeoPattern::StructureGenerators::ChevronGenerator', Class.new) }
+
   let(:name) { :chevron }
+  let(:fill_color_dark) { '#222' }
+  let(:fill_color_light) { '#ddd' }
+  let(:stroke_color) { '#000' }
+  let(:stroke_opacity) { 0.02 }
+  let(:opacity_min) { 0.02 }
+  let(:opacity_max) { 0.15 }
 
   it { is_expected.not_to be_nil }
 
-  describe '#name' do
+  before :each do
+    allow(preset).to receive(:fill_color_dark).and_return(fill_color_dark)
+    allow(preset).to receive(:fill_color_light).and_return(fill_color_light)
+    allow(preset).to receive(:stroke_color).and_return(stroke_color)
+    allow(preset).to receive(:stroke_opacity).and_return(stroke_opacity)
+    allow(preset).to receive(:opacity_min).and_return(opacity_min)
+    allow(preset).to receive(:opacity_max).and_return(opacity_max)
   end
 
-  describe '#name?' do
-    context 'when name is not defined' do
-      let(:name) { nil }
-      it { expect { structure }.to raise_error ArgumentError, 'Argument name is missing' }
-    end
+  it_behaves_like 'a structure argument', :name
+  it_behaves_like 'a structure argument', :generator
+  it_behaves_like 'a forwarded structure argument', :fill_color_dark
+  it_behaves_like 'a forwarded structure argument', :fill_color_light
+  it_behaves_like 'a forwarded structure argument', :stroke_color
+  it_behaves_like 'a forwarded structure argument', :stroke_opacity
+  it_behaves_like 'a forwarded structure argument', :opacity_min
+  it_behaves_like 'a forwarded structure argument', :opacity_max
 
-    context 'when name is defined' do
-      context 'when argument is not given' do
-        it { is_expected.to be_name nil }
-      end
-
-      context 'when argument is the same as the defined one' do
-        it { is_expected.to be_name name }
-      end
-
-      context 'when argument is different from the defined one' do
-        it { is_expected.not_to be_name 'blub' }
-      end
-    end
-  end
-
-  describe '#generator' do
-  end
-
-  describe '#generator?' do
-  end
-
-  describe '#fill_color_dark' do
-  end
-
-  describe '#fill_color_dark?' do
-  end
-
-  describe '#fill_color_light' do
-  end
-
-  describe '#fill_color_light?' do
-  end
-
-  describe '#stroke_color' do
-  end
-
-  describe '#stroke_color?' do
-  end
-
-  describe '#stroke_opacity' do
-  end
-
-  describe '#stroke_opacity?' do
-  end
-
-  describe '#opacity_min' do
-  end
-
-  describe '#opacity_min?' do
-  end
-
-  describe '#opacity_max' do
-  end
-
-  describe '#opacity_max?' do
-  end
 end
