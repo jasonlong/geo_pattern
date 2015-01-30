@@ -1,4 +1,5 @@
 [![](http://img.shields.io/gem/v/geo_pattern.svg?style=flat)](http://rubygems.org/gems/geo_pattern)
+[![](https://img.shields.io/travis/jasonlong/geo_pattern.svg?style=flat)](https://travis-ci.org/jasonlong/geo_pattern)
 [![](http://img.shields.io/gem/dt/geo_pattern.svg?style=flat)](http://rubygems.org/gems/geo_pattern)
 
 # GeoPattern
