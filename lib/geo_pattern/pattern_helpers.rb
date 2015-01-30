@@ -22,7 +22,7 @@ module GeoPattern
       hue_offset     = map(seed.to_i(14, 3), 0, 4095, 0, 359)
       sat_offset     = seed.to_i(17, 1)
       base_color     = Color::RGB.from_html(base_color).to_hsl
-      base_color.hue = base_color.hue - hue_offset;
+      base_color.hue = base_color.hue - hue_offset
 
       if (sat_offset % 2 == 0)
         base_color.saturation = base_color.saturation + sat_offset
@@ -38,7 +38,7 @@ module GeoPattern
       g = (rgb.g * 255).round
       b = (rgb.b * 255).round
 
-      format("rgb(%d, %d, %d)", r, g, b)
+      format('rgb(%d, %d, %d)', r, g, b)
     end
 
     module_function :hex_val, :map, :html_to_rgb, :html_to_rgb_for_string, :generate_rgb_string

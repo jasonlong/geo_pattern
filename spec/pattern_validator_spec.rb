@@ -25,5 +25,4 @@ RSpec.describe PatternValidator do
       it { expect { validator.validate(%w(pattern1)) }.to raise_error InvalidPatternError }
     end
   end
-
 end

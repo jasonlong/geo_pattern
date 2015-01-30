@@ -37,9 +37,9 @@ module GeoPattern
     def run_task(_verbose)
       data.each do |path, string|
         path    = File.expand_path(path)
-        patterns = if string.kind_of? String
+        patterns = if string.is_a? String
                      allowed_patterns
-                   elsif string.kind_of?(Array) && string.size > 1
+                   elsif string.is_a?(Array) && string.size > 1
                      string[1]
                    else
                      nil

@@ -46,4 +46,3 @@ shared_examples 'a forwarded metadata argument' do |argument|
     end
   end
 end
-

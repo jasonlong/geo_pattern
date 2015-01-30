@@ -16,7 +16,7 @@ group :development, :test do
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
 
-  if RUBY_VERSION >= "2"
+  if RUBY_VERSION >= '2'
     gem 'byebug'
     gem 'pry-byebug'
   else

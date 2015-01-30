@@ -17,7 +17,7 @@ module GeoPattern
       #   The seed used during generation the background
       #
       # @param [ColorPreset] preset
-      #   A preset of values which are used during generating the background 
+      #   A preset of values which are used during generating the background
       def initialize(seed, preset)
         @color  = color_for(seed, preset)
         @preset = preset
@@ -37,7 +37,7 @@ module GeoPattern
 
       def generate_background
         svg = SvgImage.new
-        svg.rect(0, 0, "100%", "100%", "fill" => color)
+        svg.rect(0, 0, '100%', '100%', 'fill' => color)
 
         svg
       end

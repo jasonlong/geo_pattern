@@ -13,4 +13,3 @@ RSpec::Matchers.define :have_name do |expected|
     "expected that #{actual} has name \"#{expected}\""
   end
 end
-

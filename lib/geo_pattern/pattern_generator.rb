@@ -1,6 +1,5 @@
 module GeoPattern
   class PatternGenerator
-
     private
 
     attr_reader :background_generator, :structure_generator

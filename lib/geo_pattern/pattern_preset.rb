@@ -1,6 +1,5 @@
 module GeoPattern
   class PatternPreset
-
     private
 
     attr_accessor :options

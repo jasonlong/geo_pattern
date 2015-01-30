@@ -1,6 +1,5 @@
 module GeoPattern
   class ColorPreset
-
     private
 
     attr_accessor :options

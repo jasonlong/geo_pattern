@@ -44,7 +44,7 @@ RSpec.describe GeoPattern do
         subject(:pattern) { GeoPattern.generate(input, generator: chosen_pattern) }
         subject(:other_pattern) { GeoPattern.generate(input, patterns: chosen_pattern) }
 
-        it { expect{ pattern.to_svg }.to output(/deprecated/).to_stderr }
+        it { expect { pattern.to_svg }.to output(/deprecated/).to_stderr }
         it { silence(:stderr) { expect(pattern.to_svg).to eq other_pattern.to_svg } }
       end
 

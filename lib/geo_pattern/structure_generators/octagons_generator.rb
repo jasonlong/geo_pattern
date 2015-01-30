@@ -17,13 +17,13 @@ module GeoPattern
             opacity = opacity(val)
             fill    = fill_color(val)
 
-            svg.polyline(tile, {
-              "fill"           => fill,
-              "fill-opacity"   => opacity,
-              "stroke"         => stroke_color,
-              "stroke-opacity" => stroke_opacity,
-              "transform"      => "translate(#{x*square_size}, #{y*square_size})"
-            })
+            svg.polyline(tile,
+                         'fill'           => fill,
+                         'fill-opacity'   => opacity,
+                         'stroke'         => stroke_color,
+                         'stroke-opacity' => stroke_opacity,
+                         'transform'      => "translate(#{x * square_size}, #{y * square_size})"
+            )
             i += 1
           end
         end
@@ -34,7 +34,7 @@ module GeoPattern
       def build_octogon_shape(square_size)
         s = square_size
         c = s * 0.33
-        "#{c},0,#{s-c},0,#{s},#{c},#{s},#{s-c},#{s-c},#{s},#{c},#{s},0,#{s-c},0,#{c},#{c},0"
+        "#{c},0,#{s - c},0,#{s},#{c},#{s},#{s - c},#{s - c},#{s},#{c},#{s},0,#{s - c},0,#{c},#{c},0"
       end
     end
   end

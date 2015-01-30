@@ -36,5 +36,5 @@ module Kernel
     captured_stream.unlink
     stream_io.reopen(origin_stream)
   end
-  alias :silence :capture
+  alias_method :silence, :capture
 end

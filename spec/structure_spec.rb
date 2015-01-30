@@ -35,5 +35,4 @@ RSpec.describe Structure do
   it_behaves_like 'a forwarded metadata argument', :stroke_opacity
   it_behaves_like 'a forwarded metadata argument', :opacity_min
   it_behaves_like 'a forwarded metadata argument', :opacity_max
-
 end

@@ -18,21 +18,18 @@ module GeoPattern
           x_offset = period / 4 * 0.7
 
           styles = {
-            "fill"      => "none",
-            "stroke"    => fill,
-            "style"     => {
-              "opacity"      => opacity,
-              "stroke-width" => "#{wave_width}px"
+            'fill'      => 'none',
+            'stroke'    => fill,
+            'style'     => {
+              'opacity'      => opacity,
+              'stroke-width' => "#{wave_width}px"
             }
           }
 
-          str = "M0 "+amplitude.to_s+
-            " C "+x_offset.to_s+" 0, "+(period/2 - x_offset).to_s+" 0, "+(period/2).to_s+" "+amplitude.to_s+
-            " S "+(period-x_offset).to_s+" "+(amplitude*2).to_s+", "+period.to_s+" "+amplitude.to_s+
-            " S "+(period*1.5-x_offset).to_s+" 0, "+(period*1.5).to_s+", "+amplitude.to_s;
+          str = 'M0 ' + amplitude.to_s +                 ' C ' + x_offset.to_s + ' 0, ' + (period / 2 - x_offset).to_s + ' 0, ' + (period / 2).to_s + ' ' + amplitude.to_s +                 ' S ' + (period - x_offset).to_s + ' ' + (amplitude * 2).to_s + ', ' + period.to_s + ' ' + amplitude.to_s +                 ' S ' + (period * 1.5 - x_offset).to_s + ' 0, ' + (period * 1.5).to_s + ', ' + amplitude.to_s
 
-          svg.path(str, styles.merge({"transform" => "translate(-#{period/4}, #{wave_width*i-amplitude*1.5})"}))
-          svg.path(str, styles.merge({"transform" => "translate(-#{period/4}, #{wave_width*i-amplitude*1.5 + wave_width*36})"}))
+          svg.path(str, styles.merge('transform' => "translate(-#{period / 4}, #{wave_width * i - amplitude * 1.5})"))
+          svg.path(str, styles.merge('transform' => "translate(-#{period / 4}, #{wave_width * i - amplitude * 1.5 + wave_width * 36})"))
         end
 
         svg

@@ -1,6 +1,6 @@
 module GeoPattern
   class Structure
-    include  Roles::ComparableMetadata
+    include Roles::ComparableMetadata
 
     extend Forwardable
 

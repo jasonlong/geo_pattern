@@ -19,28 +19,28 @@ module GeoPattern
             fill    = fill_color(val)
 
             svg.circle(
-              x*ring_size + x*stroke_width + (ring_size + stroke_width)/2,
-              y*ring_size + y*stroke_width + (ring_size + stroke_width)/2,
-              ring_size/2, {
-                "fill"   => "none",
-                "stroke" => fill,
-                "style"  => {
-                  "opacity" => opacity,
-                  "stroke-width" => "#{stroke_width}px"
-                }
-              })
+              x * ring_size + x * stroke_width + (ring_size + stroke_width) / 2,
+              y * ring_size + y * stroke_width + (ring_size + stroke_width) / 2,
+              ring_size / 2,
+              'fill'   => 'none',
+              'stroke' => fill,
+              'style'  => {
+                'opacity' => opacity,
+                'stroke-width' => "#{stroke_width}px"
+              }
+              )
 
-            val     = hex_val(39-i, 1)
+            val     = hex_val(39 - i, 1)
             opacity = opacity(val)
             fill    = fill_color(val)
 
             svg.circle(
-              x*ring_size + x*stroke_width + (ring_size + stroke_width)/2,
-              y*ring_size + y*stroke_width + (ring_size + stroke_width)/2,
-              ring_size/4, {
-                "fill"         => fill,
-                "fill-opacity" => opacity
-              })
+              x * ring_size + x * stroke_width + (ring_size + stroke_width) / 2,
+              y * ring_size + y * stroke_width + (ring_size + stroke_width) / 2,
+              ring_size / 4,
+              'fill'         => fill,
+              'fill-opacity' => opacity
+              )
 
             i += 1
           end

@@ -35,7 +35,7 @@ RSpec.describe PatternStore do
           allow(hash_store).to receive(:[]).with('pattern1').and_return(Pattern1)
         end
 
-        it do 
+        it do
           silence :stderr do
             expect(pattern_store['pattern1']).to eq Pattern1
           end
@@ -66,7 +66,7 @@ RSpec.describe PatternStore do
       end
 
       context 'as string' do
-        it do 
+        it do
           silence :stderr do
             expect(pattern_store['pattern1']).to be_nil
           end

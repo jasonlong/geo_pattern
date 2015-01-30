@@ -3,13 +3,12 @@ module GeoPattern
   module Roles
     # A comparable metadata
     module ComparableMetadata
-
       def self.included(base)
         base.extend ClassMethods
       end
 
       def generator?(value)
-        return false unless value.kind_of?(Class) || value == nil
+        return false unless value.is_a?(Class) || value.nil?
         return true if value.nil? && @generator
 
         return true if value == generator

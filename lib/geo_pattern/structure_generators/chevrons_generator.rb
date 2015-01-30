@@ -19,18 +19,18 @@ module GeoPattern
             fill    = fill_color(val)
 
             styles  = {
-              "stroke"         => stroke_color,
-              "stroke-opacity" => stroke_opacity,
-              "fill"           => fill,
-              "fill-opacity"   => opacity,
-              "stroke-width"   => 1
+              'stroke'         => stroke_color,
+              'stroke-opacity' => stroke_opacity,
+              'fill'           => fill,
+              'fill-opacity'   => opacity,
+              'stroke-width'   => 1
             }
 
-            svg.group(chevron, styles.merge({"transform" => "translate(#{x*chevron_width},#{y*chevron_height*0.66 - chevron_height/2})"}))
+            svg.group(chevron, styles.merge('transform' => "translate(#{x * chevron_width},#{y * chevron_height * 0.66 - chevron_height / 2})"))
 
             # Add an extra row at the end that matches the first row, for tiling.
             if (y == 0)
-              svg.group(chevron, styles.merge({"transform" => "translate(#{x*chevron_width},#{6*chevron_height*0.66 - chevron_height/2})"}))
+              svg.group(chevron, styles.merge('transform' => "translate(#{x * chevron_width},#{6 * chevron_height * 0.66 - chevron_height / 2})"))
             end
             i += 1
           end
@@ -42,8 +42,8 @@ module GeoPattern
       def build_chevron_shape(width, height)
         e = height * 0.66
         [
-          %Q{polyline("0,0,#{width/2},#{height-e},#{width/2},#{height},0,#{e},0,0")},
-          %Q{polyline("#{width/2},#{height-e},#{width},0,#{width},#{e},#{width/2},#{height},#{width/2},#{height-e}")}
+          %{polyline("0,0,#{width / 2},#{height - e},#{width / 2},#{height},0,#{e},0,0")},
+          %{polyline("#{width / 2},#{height - e},#{width},0,#{width},#{e},#{width / 2},#{height},#{width / 2},#{height - e}")}
         ]
       end
     end

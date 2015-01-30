@@ -2,11 +2,11 @@ require 'spec_helper'
 
 RSpec.describe ColorPreset do
   subject(:preset) { ColorPreset.new(options) }
-  let(:options) { 
+  let(:options) do
     {
       base_color: '#0f0f0f'
     }
-  }
+  end
 
   it { expect(preset).not_to be nil }
 
@@ -16,12 +16,12 @@ RSpec.describe ColorPreset do
 
   describe '#color' do
     context 'when set' do
-      let(:options) { 
+      let(:options) do
         {
           base_color: '#0f0f0f',
           color: '#1f1f1f'
         }
-      }
+      end
 
       it { expect(preset.color).to eq '#1f1f1f' }
     end
@@ -29,23 +29,23 @@ RSpec.describe ColorPreset do
 
   describe '#color?' do
     context 'when nil' do
-      let(:options) { 
+      let(:options) do
         {
           base_color: '#0f0f0f',
           color: nil
         }
-      }
+      end
 
       it { expect(preset).not_to be_color }
     end
 
     context 'when defined' do
-      let(:options) { 
+      let(:options) do
         {
           base_color: '#0f0f0f',
           color: '#1f1f1f'
         }
-      }
+      end
 
       it { expect(preset).to be_color }
     end

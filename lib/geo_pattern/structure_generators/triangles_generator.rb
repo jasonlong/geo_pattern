@@ -6,7 +6,7 @@ module GeoPattern
       def generate_structure
         scale           = hex_val(0, 1)
         side_length     = map(scale, 0, 15, 15, 80)
-        triangle_height = side_length/2 * Math.sqrt(3)
+        triangle_height = side_length / 2 * Math.sqrt(3)
         triangle        = build_triangle_shape(side_length, triangle_height)
 
         svg.set_width(side_length * 3)
@@ -20,26 +20,26 @@ module GeoPattern
             fill    = fill_color(val)
 
             styles = {
-              "fill"           => fill,
-              "fill-opacity"   => opacity,
-              "stroke"         => stroke_color,
-              "stroke-opacity" => stroke_opacity
+              'fill'           => fill,
+              'fill-opacity'   => opacity,
+              'stroke'         => stroke_color,
+              'stroke-opacity' => stroke_opacity
             }
 
-            rotation = ""
+            rotation = ''
             if y % 2 == 0
               rotation = x % 2 == 0 ? 180 : 0
             else
               rotation = x % 2 != 0 ? 180 : 0
             end
 
-            svg.polyline(triangle, styles.merge({
-              "transform" => "translate(#{x*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"}))
+            svg.polyline(triangle, styles.merge(
+              'transform' => "translate(#{x * side_length * 0.5 - side_length / 2}, #{triangle_height * y}) rotate(#{rotation}, #{side_length / 2}, #{triangle_height / 2})"))
 
             # Add an extra one at top-right, for tiling.
             if (x == 0)
-              svg.polyline(triangle, styles.merge({
-                "transform" => "translate(#{6*side_length*0.5 - side_length/2}, #{triangle_height*y}) rotate(#{rotation}, #{side_length/2}, #{triangle_height/2})"}))
+              svg.polyline(triangle, styles.merge(
+                'transform' => "translate(#{6 * side_length * 0.5 - side_length / 2}, #{triangle_height * y}) rotate(#{rotation}, #{side_length / 2}, #{triangle_height / 2})"))
             end
             i += 1
           end

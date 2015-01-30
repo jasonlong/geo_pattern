@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe PatternPreset do
   subject(:preset) { PatternPreset.new(options) }
-  let(:options) { 
+  let(:options) do
     {
       fill_color_dark: '#222',
       fill_color_light: '#ddd',
@@ -11,7 +11,7 @@ RSpec.describe PatternPreset do
       opacity_min: 0.02,
       opacity_max: 0.15
     }
-  }
+  end
 
   it { expect(preset).not_to be nil }
 
@@ -38,5 +38,4 @@ RSpec.describe PatternPreset do
   describe '#opacity_max' do
     it { expect(preset.opacity_max).to eq 0.15 }
   end
-
 end

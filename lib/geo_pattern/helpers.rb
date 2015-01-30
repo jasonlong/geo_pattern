@@ -14,8 +14,8 @@ module GeoPattern
 
       word = camel_cased_word.to_s
 
-      word.gsub!(/([A-Z\d]+)([A-Z][a-z])/,'\1_\2')
-      word.gsub!(/([a-z\d])([A-Z])/,'\1_\2')
+      word.gsub!(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
+      word.gsub!(/([a-z\d])([A-Z])/, '\1_\2')
 
       word.downcase!
 
@@ -39,7 +39,7 @@ module GeoPattern
       path = path.to_s
 
       if i = path.rindex('::')
-        path[(i+2)..-1]
+        path[(i + 2)..-1]
       else
         path
       end

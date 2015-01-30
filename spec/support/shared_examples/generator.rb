@@ -24,7 +24,6 @@ shared_examples 'a structure generator' do |name|
     allow(preset).to receive(:opacity_max).and_return(opacity_max)
   end
 
-
   it { is_expected.not_to be_nil }
   it { is_expected.to respond_to(:generate) }
 

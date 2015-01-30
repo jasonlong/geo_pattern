@@ -3,10 +3,10 @@ require 'spec_helper'
 RSpec.describe BackgroundGenerators::SolidGenerator do
   subject(:generator) {  described_class.new(seed, preset) }
 
-  let(:seed) { instance_double('GeoPattern::Seed' ) }
-  let(:preset) { instance_double('GeoPattern::ColorPreset' ) }
-  let(:pattern) { instance_double('GeoPattern::Pattern' ) }
-  let(:background_metadata) { instance_double('GeoPattern::BackgroundMetadata' ) }
+  let(:seed) { instance_double('GeoPattern::Seed') }
+  let(:preset) { instance_double('GeoPattern::ColorPreset') }
+  let(:pattern) { instance_double('GeoPattern::Pattern') }
+  let(:background_metadata) { instance_double('GeoPattern::BackgroundMetadata') }
 
   let(:color) { '#aaaaaa' }
   let(:base_color) { '#bbbbbb' }

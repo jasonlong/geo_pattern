@@ -25,7 +25,6 @@ module GeoPattern
       [seed.to_i(20, 1), available_patterns.length - 1].min
     end
 
-
     def determine_available_patterns
       patterns = Array(requested_patterns).compact
 
