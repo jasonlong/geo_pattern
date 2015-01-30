@@ -42,7 +42,7 @@ module GeoPattern
 
     # Convert to data uri
     def to_data_uri
-      "url(data:image/svg+xml;base64,#{base64_string});"
+      "url(data:image/svg+xml;base64,#{to_base64});"
     end
 
     # @see #to_data_uri
