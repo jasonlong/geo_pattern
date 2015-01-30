@@ -11,3 +11,60 @@ Metrics/AbcSize:
 
 Lint/Debugger:
   Enabled: false
+
+# Offense count: 1
+# Configuration parameters: AllowSafeAssignment.
+Lint/AssignmentInCondition:
+  Enabled: false
+
+# Offense count: 2
+Lint/Eval:
+  Enabled: false
+
+# Offense count: 6
+Metrics/BlockNesting:
+  Max: 4
+
+# Offense count: 8
+Metrics/CyclomaticComplexity:
+  Max: 22
+
+# Offense count: 155
+# Configuration parameters: AllowURI, URISchemes.
+Metrics/LineLength:
+  Max: 406
+
+# Offense count: 24
+# Configuration parameters: CountComments.
+Metrics/MethodLength:
+  Max: 78
+
+# Offense count: 6
+Metrics/PerceivedComplexity:
+  Max: 10
+
+# Offense count: 2
+Style/AccessorMethodName:
+  Enabled: false
+
+# Offense count: 36
+Style/Documentation:
+  Enabled: false
+
+# Offense count: 1
+Style/EmptyElse:
+  Enabled: false
+
+# Offense count: 10
+Style/EvenOdd:
+  Enabled: false
+
+# Offense count: 28
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+Style/For:
+  Enabled: false
+
+# Offense count: 3
+# Configuration parameters: MaxLineLength.
+Style/IfUnlessModifier:
+  Enabled: false
