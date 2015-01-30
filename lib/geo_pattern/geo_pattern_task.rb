@@ -36,16 +36,19 @@ module GeoPattern
     # @private
     def run_task(_verbose)
       data.each do |path, string|
+        opts = {}
         path    = File.expand_path(path)
-        patterns = if string.is_a? String
-                     allowed_patterns
-                   elsif string.is_a?(Array) && string.size > 1
-                     string[1]
-                   else
-                     nil
-                   end
 
-        pattern = GeoPattern.generate(string, patterns: patterns)
+        if string.is_a?(Hash)
+          input             = string[:input]
+          opts[:patterns]   = string[:patterns] if string.key? :patterns
+          opts[:color]      = string[:color] if string.key? :color
+          opts[:base_color] = string[:base_color] if string.key? :base_color
+        else
+          fail 'Invalid data structure for Rake Task'
+        end
+
+        pattern = GeoPattern.generate(input, opts)
 
         logger.info "Creating pattern at \"#{path}\"."
         FileUtils.mkdir_p File.dirname(path)
