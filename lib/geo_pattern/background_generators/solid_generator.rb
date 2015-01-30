@@ -37,15 +37,18 @@ module GeoPattern
 
       def generate_background
         svg = SvgImage.new
-        svg.rect(0, 0, '100%', '100%', 'fill' => color)
+        svg.rect(0, 0, '100%', '100%', 'fill' => color.to_svg)
 
         svg
       end
 
       def color_for(seed, preset)
-        return PatternHelpers.html_to_rgb(preset.color) if preset.color?
+        return Color.new(preset.color) if preset.color?
 
-        PatternHelpers.html_to_rgb_for_string(seed, preset.base_color)
+        color = Color.new(preset.base_color)
+        color.transform_with(seed)
+
+        color
       end
     end
   end

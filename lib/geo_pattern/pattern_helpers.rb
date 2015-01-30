@@ -15,13 +15,13 @@ module GeoPattern
     end
 
     def html_to_rgb(color)
-      generate_rgb_string(Color::RGB.from_html(color))
+      generate_rgb_string(::Color::RGB.from_html(color))
     end
 
     def html_to_rgb_for_string(seed, base_color)
       hue_offset     = map(seed.to_i(14, 3), 0, 4095, 0, 359)
       sat_offset     = seed.to_i(17, 1)
-      base_color     = Color::RGB.from_html(base_color).to_hsl
+      base_color     = ::Color::RGB.from_html(base_color).to_hsl
       base_color.hue = base_color.hue - hue_offset
 
       if (sat_offset % 2 == 0)

@@ -159,8 +159,12 @@ following methods.
 ```ruby
 pattern = GeoPattern.generate('Mastering Markdown', patterns: [:sine_waves, :xes])
 
-# The color of the background
-pattern.background.color
+# The color of the background in html notation
+pattern.background.color.to_html
+
+# The color of the background in svg notation
+pattern.background.color.to_svg
+
 
 # The input colors
 pattern.background.preset.color
