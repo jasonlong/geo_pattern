@@ -3,11 +3,21 @@
 
 # GeoPattern
 
-Generate beautiful tiling SVG patterns from a string. The string is converted into a SHA and a color and pattern are determined based on the values in the hash. The color is determined by shifting the hue and saturation from a default (or passed in) base color. One of 16 patterns is used (or you can specify one) and the sizing of the pattern elements is also determined by the hash values.
+Generate beautiful tiling SVG patterns from a string. The string is converted
+into a SHA and a color and pattern are determined based on the values in the
+hash. The color is determined by shifting the hue and saturation from a default
+(or passed in) base color. One of 16 patterns is used (or you can specify one)
+and the sizing of the pattern elements is also determined by the hash values.
 
-You can use the generated pattern as the `background-image` for a container. Using the `base64` representation of the pattern still results in SVG rendering, so it looks great on retina displays.
+You can use the generated pattern as the `background-image` for a container.
+Using the `base64` representation of the pattern still results in SVG
+rendering, so it looks great on retina displays.
 
-See the [GitHub Guides](http://guides.github.com) site and the [Explore section of GitHub](https://github.com/explore) are examples of this library in action. Brandon Mills has put together an awesome [live preview page](http://btmills.github.io/geopattern/geopattern.html) that's built on his Javascript port.
+See the [GitHub Guides](http://guides.github.com) site and the [Explore section
+of GitHub](https://github.com/explore) are examples of this library in action.
+Brandon Mills has put together an awesome [live preview
+page](http://btmills.github.io/geopattern/geopattern.html) that's built on his
+Javascript port.
 
 ## Installation
 
@@ -58,21 +68,21 @@ pattern = GeoPattern.generate('Mastering Markdown', patterns: [:sine_waves, :xes
 Get the SVG string:
 
 ```ruby
-puts pattern.svg_string
+puts pattern.to_svg
 # => <svg xmlns="http://www.w3.org/2000/svg" ...
 ```
 
 Get the Base64 encoded string:
 
 ```ruby
-puts pattern.base64_string
+puts pattern.to_base64
 # => PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC...
 ```
 
 You can then use this string to set the background:
 
 ```html
-<div style="background-image: <%= pattern.uri_image %>"></div>
+<div style="background-image: <%= pattern.to_data_uri %>"></div>
 ```
 
 ## Available patterns
