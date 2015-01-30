@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Structure do
-  subject(:structure) { described_class.new(image: svg_image, preset: preset, generator: generator, name: name) }
+  subject(:metadata) { described_class.new(image: svg_image, preset: preset, generator: generator, name: name) }
 
   let(:svg_image) { instance_double('GeoPattern::SvgImage') }
   let(:svg_image_content) { fixtures_path('generated_patterns/sine_waves.svg').read.chomp }
@@ -27,13 +27,13 @@ RSpec.describe Structure do
     allow(preset).to receive(:opacity_max).and_return(opacity_max)
   end
 
-  it_behaves_like 'a structure argument', :name
-  it_behaves_like 'a structure argument', :generator
-  it_behaves_like 'a forwarded structure argument', :fill_color_dark
-  it_behaves_like 'a forwarded structure argument', :fill_color_light
-  it_behaves_like 'a forwarded structure argument', :stroke_color
-  it_behaves_like 'a forwarded structure argument', :stroke_opacity
-  it_behaves_like 'a forwarded structure argument', :opacity_min
-  it_behaves_like 'a forwarded structure argument', :opacity_max
+  it_behaves_like 'a metadata argument', :name
+  it_behaves_like 'a metadata argument', :generator
+  it_behaves_like 'a forwarded metadata argument', :fill_color_dark
+  it_behaves_like 'a forwarded metadata argument', :fill_color_light
+  it_behaves_like 'a forwarded metadata argument', :stroke_color
+  it_behaves_like 'a forwarded metadata argument', :stroke_opacity
+  it_behaves_like 'a forwarded metadata argument', :opacity_min
+  it_behaves_like 'a forwarded metadata argument', :opacity_max
 
 end

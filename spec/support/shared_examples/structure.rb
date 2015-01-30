@@ -1,12 +1,12 @@
-shared_examples 'a structure argument' do |argument|
+shared_examples 'a metadata argument' do |argument|
   describe "##{argument}" do
-    it { expect(structure.public_send(argument)).to eq public_send(argument) }
+    it { expect(metadata.public_send(argument)).to eq public_send(argument) }
   end
 
   describe "##{argument}?" do
     context "when #{argument} is not defined" do
       let(argument) { nil }
-      it { expect { structure }.to raise_error ArgumentError, "Argument #{argument} is missing" }
+      it { expect { metadata }.to raise_error ArgumentError, "Argument #{argument} is missing" }
     end
 
     context "when #{argument} is defined" do
@@ -25,9 +25,9 @@ shared_examples 'a structure argument' do |argument|
   end
 end
 
-shared_examples 'a forwarded structure argument' do |argument|
+shared_examples 'a forwarded metadata argument' do |argument|
   describe "##{argument}" do
-    it { expect(structure.public_send(argument)).to eq public_send(argument) }
+    it { expect(metadata.public_send(argument)).to eq public_send(argument) }
   end
 
   describe "##{argument}?" do
