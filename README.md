@@ -193,7 +193,8 @@ GeoPattern::GeoPatternTask.new(
   name: 'generate',
   description: 'Generate patterns to make them available as fixtures',
   data: {
-    'fixtures/generated_patterns/octagons.svg' => [string, :octagons],
+    'fixtures/generated_patterns/diamonds_with_color.svg'      => { input: string, patterns: [:diamonds], color: '#00ff00' },
+    'fixtures/generated_patterns/diamonds_with_base_color.svg' => { input: string, patterns: [:diamonds], base_color: '#00ff00' }
   }
 )
 ```
