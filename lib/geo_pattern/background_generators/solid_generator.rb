@@ -43,12 +43,9 @@ module GeoPattern
       end
 
       def color_for(seed, preset)
-        return Color.new(preset.color) if preset.color?
+        return ColorGenerators::SimpleGenerator.new(preset.color).generate if preset.color?
 
-        color = Color.new(preset.base_color)
-        color.transform_with(seed)
-
-        color
+        ColorGenerators::BaseColorGenerator.new(preset.base_color, seed).generate
       end
     end
   end

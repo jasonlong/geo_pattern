@@ -24,6 +24,9 @@ require 'geo_pattern/color_preset'
 require 'geo_pattern/structure'
 require 'geo_pattern/background'
 
+require 'geo_pattern/color_generators/simple_generator'
+require 'geo_pattern/color_generators/base_color_generator'
+
 require 'geo_pattern/background_generators/solid_generator'
 
 require 'geo_pattern/structure_generators/base_generator'
