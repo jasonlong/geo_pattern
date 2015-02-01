@@ -4,7 +4,7 @@ require 'spec_helper'
 RSpec.describe GeoPattern do
   subject(:pattern) { GeoPattern.generate(input) }
   let(:input) { 'Mastering Markdown' }
-  let(:color) { '#fc0' }
+  let(:color) { '#ffcc00' }
   let(:rgb_base_color) { PatternHelpers.html_to_rgb_for_string(seed, color) }
   let(:seed) { instance_double('GeoPattern::Seed') }
 
@@ -24,19 +24,19 @@ RSpec.describe GeoPattern do
     context 'set background color of generated pattern' do
       context 'when a base color is set' do
         subject(:pattern) { GeoPattern.generate(input, base_color: color) }
+        let(:new_color) { '#04fbf6' }
 
-        it { expect(pattern.to_svg).to include(rgb_base_color) }
+        it { expect(pattern.background.color.to_html).to eq(new_color) }
       end
 
       context 'when a color is set' do
         subject(:pattern) { GeoPattern.generate(input, color: color) }
-        let(:rgb_base_color) { PatternHelpers.html_to_rgb(color) }
 
-        it { expect(pattern.to_svg).to include(rgb_base_color) }
+        it { expect(pattern.background.color.to_html).to eq(color) }
       end
     end
 
-    context 'specify the generator' do
+    context 'specify the pattern' do
       subject(:pattern) { GeoPattern.generate(input, pattern: chosen_pattern) }
       let(:chosen_pattern) { :sine_waves }
 
