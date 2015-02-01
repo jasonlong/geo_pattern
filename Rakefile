@@ -22,7 +22,7 @@ namespace :gem do
 end
 
 namespace :fixtures do
-  string = 'Master Markdown'
+  string = 'Mastering Markdown'
 
   GeoPattern::GeoPatternTask.new(
     name: 'generate',
