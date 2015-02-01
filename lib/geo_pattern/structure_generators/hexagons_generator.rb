@@ -3,16 +3,20 @@ module GeoPattern
     class HexagonsGenerator < BaseGenerator
       private
 
+      attr_reader :scale, :side_length, :hex_height, :hex_width, :hex
+
+      def after_initialize
+        @scale       = hex_val(0, 1)
+        @side_length = map(scale, 0, 15, 8, 60)
+        @hex_height  = side_length * Math.sqrt(3)
+        @hex_width   = side_length * 2
+        @hex         = build_hexagon_shape(side_length)
+
+        self.width  = hex_width * 3 + side_length * 3
+        self.height = hex_height * 6
+      end
+
       def generate_structure
-        scale       = hex_val(0, 1)
-        side_length = map(scale, 0, 15, 8, 60)
-        hex_height  = side_length * Math.sqrt(3)
-        hex_width   = side_length * 2
-        hex         = build_hexagon_shape(side_length)
-
-        svg.set_width((hex_width * 3) + (side_length * 3))
-        svg.set_height(hex_height * 6)
-
         i = 0
         for y in 0..5
           for x in 0..5

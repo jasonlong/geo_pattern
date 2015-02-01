@@ -3,14 +3,18 @@ module GeoPattern
     class DiamondsGenerator < BaseGenerator
       private
 
+      attr_reader :diamond_height, :diamond_width, :diamond
+
+      def after_initialize
+        @diamond_width  = map(hex_val(0, 1), 0, 15, 10, 50)
+        @diamond_height = map(hex_val(1, 1), 0, 15, 10, 50)
+        @diamond        = build_diamond_shape(diamond_width, diamond_height)
+
+        self.height = diamond_height * 3
+        self.width  = diamond_width * 6
+      end
+
       def generate_structure
-        diamond_width  = map(hex_val(0, 1), 0, 15, 10, 50)
-        diamond_height = map(hex_val(1, 1), 0, 15, 10, 50)
-        diamond        = build_diamond_shape(diamond_width, diamond_height)
-
-        svg.set_width(diamond_width * 6)
-        svg.set_height(diamond_height * 3)
-
         i = 0
         for y in 0..5
           for x in 0..5

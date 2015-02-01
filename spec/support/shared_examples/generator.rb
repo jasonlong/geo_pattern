@@ -22,14 +22,17 @@ shared_examples 'a structure generator' do |name|
     allow(preset).to receive(:stroke_opacity).and_return(stroke_opacity)
     allow(preset).to receive(:opacity_min).and_return(opacity_min)
     allow(preset).to receive(:opacity_max).and_return(opacity_max)
+
+    allow(seed).to receive(:to_i).and_return(1)
   end
 
   it { is_expected.not_to be_nil }
   it { is_expected.to respond_to(:generate) }
 
   it do
-    allow(seed).to receive(:to_i).and_return(1)
     expect(pattern).to receive(:structure=).with(kind_of(Structure))
+    expect(pattern).to receive(:height=).with(kind_of(Numeric))
+    expect(pattern).to receive(:width=).with(kind_of(Numeric))
 
     subject.generate(pattern)
   end

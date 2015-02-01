@@ -3,14 +3,17 @@ module GeoPattern
     class OverlappingCirclesGenerator < BaseGenerator
       private
 
+      attr_reader :scale, :diameter, :radius
+
+      def after_initialize
+        @scale    = hex_val(0, 1)
+        @diameter = map(scale, 0, 15, 25, 200)
+        @radius   = diameter / 2
+
+        self.height = self.width = radius * 6
+      end
+
       def generate_structure
-        scale    = hex_val(0, 1)
-        diameter = map(scale, 0, 15, 25, 200)
-        radius   = diameter / 2
-
-        svg.set_width(radius * 6)
-        svg.set_height(radius * 6)
-
         i = 0
         for y in 0..5
           for x in 0..5

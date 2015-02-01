@@ -3,14 +3,17 @@ module GeoPattern
     class OverlappingRingsGenerator < BaseGenerator
       private
 
+      attr_reader :scale, :ring_size, :stroke_width
+
+      def after_initialize
+        @scale        = hex_val(0, 1)
+        @ring_size    = map(scale, 0, 15, 10, 60)
+        @stroke_width = ring_size / 4
+
+        self.height = self.width = ring_size * 6
+      end
+
       def generate_structure
-        scale        = hex_val(0, 1)
-        ring_size    = map(scale, 0, 15, 10, 60)
-        stroke_width = ring_size / 4
-
-        svg.set_width(ring_size * 6)
-        svg.set_height(ring_size * 6)
-
         i = 0
         for y in 0..5
           for x in 0..5

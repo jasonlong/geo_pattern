@@ -3,12 +3,15 @@ module GeoPattern
     class SquaresGenerator < BaseGenerator
       private
 
+      attr_reader :square_size
+
+      def after_initialize
+        @square_size = map(hex_val(0, 1), 0, 15, 10, 60)
+
+        self.height = self.width = square_size * 6
+      end
+
       def generate_structure
-        square_size = map(hex_val(0, 1), 0, 15, 10, 60)
-
-        svg.set_width(square_size * 6)
-        svg.set_height(square_size * 6)
-
         i = 0
         for y in 0..5
           for x in 0..5

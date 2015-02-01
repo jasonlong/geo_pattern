@@ -3,13 +3,16 @@ module GeoPattern
     class OctagonsGenerator < BaseGenerator
       private
 
+      attr_reader :square_size, :tile
+
+      def after_initialize
+        @square_size = map(hex_val(0, 1), 0, 15, 10, 60)
+        @tile        = build_octogon_shape(square_size)
+
+        self.height = self.width = square_size * 6
+      end
+
       def generate_structure
-        square_size = map(hex_val(0, 1), 0, 15, 10, 60)
-        tile        = build_octogon_shape(square_size)
-
-        svg.set_width(square_size * 6)
-        svg.set_height(square_size * 6)
-
         i = 0
         for y in 0..5
           for x in 0..5

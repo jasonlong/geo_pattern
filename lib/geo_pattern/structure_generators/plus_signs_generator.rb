@@ -3,14 +3,17 @@ module GeoPattern
     class PlusSignsGenerator < BaseGenerator
       private
 
+      attr_reader :square_size, :plus_size, :plus_shape
+
+      def after_initialize
+        @square_size = map(hex_val(0, 1), 0, 15, 10, 25)
+        @plus_size   = square_size * 3
+        @plus_shape  = build_plus_shape(square_size)
+
+        self.height = self.width = square_size * 12
+      end
+
       def generate_structure
-        square_size = map(hex_val(0, 1), 0, 15, 10, 25)
-        plus_size   = square_size * 3
-        plus_shape  = build_plus_shape(square_size)
-
-        svg.set_width(square_size * 12)
-        svg.set_height(square_size * 12)
-
         i = 0
         for y in 0..5
           for x in 0..5

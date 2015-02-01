@@ -3,13 +3,16 @@ module GeoPattern
     class NestedSquaresGenerator < BaseGenerator
       private
 
+      attr_reader :block_size, :square_size
+
+      def after_initialize
+        @block_size = map(hex_val(0, 1), 0, 15, 4, 12)
+        @square_size = block_size * 7
+
+        self.height = self.width  = (square_size + block_size) * 6 + block_size * 6
+      end
+
       def generate_structure
-        block_size = map(hex_val(0, 1), 0, 15, 4, 12)
-        square_size = block_size * 7
-
-        svg.set_width((square_size + block_size) * 6 + block_size * 6)
-        svg.set_height((square_size + block_size) * 6 + block_size * 6)
-
         i = 0
         for y in 0..5
           for x in 0..5

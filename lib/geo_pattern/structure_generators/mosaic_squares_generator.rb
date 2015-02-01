@@ -3,12 +3,15 @@ module GeoPattern
     class MosaicSquaresGenerator < BaseGenerator
       private
 
+      attr_reader :triangle_size
+
+      def after_initialize
+        @triangle_size = map(hex_val(0, 1), 0, 15, 15, 50)
+
+        self.height = self.width = triangle_size * 8
+      end
+
       def generate_structure
-        triangle_size = map(hex_val(0, 1), 0, 15, 15, 50)
-
-        svg.set_width(triangle_size * 8)
-        svg.set_height(triangle_size * 8)
-
         i = 0
         for y in 0..3
           for x in 0..3

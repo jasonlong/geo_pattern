@@ -3,14 +3,18 @@ module GeoPattern
     class ChevronsGenerator < BaseGenerator
       private
 
+      attr_reader :chevron_height, :chevron_width, :chevron
+
+      def after_initialize
+        @chevron_width  = map(hex_val(0, 1), 0, 15, 30, 80)
+        @chevron_height = map(hex_val(0, 1), 0, 15, 30, 80)
+        @chevron        = build_chevron_shape(chevron_width, chevron_height)
+
+        self.height = chevron_height * 6 * 0.66
+        self.width  = chevron_width * 6
+      end
+
       def generate_structure
-        chevron_width  = map(hex_val(0, 1), 0, 15, 30, 80)
-        chevron_height = map(hex_val(0, 1), 0, 15, 30, 80)
-        chevron        = build_chevron_shape(chevron_width, chevron_height)
-
-        svg.set_width(chevron_width * 6)
-        svg.set_height(chevron_height * 6 * 0.66)
-
         i = 0
         for y in 0..5
           for x in 0..5

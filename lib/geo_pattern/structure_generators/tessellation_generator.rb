@@ -3,19 +3,23 @@ module GeoPattern
     class TessellationGenerator < BaseGenerator
       private
 
-      def generate_structure
+      attr_reader :side_length, :hex_height, :hex_width, :triangle_height, :triangle, :tile_width, :tile_height
+
+      def after_initialize
         # 3.4.6.4 semi-regular tessellation
-        side_length     = map(hex_val(0, 1), 0, 15, 5, 40)
-        hex_height      = side_length * Math.sqrt(3)
-        hex_width       = side_length * 2
-        triangle_height = side_length / 2 * Math.sqrt(3)
-        triangle        = build_rotated_triangle_shape(side_length, triangle_height)
-        tile_width      = side_length * 3 + triangle_height * 2
-        tile_height     = (hex_height * 2) + (side_length * 2)
+        @side_length     = map(hex_val(0, 1), 0, 15, 5, 40)
+        @hex_height      = side_length * Math.sqrt(3)
+        @hex_width       = side_length * 2
+        @triangle_height = side_length / 2 * Math.sqrt(3)
+        @triangle        = build_rotated_triangle_shape(side_length, triangle_height)
+        @tile_width      = side_length * 3 + triangle_height * 2
+        @tile_height     = (hex_height * 2) + (side_length * 2)
 
-        svg.set_width(tile_width)
-        svg.set_height(tile_height)
+        self.height = tile_height
+        self.width  = tile_width
+      end
 
+      def generate_structure
         for i in 0..19
           val     = hex_val(i, 1)
           opacity = opacity(val)

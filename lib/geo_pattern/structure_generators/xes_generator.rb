@@ -3,14 +3,17 @@ module GeoPattern
     class XesGenerator < BaseGenerator
       private
 
+      attr_reader :square_size, :x_shape, :x_size
+
+      def after_initialize
+        @square_size = map(hex_val(0, 1), 0, 15, 10, 25)
+        @x_shape     = build_plus_shape(square_size) # rotated later
+        @x_size      = square_size * 3 * 0.943
+
+        self.height = self.width = x_size * 3
+      end
+
       def generate_structure
-        square_size = map(hex_val(0, 1), 0, 15, 10, 25)
-        x_shape     = build_plus_shape(square_size) # rotated later
-        x_size      = square_size * 3 * 0.943
-
-        svg.set_width(x_size * 3)
-        svg.set_height(x_size * 3)
-
         i = 0
         for y in 0..5
           for x in 0..5

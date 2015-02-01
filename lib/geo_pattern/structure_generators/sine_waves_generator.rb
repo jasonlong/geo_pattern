@@ -3,14 +3,18 @@ module GeoPattern
     class SineWavesGenerator < BaseGenerator
       private
 
+      attr_reader :period, :amplitude, :wave_width
+
+      def after_initialize
+        @period     = map(hex_val(0, 1), 0, 15, 100, 400).floor
+        @amplitude  = map(hex_val(1, 1), 0, 15, 30, 100).floor
+        @wave_width = map(hex_val(2, 1), 0, 15, 3, 30).floor
+
+        self.height = wave_width * 36
+        self.width  = period
+      end
+
       def generate_structure
-        period     = map(hex_val(0, 1), 0, 15, 100, 400).floor
-        amplitude  = map(hex_val(1, 1), 0, 15, 30, 100).floor
-        wave_width = map(hex_val(2, 1), 0, 15, 3, 30).floor
-
-        svg.set_width(period)
-        svg.set_height(wave_width * 36)
-
         for i in 0..35
           val      = hex_val(i, 1)
           opacity  = opacity(val)

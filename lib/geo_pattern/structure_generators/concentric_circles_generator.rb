@@ -3,14 +3,17 @@ module GeoPattern
     class ConcentricCirclesGenerator < BaseGenerator
       private
 
+      attr_reader :scale, :ring_size, :stroke_width
+
+      def after_initialize
+        @scale        = hex_val(0, 1)
+        @ring_size    = map(scale, 0, 15, 10, 60)
+        @stroke_width = ring_size / 5
+
+        self.width = self.height = (ring_size + stroke_width) * 6
+      end
+
       def generate_structure
-        scale        = hex_val(0, 1)
-        ring_size    = map(scale, 0, 15, 10, 60)
-        stroke_width = ring_size / 5
-
-        svg.set_width((ring_size + stroke_width) * 6)
-        svg.set_height((ring_size + stroke_width) * 6)
-
         i = 0
         for y in 0..5
           for x in 0..5

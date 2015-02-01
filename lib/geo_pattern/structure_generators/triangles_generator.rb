@@ -3,15 +3,19 @@ module GeoPattern
     class TrianglesGenerator < BaseGenerator
       private
 
+      attr_reader :scale, :side_length, :triangle_height, :triangle
+
+      def after_initialize
+        @scale           = hex_val(0, 1)
+        @side_length     = map(scale, 0, 15, 15, 80)
+        @triangle_height = side_length / 2 * Math.sqrt(3)
+        @triangle        = build_triangle_shape(side_length, triangle_height)
+
+        self.width  = side_length * 3
+        self.height = triangle_height * 6
+      end
+
       def generate_structure
-        scale           = hex_val(0, 1)
-        side_length     = map(scale, 0, 15, 15, 80)
-        triangle_height = side_length / 2 * Math.sqrt(3)
-        triangle        = build_triangle_shape(side_length, triangle_height)
-
-        svg.set_width(side_length * 3)
-        svg.set_height(triangle_height * 6)
-
         i = 0
         for y in 0..5
           for x in 0..5

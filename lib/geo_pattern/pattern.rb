@@ -6,7 +6,7 @@ module GeoPattern
 
     public
 
-    attr_accessor :background, :structure
+    attr_accessor :background, :structure, :height, :width
 
     def initialize(svg_image = SvgImage.new)
       @svg_image = svg_image
@@ -72,6 +72,9 @@ module GeoPattern
     private
 
     def image
+      svg_image.set_height height
+      svg_image.set_width width
+
       svg_image << background.image if background
       svg_image << structure.image if structure
 
