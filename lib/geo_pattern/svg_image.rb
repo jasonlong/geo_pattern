@@ -8,6 +8,8 @@ module GeoPattern
 
     public
 
+    attr_reader :height, :width
+
     def initialize
       @width      = 100
       @height     = 100
