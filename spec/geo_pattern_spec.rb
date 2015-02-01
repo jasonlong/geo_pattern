@@ -75,6 +75,23 @@ RSpec.describe GeoPattern do
         context 'multiple string patterns' do
           it { expect { GeoPattern.generate(input, patterns: [:sine_waves, 'invalid_pattern']) }.to raise_error InvalidPatternError }
         end
+
+        it_behaves_like 'a chosen pattern', :chevrons
+        it_behaves_like 'a chosen pattern', :concentric_circles
+        it_behaves_like 'a chosen pattern', :diamonds
+        it_behaves_like 'a chosen pattern', :hexagons
+        it_behaves_like 'a chosen pattern', :mosaic_squares
+        it_behaves_like 'a chosen pattern', :nested_squares
+        it_behaves_like 'a chosen pattern', :octagons
+        it_behaves_like 'a chosen pattern', :overlapping_circles
+        it_behaves_like 'a chosen pattern', :overlapping_rings
+        it_behaves_like 'a chosen pattern', :plaid
+        it_behaves_like 'a chosen pattern', :plus_signs
+        it_behaves_like 'a chosen pattern', :sine_waves
+        it_behaves_like 'a chosen pattern', :squares
+        it_behaves_like 'a chosen pattern', :tessellation
+        it_behaves_like 'a chosen pattern', :triangles
+        it_behaves_like 'a chosen pattern', :xes
       end
     end
   end
