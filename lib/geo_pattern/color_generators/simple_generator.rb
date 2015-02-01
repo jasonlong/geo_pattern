@@ -21,7 +21,7 @@ module GeoPattern
 
       # Generator color
       def generate
-        Color.new(color)
+        creator.new(color)
       end
     end
   end

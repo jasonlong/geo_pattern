@@ -22,7 +22,7 @@ module GeoPattern
 
       # Generator color
       def generate
-        Color.new(transform(color, seed))
+        creator.new(transform(color, seed))
       end
 
       private
