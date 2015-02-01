@@ -72,8 +72,8 @@ module GeoPattern
     private
 
     def image
-      svg_image.set_height height
-      svg_image.set_width width
+      svg_image.height = height
+      svg_image.width  = width
 
       svg_image << background.image if background
       svg_image << structure.image if structure

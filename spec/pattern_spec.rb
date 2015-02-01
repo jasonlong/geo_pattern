@@ -16,8 +16,8 @@ RSpec.describe Pattern do
 
   before :each do
     allow(svg_image).to receive(:to_s).and_return svg_image_content
-    allow(svg_image).to receive(:set_height).and_return 100
-    allow(svg_image).to receive(:set_width).and_return 100
+    allow(svg_image).to receive(:height=).and_return 100
+    allow(svg_image).to receive(:width=).and_return 100
 
     allow(background).to receive(:image).and_return background_image
 

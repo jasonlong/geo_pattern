@@ -14,11 +14,11 @@ module GeoPattern
       @svg_string = ''
     end
 
-    def set_width(width)
+    def width=(width)
       @width = width.floor
     end
 
-    def set_height(height)
+    def height=(height)
       @height = height.floor
     end
 

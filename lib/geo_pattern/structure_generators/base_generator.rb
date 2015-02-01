@@ -42,8 +42,8 @@ module GeoPattern
       # Set Svg Image
       def svg_image
         image = generate_structure
-        image.set_height(height)
-        image.set_width(width)
+        image.height = height
+        image.width  = width
 
         image
       end
