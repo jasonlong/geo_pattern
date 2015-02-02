@@ -140,6 +140,10 @@ You can then use this string to set the background:
 
 ![](http://jasonlong.github.io/geo_pattern/examples/tessellation.png)
 
+### GeoPattern::ChevronPattern
+
+![](http://jasonlong.github.io/geo_pattern/examples/chevrons.png)
+
 
 ## Contributing
 
