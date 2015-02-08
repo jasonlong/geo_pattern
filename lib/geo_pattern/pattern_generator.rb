@@ -13,7 +13,7 @@ module GeoPattern
 
     private
 
-    attr_reader :opts, :hash, :svg
+    attr_reader :opts, :hash, :svg, :color
 
     public
 
@@ -40,13 +40,13 @@ module GeoPattern
     end
 
     def generate_background
-      color = if opts[:color]
+      @color = if opts[:color]
                 PatternHelpers.html_to_rgb(opts[:color])
               else
                 PatternHelpers.html_to_rgb_for_string(hash, opts[:base_color])
               end
 
-      svg.rect(0, 0, "100%", "100%", "fill" => color)
+      svg.rect(0, 0, "100%", "100%", "fill" => @color)
     end
 
     def generate_pattern

@@ -17,6 +17,11 @@ RSpec.describe GeoPattern do
       expect(pattern1.svg_string).to eq pattern2.svg_string
     end
 
+    it 'exposes the background color' do
+      pattern = GeoPattern.generate(string)
+      expect(pattern.color.html).to eq('#3f904d')
+    end
+
     it 'sets background color with adjusting hue and saturation based on string' do
       string = 'Mastering Markdown'
       hash = Digest::SHA1.hexdigest string
