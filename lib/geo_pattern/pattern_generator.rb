@@ -6,10 +6,10 @@ module GeoPattern
 
     public
 
-    def initialize(string, opts = {})
-      $stderr.puts 'Using generator key is deprecated as of 1.3.1' if opts.key? :generator
+    def initialize(string, generator: nil, patterns: nil, base_color: nil, color: nil)
+      $stderr.puts 'Using generator key is deprecated as of 1.3.1' if generator
 
-      requested_patterns = (Array(opts[:generator]) | Array(opts[:patterns])).flatten.compact
+      requested_patterns = (Array(generator) | Array(patterns)).flatten.compact
 
       pattern_preset = PatternPreset.new(
         fill_color_dark: '#222',

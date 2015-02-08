@@ -21,6 +21,13 @@ RSpec.describe GeoPattern do
       it { expect(pattern.to_svg).to eq other_pattern.to_svg }
     end
 
+    context 'when an invalid option is given' do
+      subject(:pattern) { GeoPattern.generate(input, **args) }
+      let(:args) { { unknown: true } }
+
+      it { expect{ pattern }.to raise_error ArgumentError }
+    end
+
     context 'set background color of generated pattern' do
       context 'when a base color is set' do
         subject(:pattern) { GeoPattern.generate(input, base_color: color) }
@@ -37,7 +44,8 @@ RSpec.describe GeoPattern do
     end
 
     context 'specify the pattern' do
-      subject(:pattern) { GeoPattern.generate(input, pattern: chosen_pattern) }
+      subject(:pattern) { GeoPattern.generate(input, patterns: chosen_pattern) }
+
       let(:chosen_pattern) { :sine_waves }
 
       context 'when the deprecated generator option is used' do
