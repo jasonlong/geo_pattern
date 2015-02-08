@@ -1,4 +1,21 @@
 module GeoPattern
+  ChevronPattern            = :chevrons
+  ConcentricCirclesPattern  = :concentric_circles
+  DiamondPattern            = :diamonds
+  HexagonPattern            = :hexagons
+  MosaicSquaresPattern      = :mosaic_squares
+  NestedSquaresPattern      = :nested_squares
+  OctagonPattern            = :octagons
+  OverlappingCirclesPattern = :overlapping_circles
+  OverlappingRingsPattern   = :overlapping_rings
+  PlaidPattern              = :plaid
+  PlusSignPattern           = :plus_signs
+  SineWavePattern           = :sine_waves
+  SquarePattern             = :squares
+  TessellationPattern       = :tessellation
+  TrianglePattern           = :triangles
+  XesPattern                = :xes
+
   class PatternStore
     private
 
@@ -6,8 +23,8 @@ module GeoPattern
 
     public
 
-    def initialize(
-      store = HashStore.new(
+    def initialize
+      @store = {
         chevrons: StructureGenerators::ChevronsGenerator,
         concentric_circles: StructureGenerators::ConcentricCirclesGenerator,
         diamonds: StructureGenerators::DiamondsGenerator,
@@ -24,26 +41,13 @@ module GeoPattern
         tessellation: StructureGenerators::TessellationGenerator,
         triangles: StructureGenerators::TrianglesGenerator,
         xes: StructureGenerators::XesGenerator
-      )
-    )
-
-      @store = store
+      }
     end
 
     def [](pattern)
-      if pattern.is_a?(String) || pattern.is_a?(Symbol)
-        $stderr.puts 'String pattern references are deprecated as of 1.3.0' if pattern.is_a?(String)
+      $stderr.puts 'String pattern references are deprecated as of 1.3.0' if pattern.is_a?(String)
 
-        return store[pattern]
-      end
-
-      if store.value? pattern
-        $stderr.puts 'Class pattern references are deprecated as of 1.3.0'
-
-        return pattern
-      end
-
-      nil
+      store[pattern.to_s.to_sym]
     end
 
     def all
@@ -51,10 +55,7 @@ module GeoPattern
     end
 
     def known?(pattern)
-      return store.key?(pattern) if pattern.is_a?(String) || pattern.is_a?(Symbol)
-      return store.value?(pattern) if pattern.is_a? Class
-
-      false
+      store.key?(pattern.to_s.to_sym)
     end
   end
 end
