@@ -64,6 +64,25 @@ RSpec.describe GeoPattern do
         it { expect(pattern.structure.name).to eq(:sine_waves).or eq(:xes) }
       end
 
+      context 'when an old style pattern was chosen via class name' do
+        it_behaves_like 'an old style pattern', ChevronPattern , :chevrons
+        it_behaves_like 'an old style pattern', ConcentricCirclesPattern , :concentric_circles
+        it_behaves_like 'an old style pattern', DiamondPattern , :diamonds
+        it_behaves_like 'an old style pattern', HexagonPattern , :hexagons
+        it_behaves_like 'an old style pattern', MosaicSquaresPattern , :mosaic_squares
+        it_behaves_like 'an old style pattern', NestedSquaresPattern , :nested_squares
+        it_behaves_like 'an old style pattern', OctagonPattern , :octagons
+        it_behaves_like 'an old style pattern', OverlappingCirclesPattern , :overlapping_circles
+        it_behaves_like 'an old style pattern', OverlappingRingsPattern , :overlapping_rings
+        it_behaves_like 'an old style pattern', PlaidPattern , :plaid
+        it_behaves_like 'an old style pattern', PlusSignPattern , :plus_signs
+        it_behaves_like 'an old style pattern', SineWavePattern , :sine_waves
+        it_behaves_like 'an old style pattern', SquarePattern , :squares
+        it_behaves_like 'an old style pattern', TessellationPattern , :tessellation
+        it_behaves_like 'an old style pattern', TrianglePattern , :triangles
+        it_behaves_like 'an old style pattern', XesPattern , :xes
+      end
+
       context 'when an valid pattern was chosen' do
         it_behaves_like 'a chosen pattern', :chevrons
         it_behaves_like 'a chosen pattern', :concentric_circles
