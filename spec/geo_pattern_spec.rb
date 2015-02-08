@@ -29,6 +29,8 @@ RSpec.describe GeoPattern do
     end
 
     context 'set background color of generated pattern' do
+      let(:new_color) { '#ffcc00' }
+
       context 'when a base color is set' do
         subject(:pattern) { GeoPattern.generate(input, base_color: color) }
         let(:new_color) { '#04fbf6' }
@@ -39,7 +41,7 @@ RSpec.describe GeoPattern do
       context 'when a color is set' do
         subject(:pattern) { GeoPattern.generate(input, color: color) }
 
-        it { expect(pattern.background.color.to_html).to eq(color) }
+        it { expect(pattern.background.color.to_html).to eq(new_color) }
       end
     end
 
