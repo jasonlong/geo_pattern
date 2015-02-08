@@ -56,34 +56,13 @@ RSpec.describe GeoPattern do
         it { silence(:stderr) { expect(pattern.to_svg).to eq other_pattern.to_svg } }
       end
 
-      context 'when a single pattern is selected' do
-        it { expect(pattern).not_to be_nil }
-      end
-
       context 'when multiple patterns are selected' do
         let(:chosen_pattern) { [:sine_waves, :xes] }
-        it { expect(pattern).not_to be_nil }
+
+        it { expect(pattern.structure.name).to eq(:sine_waves).or eq(:xes) }
       end
 
-      context 'when an invalid generator was chosen' do
-        context 'single symbol pattern name' do
-          it { expect { GeoPattern.generate(input, patterns: :invalid_pattern) }.to raise_error InvalidPatternError }
-        end
-
-        context 'single string pattern name' do
-          it { expect { GeoPattern.generate(input, patterns: 'invalid_pattern') }.to raise_error InvalidPatternError }
-        end
-
-        context 'single class pattern name' do
-          class InvalidPatternClass; end
-
-          it { expect { GeoPattern.generate(input, patterns: InvalidPatternClass) }.to raise_error InvalidPatternError }
-        end
-
-        context 'multiple string patterns' do
-          it { expect { GeoPattern.generate(input, patterns: [:sine_waves, 'invalid_pattern']) }.to raise_error InvalidPatternError }
-        end
-
+      context 'when an valid pattern was chosen' do
         it_behaves_like 'a chosen pattern', :chevrons
         it_behaves_like 'a chosen pattern', :concentric_circles
         it_behaves_like 'a chosen pattern', :diamonds
@@ -100,6 +79,15 @@ RSpec.describe GeoPattern do
         it_behaves_like 'a chosen pattern', :tessellation
         it_behaves_like 'a chosen pattern', :triangles
         it_behaves_like 'a chosen pattern', :xes
+      end
+
+      context 'when invalid patterns were chosen' do
+        InvalidPatternClass = Class.new
+
+        it_behaves_like 'an invalid pattern', InvalidPatternClass
+        it_behaves_like 'an invalid pattern', 'invalid_pattern'
+        it_behaves_like 'an invalid pattern', :invalid_pattern
+        it_behaves_like 'an invalid pattern', [:sine_waves, 'invalid_pattern']
       end
     end
   end
