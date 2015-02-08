@@ -23,9 +23,10 @@ module GeoPattern
       color_preset = ColorPreset.new(
         base_color: '#933c3c'
       )
-      color_preset.update opts
+      color_preset.color      = color if color
+      color_preset.base_color = base_color if base_color
 
-      seed                 = Seed.new(string)
+      seed = Seed.new(string)
 
       pattern_validator    = PatternValidator.new
       pattern_validator.validate(requested_patterns)

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe ColorPreset do
-  subject(:preset) { ColorPreset.new(options) }
+  subject(:preset) { ColorPreset.new(**options) }
   let(:options) do
     {
       base_color: '#0f0f0f'
@@ -27,7 +27,7 @@ RSpec.describe ColorPreset do
     end
   end
 
-  describe '#color?' do
+  describe '#mode?' do
     context 'when nil' do
       let(:options) do
         {
@@ -36,7 +36,7 @@ RSpec.describe ColorPreset do
         }
       end
 
-      it { expect(preset).not_to be_color }
+      it { expect(preset).to be_mode :base_color }
     end
 
     context 'when defined' do
@@ -47,7 +47,7 @@ RSpec.describe ColorPreset do
         }
       end
 
-      it { expect(preset).to be_color }
+      it { expect(preset).to be_mode :color }
     end
   end
 end

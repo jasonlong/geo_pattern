@@ -1,27 +1,23 @@
 module GeoPattern
   class ColorPreset
-    private
 
-    attr_accessor :options
+    attr_accessor :color, :base_color, :mode
 
-    public
-
-    def initialize(options)
-      @options = options
+    def initialize(color: nil, base_color: nil)
+      @color      = color
+      @base_color = base_color
     end
 
-    [:base_color, :color].each do |m|
-      define_method m do
-        options[m]
+    def mode
+      if color.nil? || color.empty?
+        :base_color
+      else
+        :color
       end
     end
 
-    def color?
-      !options[:color].nil? && !options[:color].empty?
-    end
-
-    def update(opts)
-      options.merge! opts
+    def mode?(m)
+      mode == m
     end
   end
 end

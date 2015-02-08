@@ -10,13 +10,13 @@ RSpec.describe BackgroundGenerators::SolidGenerator do
 
   let(:color) { '#aaaaaa' }
   let(:base_color) { '#bbbbbb' }
-  let(:color_should_be_used) { false }
+  let(:base_color_should_be_used) { true }
 
   before :each do
     allow(seed).to receive(:to_i).with(14, 3).and_return(2616)
     allow(seed).to receive(:to_i).with(17, 1).and_return(3)
 
-    allow(preset).to receive(:color?).and_return(color_should_be_used)
+    allow(preset).to receive(:mode?).with(:base_color).and_return(base_color_should_be_used)
     allow(preset).to receive(:color).and_return(color)
     allow(preset).to receive(:base_color).and_return(base_color)
   end
@@ -35,7 +35,7 @@ RSpec.describe BackgroundGenerators::SolidGenerator do
     end
 
     context 'when color is given' do
-      let(:color_should_be_used) { true }
+      let(:base_color_should_be_used) { false }
       let(:generated_color) { %w(170 170 170) }
 
       before :each do
