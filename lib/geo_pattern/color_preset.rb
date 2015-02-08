@@ -8,6 +8,11 @@ module GeoPattern
       @base_color = base_color
     end
 
+
+    # Return mode
+    #
+    # @return [Symbol]
+    #   The color mode 
     def mode
       if color.nil? || color.empty?
         :base_color
