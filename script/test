@@ -18,4 +18,4 @@ else
 fi
 
 echo -en "$info_msg Running rake task \"$rake_task\" "
-rake --trace $rake_task
+bundle exec rake --trace $rake_task
