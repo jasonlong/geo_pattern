@@ -7,11 +7,11 @@ desc 'Run test suite'
 task test: ['test:rubocop', 'test:rspec']
 task 'test:ci' => ['bootstrap:gem_requirements', :test]
 namespace :test do
-  require 'rspec/core/rake_task'
-  RSpec::Core::RakeTask.new(:rspec)
 
-  # require 'rubocop/rake_task'
-  # RuboCop::RakeTask.new
+  task :rspec do
+    sh 'rspec'
+  end
+
   task :rubocop do
     sh 'rubocop'
   end
@@ -20,8 +20,9 @@ namespace :test do
     sh 'rubocop --auto-correct'
   end
 
-  require 'inch/rake'
-  Inch::Rake::Suggest.new
+  task 'inch' do
+    sh 'inch'
+  end
 end
 
 namespace :gem do
