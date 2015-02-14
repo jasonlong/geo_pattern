@@ -11,7 +11,7 @@ module GeoPattern
     end
 
     def validate(requested_patterns)
-      message = "Error: At least one of the requested patterns \"#{requested_patterns.join(", ")}\" is invalid"
+      message = "Error: At least one of the requested patterns \"#{requested_patterns.join(', ')}\" is invalid"
 
       fail InvalidPatternError, message unless valid?(requested_patterns)
 

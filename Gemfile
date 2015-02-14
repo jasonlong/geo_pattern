@@ -13,8 +13,10 @@ group :development, :test do
   gem 'inch'
   gem 'activesupport'
   gem 'pry'
+  gem 'pry-rescue'
+  gem 'pry-stack_explorer'
 
-  if RUBY_VERSION >= "2"
+  if RUBY_VERSION >= '2'
     gem 'byebug'
     gem 'pry-byebug'
   else

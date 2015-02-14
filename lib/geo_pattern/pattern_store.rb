@@ -1,4 +1,21 @@
 module GeoPattern
+  ChevronPattern            = :chevrons
+  ConcentricCirclesPattern  = :concentric_circles
+  DiamondPattern            = :diamonds
+  HexagonPattern            = :hexagons
+  MosaicSquaresPattern      = :mosaic_squares
+  NestedSquaresPattern      = :nested_squares
+  OctagonPattern            = :octagons
+  OverlappingCirclesPattern = :overlapping_circles
+  OverlappingRingsPattern   = :overlapping_rings
+  PlaidPattern              = :plaid
+  PlusSignPattern           = :plus_signs
+  SineWavePattern           = :sine_waves
+  SquarePattern             = :squares
+  TessellationPattern       = :tessellation
+  TrianglePattern           = :triangles
+  XesPattern                = :xes
+
   class PatternStore
     private
 
@@ -6,44 +23,31 @@ module GeoPattern
 
     public
 
-    def initialize(
-      store = HashStore.new(
-        chevrons: ChevronPattern,
-        concentric_circles: ConcentricCirclesPattern,
-        diamonds:  DiamondPattern,
-        hexagons:  HexagonPattern,
-        mosaic_squares:  MosaicSquaresPattern,
-        nested_squares:  NestedSquaresPattern,
-        octagons:  OctagonPattern,
-        overlapping_circles:  OverlappingCirclesPattern,
-        overlapping_rings:  OverlappingRingsPattern,
-        plaid:  PlaidPattern,
-        plus_signs:  PlusSignPattern,
-        sine_waves:  SineWavePattern,
-        squares:  SquarePattern,
-        tessellation:  TessellationPattern,
-        triangles:  TrianglePattern,
-        xes:  XesPattern
-      )
-    )
-
-      @store = store
+    def initialize
+      @store = {
+        chevrons: StructureGenerators::ChevronsGenerator,
+        concentric_circles: StructureGenerators::ConcentricCirclesGenerator,
+        diamonds: StructureGenerators::DiamondsGenerator,
+        hexagons: StructureGenerators::HexagonsGenerator,
+        mosaic_squares: StructureGenerators::MosaicSquaresGenerator,
+        nested_squares: StructureGenerators::NestedSquaresGenerator,
+        octagons: StructureGenerators::OctagonsGenerator,
+        overlapping_circles: StructureGenerators::OverlappingCirclesGenerator,
+        overlapping_rings: StructureGenerators::OverlappingRingsGenerator,
+        plaid: StructureGenerators::PlaidGenerator,
+        plus_signs: StructureGenerators::PlusSignsGenerator,
+        sine_waves: StructureGenerators::SineWavesGenerator,
+        squares: StructureGenerators::SquaresGenerator,
+        tessellation: StructureGenerators::TessellationGenerator,
+        triangles: StructureGenerators::TrianglesGenerator,
+        xes: StructureGenerators::XesGenerator
+      }
     end
 
     def [](pattern)
-      if pattern.kind_of?(String) || pattern.kind_of?(Symbol)
-        $stderr.puts 'String pattern references are deprecated as of 1.3.0' if pattern.kind_of?(String)
+      $stderr.puts 'String pattern references are deprecated as of 1.3.0' if pattern.is_a?(String)
 
-        return store[pattern]
-      end
-
-      if store.value? pattern
-        $stderr.puts 'Class pattern references are deprecated as of 1.3.0' 
-
-        return pattern 
-      end
-
-      nil
+      store[pattern.to_s.to_sym]
     end
 
     def all
@@ -51,10 +55,7 @@ module GeoPattern
     end
 
     def known?(pattern)
-      return store.key?(pattern) if pattern.kind_of?(String) || pattern.kind_of?(Symbol)
-      return store.value?(pattern) if pattern.kind_of? Class
-
-      false
+      store.key?(pattern.to_s.to_sym)
     end
   end
 end

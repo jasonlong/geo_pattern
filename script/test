@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+function output_error_log {
+  [[ -f error.log ]] && ( cat error.log >&2; rm error.log)
+}
+
+info_msg="\e[0;32m[INFO]\e[0;30m"
+error_msg="\e[0;31mFAILED\e[0;30m"
+
+if [ -n "$CI" ]; then
+  echo -e "$info_msg Testing in CI mode"
+  rake_task='test:ci'
+else
+  echo -e "$info_msg Testing in normal mode"
+  rake_task='test'
+fi
+
+echo -en "$info_msg Running rake task \"$rake_task\" "
+rake --trace $rake_task
