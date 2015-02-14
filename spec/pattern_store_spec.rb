@@ -30,7 +30,7 @@ RSpec.describe PatternStore do
       end
 
       context 'as klass' do
-        let(:pattern_name) do 
+        let(:pattern_name) do
           stub_const('UnknownPattern', Class.new)
           UnknownPattern
         end

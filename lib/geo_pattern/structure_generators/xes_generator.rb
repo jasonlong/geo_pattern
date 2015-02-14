@@ -30,31 +30,31 @@ module GeoPattern
             }
 
             svg.group(x_shape, styles.merge(
-              'transform' => "translate(#{x * x_size / 2 - x_size / 2},#{dy - y * x_size / 2}) rotate(45, #{x_size / 2}, #{x_size / 2})"))
+                                 'transform' => "translate(#{x * x_size / 2 - x_size / 2},#{dy - y * x_size / 2}) rotate(45, #{x_size / 2}, #{x_size / 2})"))
 
             # Add an extra column on the right for tiling.
             if (x == 0)
               svg.group(x_shape, styles.merge(
-                'transform' => "translate(#{6 * x_size / 2 - x_size / 2},#{dy - y * x_size / 2}) rotate(45, #{x_size / 2}, #{x_size / 2})"))
+                                   'transform' => "translate(#{6 * x_size / 2 - x_size / 2},#{dy - y * x_size / 2}) rotate(45, #{x_size / 2}, #{x_size / 2})"))
             end
 
             # Add an extra row on the bottom that matches the first row, for tiling.
             if (y == 0)
               dy = x % 2 == 0 ? 6 * x_size - x_size / 2 : 6 * x_size - x_size / 2 + x_size / 4
               svg.group(x_shape, styles.merge(
-                'transform' => "translate(#{x * x_size / 2 - x_size / 2},#{dy - 6 * x_size / 2}) rotate(45, #{x_size / 2}, #{x_size / 2})"))
+                                   'transform' => "translate(#{x * x_size / 2 - x_size / 2},#{dy - 6 * x_size / 2}) rotate(45, #{x_size / 2}, #{x_size / 2})"))
             end
 
             # These can hang off the bottom, so put a row at the top for tiling.
             if (y == 5)
               svg.group(x_shape, styles.merge(
-                'transform' => "translate(#{x * x_size / 2 - x_size / 2},#{dy - 11 * x_size / 2}) rotate(45, #{x_size / 2}, #{x_size / 2})"))
+                                   'transform' => "translate(#{x * x_size / 2 - x_size / 2},#{dy - 11 * x_size / 2}) rotate(45, #{x_size / 2}, #{x_size / 2})"))
             end
 
             # Add an extra one at top-right and bottom-right, for tiling.
             if x == 0 && y == 0
               svg.group(x_shape, styles.merge(
-                'transform' => "translate(#{6 * x_size / 2 - x_size / 2},#{dy - 6 * x_size / 2}) rotate(45, #{x_size / 2}, #{x_size / 2})"))
+                                   'transform' => "translate(#{6 * x_size / 2 - x_size / 2},#{dy - 6 * x_size / 2}) rotate(45, #{x_size / 2}, #{x_size / 2})"))
             end
             i += 1
           end

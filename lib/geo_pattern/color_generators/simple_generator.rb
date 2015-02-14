@@ -3,7 +3,6 @@ module GeoPattern
   module ColorGenerators
     # Simple one
     class SimpleGenerator
-
       private
 
       attr_reader :color, :creator

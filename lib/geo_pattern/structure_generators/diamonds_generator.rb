@@ -32,24 +32,24 @@ module GeoPattern
             dx = (y % 2 == 0) ? 0 : diamond_width / 2
 
             svg.polyline(diamond, styles.merge(
-              'transform' => "translate(#{x * diamond_width - diamond_width / 2 + dx}, #{diamond_height / 2 * y - diamond_height / 2})"))
+                                    'transform' => "translate(#{x * diamond_width - diamond_width / 2 + dx}, #{diamond_height / 2 * y - diamond_height / 2})"))
 
             # Add an extra one at top-right, for tiling.
             if (x == 0)
               svg.polyline(diamond, styles.merge(
-                'transform' => "translate(#{6 * diamond_width - diamond_width / 2 + dx}, #{diamond_height / 2 * y - diamond_height / 2})"))
+                                      'transform' => "translate(#{6 * diamond_width - diamond_width / 2 + dx}, #{diamond_height / 2 * y - diamond_height / 2})"))
             end
 
             # Add an extra row at the end that matches the first row, for tiling.
             if (y == 0)
               svg.polyline(diamond, styles.merge(
-                'transform' => "translate(#{x * diamond_width - diamond_width / 2 + dx}, #{diamond_height / 2 * 6 - diamond_height / 2})"))
+                                      'transform' => "translate(#{x * diamond_width - diamond_width / 2 + dx}, #{diamond_height / 2 * 6 - diamond_height / 2})"))
             end
 
             # Add an extra one at bottom-right, for tiling.
             if x == 0 && y == 0
               svg.polyline(diamond, styles.merge(
-                'transform' => "translate(#{6 * diamond_width - diamond_width / 2 + dx}, #{diamond_height / 2 * 6 - diamond_height / 2})"))
+                                      'transform' => "translate(#{6 * diamond_width - diamond_width / 2 + dx}, #{diamond_height / 2 * 6 - diamond_height / 2})"))
             end
             i += 1
           end
