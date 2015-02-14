@@ -7,7 +7,6 @@ desc 'Run test suite'
 task test: ['test:rubocop', 'test:rspec']
 task 'test:ci' => ['bootstrap:gem_requirements', :test]
 namespace :test do
-
   task :rspec do
     sh 'rspec'
   end
