@@ -7,6 +7,6 @@ rvm:
   - 2.0.0
   - 2.1.5
   - 2.2.0
-install: scripts/bootstrap
-script: scripts/test
+install: script/bootstrap
+script: script/test
 cache: bundler
