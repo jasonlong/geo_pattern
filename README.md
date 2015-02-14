@@ -190,15 +190,19 @@ To get more information about the structure of the pattern, please use the follo
 pattern = GeoPattern.generate('Mastering Markdown', patterns: [:sine_waves, :xes])
 
 # The name of the structure
-pattern.pattern.name
+pattern.structure.name
 
 # The generator of the structure
-pattern.pattern.generator
+pattern.structure.generator
 ```
 
 ## Rake Support
 
 ```ruby
+string = 'Mastering markdown'
+
+require 'geo_pattern/geo_pattern_task'
+
 GeoPattern::GeoPatternTask.new(
   name: 'generate',
   description: 'Generate patterns to make them available as fixtures',
