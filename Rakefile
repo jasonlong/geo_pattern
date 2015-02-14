@@ -1,8 +1,5 @@
 $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 
-require 'rubocop/rake_task'
-require 'inch/rake'
-require 'rspec/core/rake_task'
 require 'geo_pattern/geo_pattern_task'
 
 desc 'Default task running Tests'
@@ -12,8 +9,20 @@ desc 'Run test suite'
 task test: ['test:rubocop', 'test:rspec']
 task 'test:ci' => ['bootstrap:gem_requirements', :test]
 namespace :test do
+  require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:rspec)
-  RuboCop::RakeTask.new
+
+  # require 'rubocop/rake_task'
+  # RuboCop::RakeTask.new
+  task :rubocop do
+    sh 'rubocop'
+  end
+
+  task 'rubocop:autocorrect' do
+    sh 'rubocop --auto-correct'
+  end
+
+  require 'inch/rake'
   Inch::Rake::Suggest.new
 end
 
