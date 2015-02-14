@@ -1,5 +1,6 @@
 require 'rake'
 require 'rake/tasklib'
+require 'logger'
 
 module GeoPattern
   # Rake Task
@@ -46,9 +47,9 @@ module GeoPattern
     def initialize(opts = {}, &task_block)
       @options = {
         description: nil,
-        name: self.class.to_s.split(/::/).slice(-2..-1).join(':').gsub(/Task$/, '').underscore,
+        name: GeoPattern::Helpers.underscore(self.class.to_s.split(/::/).slice(-2..-1).join(':').gsub(/Task$/, '')),
         arguments: [],
-        logger: Logger.new($stderr),
+        logger: ::Logger.new($stderr),
         working_directory: Dir.getwd
       }.merge opts
 

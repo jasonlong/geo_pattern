@@ -49,6 +49,6 @@ module GeoPattern
       methods.flatten.map { |m| [m, "#{m}?"] }.flatten
     end
 
-    module_function :underscore, :demodulize, :build_arguments
+    module_function :underscore, :demodulize, :build_arguments, :require_files_matching_pattern
   end
 end

@@ -1,4 +1,4 @@
-shared_examples 'a chosen pattern' do |name|
+RSpec.shared_examples 'a chosen pattern' do |name|
   subject(:pattern) { GeoPattern.generate(input, patterns: name) }
 
   let(:file_name) { "#{name}.svg" }
@@ -11,13 +11,13 @@ shared_examples 'a chosen pattern' do |name|
   it { check_binary_file_content(file_name, fixtures_path("generated_patterns/#{name}.svg")) }
 end
 
-shared_examples 'an invalid pattern' do |chosen_pattern|
+RSpec.shared_examples 'an invalid pattern' do |chosen_pattern|
   subject(:pattern) { GeoPattern.generate(input, patterns: chosen_pattern) }
 
   it { expect { subject }.to raise_error InvalidPatternError }
 end
 
-shared_examples 'an old style pattern' do |chosen_pattern, name|
+RSpec.shared_examples 'an old style pattern' do |chosen_pattern, name|
   subject(:pattern) { GeoPattern.generate(input, patterns: chosen_pattern) }
 
   let(:file_name) { "#{name}.svg" }

@@ -1,4 +1,5 @@
 module GeoPattern
+  # rubocop:disable Style/ConstantName
   ChevronPattern            = :chevrons
   ConcentricCirclesPattern  = :concentric_circles
   DiamondPattern            = :diamonds
@@ -15,6 +16,7 @@ module GeoPattern
   TessellationPattern       = :tessellation
   TrianglePattern           = :triangles
   XesPattern                = :xes
+  # rubocop:enable Style/ConstantName
 
   class PatternStore
     private

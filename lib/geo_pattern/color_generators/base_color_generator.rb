@@ -3,7 +3,6 @@ module GeoPattern
   module ColorGenerators
     # Generate color based on Base Color and seed
     class BaseColorGenerator
-
       private
 
       attr_reader :creator, :seed, :color

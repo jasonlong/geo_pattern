@@ -11,12 +11,8 @@ Bundler.require :default, :test, :development
 
 require 'geo_pattern'
 
-# Make some helpers available
-include GeoPattern::Helpers
-
 # Loading support files
-#::File.expand_path('../support/*.rb', __FILE__)
-require_files_matching_pattern ::File.expand_path('../support/**/*.rb', __FILE__)
+GeoPattern::Helpers.require_files_matching_pattern ::File.expand_path('../support/**/*.rb', __FILE__)
 
 # No need to add the namespace to every class tested
 include GeoPattern

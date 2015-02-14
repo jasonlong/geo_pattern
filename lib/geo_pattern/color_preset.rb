@@ -1,6 +1,5 @@
 module GeoPattern
   class ColorPreset
-
     attr_accessor :color, :base_color, :mode
 
     def initialize(color: nil, base_color: nil)
@@ -8,11 +7,10 @@ module GeoPattern
       @base_color = base_color
     end
 
-
     # Return mode
     #
     # @return [Symbol]
-    #   The color mode 
+    #   The color mode
     def mode
       if color.nil? || color.empty?
         :base_color
