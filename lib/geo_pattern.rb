@@ -1,6 +1,7 @@
 require 'base64'
 require 'digest/sha1'
 require 'color'
+require 'forwardable'
 
 require 'geo_pattern/version'
 
