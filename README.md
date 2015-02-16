@@ -22,6 +22,8 @@ Javascript port.
 
 ## Installation
 
+**Note:** as of version `1.4.0`, Ruby version 2 or greater is required.__
+
 Add this line to your application's Gemfile:
 
     gem 'geo_pattern'
