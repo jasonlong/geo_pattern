@@ -246,7 +246,7 @@ examples of the test suite.
 RSPEC_PROFILE=1 bundle exec rspec
 ```
 
-## Ports
+## Ports & related projects
 
 JavaScript port by Brandon Mills:
 https://github.com/btmills/geopatterns-js
@@ -262,3 +262,6 @@ https://github.com/pravj/geo_pattern
 
 CoffeeScript port by Aleks (muchweb):
 https://github.com/muchweb/geo-pattern-coffee
+
+Middleman extension by @maxmeyer:
+https://github.com/fedux-org/middleman-geo_pattern
