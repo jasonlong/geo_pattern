@@ -221,16 +221,16 @@ pattern.structure.generator</pre></div>
 
       <div class="highlight highlight-ruby"><pre>string <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Mastering markdown<span class="pl-pds">'</span></span>
 
-      <span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">'</span>geo_pattern/geo_pattern_task<span class="pl-pds">'</span></span>
+<span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">'</span>geo_pattern/geo_pattern_task<span class="pl-pds">'</span></span>
 
-      <span class="pl-c1">GeoPattern</span>::<span class="pl-c1">GeoPatternTask</span>.<span class="pl-k">new</span>(
-        <span class="pl-c1">name:</span> <span class="pl-s"><span class="pl-pds">'</span>generate<span class="pl-pds">'</span></span>,
-        <span class="pl-c1">description:</span> <span class="pl-s"><span class="pl-pds">'</span>Generate patterns to make them available as fixtures<span class="pl-pds">'</span></span>,
-        <span class="pl-c1">data:</span> {
-          <span class="pl-s"><span class="pl-pds">'</span>fixtures/generated_patterns/diamonds_with_color.svg<span class="pl-pds">'</span></span>      =&gt; { <span class="pl-c1">input:</span> string, <span class="pl-c1">patterns:</span> [<span class="pl-c1">:diamonds</span>], <span class="pl-c1">color:</span> <span class="pl-s"><span class="pl-pds">'</span>#00ff00<span class="pl-pds">'</span></span> },
-          <span class="pl-s"><span class="pl-pds">'</span>fixtures/generated_patterns/diamonds_with_base_color.svg<span class="pl-pds">'</span></span> =&gt; { <span class="pl-c1">input:</span> string, <span class="pl-c1">patterns:</span> [<span class="pl-c1">:diamonds</span>], <span class="pl-c1">base_color:</span> <span class="pl-s"><span class="pl-pds">'</span>#00ff00<span class="pl-pds">'</span></span> }
-        }
-      )</pre></div>
+<span class="pl-c1">GeoPattern</span>::<span class="pl-c1">GeoPatternTask</span>.<span class="pl-k">new</span>(
+  <span class="pl-c1">name:</span> <span class="pl-s"><span class="pl-pds">'</span>generate<span class="pl-pds">'</span></span>,
+  <span class="pl-c1">description:</span> <span class="pl-s"><span class="pl-pds">'</span>Generate patterns to make them available as fixtures<span class="pl-pds">'</span></span>,
+  <span class="pl-c1">data:</span> {
+    <span class="pl-s"><span class="pl-pds">'</span>fixtures/generated_patterns/diamonds_with_color.svg<span class="pl-pds">'</span></span>      =&gt; { <span class="pl-c1">input:</span> string, <span class="pl-c1">patterns:</span> [<span class="pl-c1">:diamonds</span>], <span class="pl-c1">color:</span> <span class="pl-s"><span class="pl-pds">'</span>#00ff00<span class="pl-pds">'</span></span> },
+    <span class="pl-s"><span class="pl-pds">'</span>fixtures/generated_patterns/diamonds_with_base_color.svg<span class="pl-pds">'</span></span> =&gt; { <span class="pl-c1">input:</span> string, <span class="pl-c1">patterns:</span> [<span class="pl-c1">:diamonds</span>], <span class="pl-c1">base_color:</span> <span class="pl-s"><span class="pl-pds">'</span>#00ff00<span class="pl-pds">'</span></span> }
+  }
+)</pre></div>
 
       <h2>
       <a id="user-content-developing" class="anchor" href="#developing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Developing</h2>
