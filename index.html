@@ -43,17 +43,17 @@
       <p>Add this line to your application's Gemfile:</p>
 
       <pre><code>gem 'geo_pattern'
-      </code></pre>
+</code></pre>
 
       <p>And then execute:</p>
 
       <pre><code>$ bundle
-      </code></pre>
+</code></pre>
 
       <p>Or install it yourself as:</p>
 
       <pre><code>$ gem install geo_pattern
-      </code></pre>
+</code></pre>
 
       <h2>
       <a id="user-content-usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
@@ -81,12 +81,12 @@
       <p>Get the SVG string:</p>
 
       <div class="highlight highlight-ruby"><pre>puts pattern.to_svg
-      <span class="pl-c"># =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" ...</span></pre></div>
+<span class="pl-c"># =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" ...</span></pre></div>
 
       <p>Get the Base64 encoded string:</p>
 
       <div class="highlight highlight-ruby"><pre>puts pattern.to_base64
-      <span class="pl-c"># =&gt; PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC...</span></pre></div>
+<span class="pl-c"># =&gt; PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC...</span></pre></div>
 
       <p>You can then use this string to set the background:</p>
 
@@ -191,29 +191,30 @@
 
       <div class="highlight highlight-ruby"><pre>pattern <span class="pl-k">=</span> <span class="pl-c1">GeoPattern</span>.generate(<span class="pl-s"><span class="pl-pds">'</span>Mastering Markdown<span class="pl-pds">'</span></span>, <span class="pl-c1">patterns:</span> [<span class="pl-c1">:sine_waves</span>, <span class="pl-c1">:xes</span>])
 
-      <span class="pl-c"># The color of the background in html notation</span>
-      pattern.background.color.to_html
+<span class="pl-c"># The color of the background in html notation</span>
+pattern.background.color.to_html
 
-      <span class="pl-c"># The color of the background in svg notation</span>
-      pattern.background.color.to_svg
+<span class="pl-c"># The color of the background in svg notation</span>
+pattern.background.color.to_svg
 
 
-      <span class="pl-c"># The input colors</span>
-      pattern.background.preset.color
-      pattern.background.preset.base_color
+<span class="pl-c"># The input colors</span>
+pattern.background.preset.color
+pattern.background.preset.base_color
 
-      <span class="pl-c"># The generator</span>
-      pattern.background.generator</pre></div>
+<span class="pl-c"># The generator</span>
+pattern.background.generator</pre></div>
 
-      <p>To get more information about the structure of the pattern, please use the following methods:</p>
+<p>To get more information about the structure of the pattern, please use the following methods:</p>
 
-      <div class="highlight highlight-ruby"><pre>pattern <span class="pl-k">=</span> <span class="pl-c1">GeoPattern</span>.generate(<span class="pl-s"><span class="pl-pds">'</span>Mastering Markdown<span class="pl-pds">'</span></span>, <span class="pl-c1">patterns:</span> [<span class="pl-c1">:sine_waves</span>, <span class="pl-c1">:xes</span>])
 
-      <span class="pl-c"># The name of the structure</span>
-      pattern.structure.name
+<div class="highlight highlight-ruby"><pre>pattern <span class="pl-k">=</span> <span class="pl-c1">GeoPattern</span>.generate(<span class="pl-s"><span class="pl-pds">'</span>Mastering Markdown<span class="pl-pds">'</span></span>, <span class="pl-c1">patterns:</span> [<span class="pl-c1">:sine_waves</span>, <span class="pl-c1">:xes</span>])
 
-      <span class="pl-c"># The generator of the structure</span>
-      pattern.structure.generator</pre></div>
+<span class="pl-c"># The name of the structure</span>
+pattern.structure.name
+
+<span class="pl-c"># The generator of the structure</span>
+pattern.structure.generator</pre></div>
 
       <h2>
       <a id="user-content-rake-support" class="anchor" href="#rake-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rake Support</h2>
