@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>GeoPattern</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/cayman.css">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">GeoPattern</h1>
+      <h2 class="project-tagline">Create beautiful generative geometric background images from a string</h2>
+      <a href="https://github.com/jasonlong/geo_pattern" class="btn">View on GitHub</a>
+      <a href="https://github.com/jasonlong/geo_pattern/archive/v1.4.0.zip" class="btn">Download .zip</a>
+      <a href="https://github.com/jasonlong/geo_pattern/archive/v1.4.0.tar.gz" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+
+      <p>Generate beautiful tiling SVG patterns from a string. The string is converted
+      into a SHA and a color and pattern are determined based on the values in the
+      hash. The color is determined by shifting the hue and saturation from a default
+      (or passed in) base color. One of 16 patterns is used (or you can specify one)
+      and the sizing of the pattern elements is also determined by the hash values.</p>
+
+      <p>You can use the generated pattern as the <code>background-image</code> for a container.
+      Using the <code>base64</code> representation of the pattern still results in SVG
+      rendering, so it looks great on retina displays.</p>
+
+      <p>See the <a href="http://guides.github.com">GitHub Guides</a> site and the <a href="https://github.com/explore">Explore section
+      of GitHub</a> are examples of this library in action.
+      Brandon Mills has put together an awesome <a href="http://btmills.github.io/geopattern/geopattern.html">live preview
+      page</a> that's built on his
+      Javascript port.</p>
+
+      <h2>
+      <a id="user-content-installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+      <p><strong>Note:</strong> as of version <code>1.4.0</code>, Ruby version 2 or greater is required.</p>
+
+      <p>Add this line to your application's Gemfile:</p>
+
+      <pre><code>gem 'geo_pattern'
+      </code></pre>
+
+      <p>And then execute:</p>
+
+      <pre><code>$ bundle
+      </code></pre>
+
+      <p>Or install it yourself as:</p>
+
+      <pre><code>$ gem install geo_pattern
+      </code></pre>
+
+      <h2>
+      <a id="user-content-usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+      <p>Make a new pattern:</p>
+
+      <div class="highlight highlight-ruby"><pre>pattern <span class="pl-k">=</span> <span class="pl-c1">GeoPattern</span>.generate(<span class="pl-s"><span class="pl-pds">'</span>Mastering Markdown<span class="pl-pds">'</span></span>)</pre></div>
+
+      <p>To specify a base background color (with a hue and saturation that adjusts depending on the string):</p>
+
+      <div class="highlight highlight-ruby"><pre>pattern <span class="pl-k">=</span> <span class="pl-c1">GeoPattern</span>.generate(<span class="pl-s"><span class="pl-pds">'</span>Mastering Markdown<span class="pl-pds">'</span></span>, <span class="pl-c1">base_color:</span> <span class="pl-s"><span class="pl-pds">'</span>#fc0<span class="pl-pds">'</span></span>)</pre></div>
+
+      <p>To use a specific background color (w/o any hue or saturation adjustments):</p>
+
+      <div class="highlight highlight-ruby"><pre>pattern <span class="pl-k">=</span> <span class="pl-c1">GeoPattern</span>.generate(<span class="pl-s"><span class="pl-pds">'</span>Mastering Markdown<span class="pl-pds">'</span></span>, <span class="pl-c1">color:</span> <span class="pl-s"><span class="pl-pds">'</span>#fc0<span class="pl-pds">'</span></span>)</pre></div>
+
+      <p>To use a specific <a href="#available-patterns">pattern generator</a>:</p>
+
+      <div class="highlight highlight-ruby"><pre>pattern <span class="pl-k">=</span> <span class="pl-c1">GeoPattern</span>.generate(<span class="pl-s"><span class="pl-pds">'</span>Mastering Markdown<span class="pl-pds">'</span></span>, <span class="pl-c1">patterns:</span> <span class="pl-c1">:sine_waves</span>)</pre></div>
+
+      <p>To use a subset of the <a href="#available-patterns">available patterns</a>:</p>
+
+      <div class="highlight highlight-ruby"><pre>pattern <span class="pl-k">=</span> <span class="pl-c1">GeoPattern</span>.generate(<span class="pl-s"><span class="pl-pds">'</span>Mastering Markdown<span class="pl-pds">'</span></span>, <span class="pl-c1">patterns:</span> [<span class="pl-c1">:sine_waves</span>, <span class="pl-c1">:xes</span>])</pre></div>
+
+      <p>Get the SVG string:</p>
+
+      <div class="highlight highlight-ruby"><pre>puts pattern.to_svg
+      <span class="pl-c"># =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" ...</span></pre></div>
+
+      <p>Get the Base64 encoded string:</p>
+
+      <div class="highlight highlight-ruby"><pre>puts pattern.to_base64
+      <span class="pl-c"># =&gt; PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC...</span></pre></div>
+
+      <p>You can then use this string to set the background:</p>
+
+      <div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">"</span>background-image: &lt;%= pattern.to_data_uri %&gt;<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+      <h2>
+      <a id="user-content-available-patterns" class="anchor" href="#available-patterns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Available patterns</h2>
+
+      <p><em>Note: As of version <code>1.3.0</code>, string references (e.g. <code>overlapping_circles</code>)
+      are deprecated in favor of symbol references (e.g. <code>:overlapping_circles</code>).</em></p>
+
+      <h3>
+      <a id="user-content-chevrons" class="anchor" href="#chevrons" aria-hidden="true"><span class="octicon octicon-link"></span></a>:chevrons</h3>
+
+      <p><a href="https://camo.githubusercontent.com/568f18fc690c8d2882c289e63cf9c67673114df6/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f63686576726f6e732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/568f18fc690c8d2882c289e63cf9c67673114df6/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f63686576726f6e732e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/chevrons.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-octagons" class="anchor" href="#octagons" aria-hidden="true"><span class="octicon octicon-link"></span></a>:octagons</h3>
+
+      <p><a href="https://camo.githubusercontent.com/d4ad11967afed71bd561cdb5c14fe0277acd99e7/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f6f63746f676f6e732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/d4ad11967afed71bd561cdb5c14fe0277acd99e7/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f6f63746f676f6e732e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/octogons.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-overlapping_circles" class="anchor" href="#overlapping_circles" aria-hidden="true"><span class="octicon octicon-link"></span></a>:overlapping_circles</h3>
+
+      <p><a href="https://camo.githubusercontent.com/55ea2d1740261c0b77d3fa46097c94bfb37b179a/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f6f7665726c617070696e675f636972636c65732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/55ea2d1740261c0b77d3fa46097c94bfb37b179a/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f6f7665726c617070696e675f636972636c65732e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/overlapping_circles.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-plus_signs" class="anchor" href="#plus_signs" aria-hidden="true"><span class="octicon octicon-link"></span></a>:plus_signs</h3>
+
+      <p><a href="https://camo.githubusercontent.com/bf74159f16c0aa10f84a8218aa31b872efce817b/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f706c75735f7369676e732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/bf74159f16c0aa10f84a8218aa31b872efce817b/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f706c75735f7369676e732e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/plus_signs.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-xes" class="anchor" href="#xes" aria-hidden="true"><span class="octicon octicon-link"></span></a>:xes</h3>
+
+      <p><a href="https://camo.githubusercontent.com/f882b034e9ae1f169b81dcffb7d19b072b90b904/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f7865732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/f882b034e9ae1f169b81dcffb7d19b072b90b904/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f7865732e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/xes.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-sine_waves" class="anchor" href="#sine_waves" aria-hidden="true"><span class="octicon octicon-link"></span></a>:sine_waves</h3>
+
+      <p><a href="https://camo.githubusercontent.com/1637bc4235fc64c2e016b8915d65a1502e0eb2fa/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f73696e655f77617665732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/1637bc4235fc64c2e016b8915d65a1502e0eb2fa/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f73696e655f77617665732e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/sine_waves.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-hexagons" class="anchor" href="#hexagons" aria-hidden="true"><span class="octicon octicon-link"></span></a>:hexagons</h3>
+
+      <p><a href="https://camo.githubusercontent.com/99798d24692ac41154612b1b27c7b5b8056c9648/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f68657861676f6e732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/99798d24692ac41154612b1b27c7b5b8056c9648/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f68657861676f6e732e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/hexagons.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-overlapping_rings" class="anchor" href="#overlapping_rings" aria-hidden="true"><span class="octicon octicon-link"></span></a>:overlapping_rings</h3>
+
+      <p><a href="https://camo.githubusercontent.com/02b375cd0be523ae0f86b01af7e0992201691904/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f6f7665726c617070696e675f72696e67732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/02b375cd0be523ae0f86b01af7e0992201691904/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f6f7665726c617070696e675f72696e67732e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/overlapping_rings.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-plaid" class="anchor" href="#plaid" aria-hidden="true"><span class="octicon octicon-link"></span></a>:plaid</h3>
+
+      <p><a href="https://camo.githubusercontent.com/418087d6eff37a93189efd46bdd3eea357eced52/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f706c6169642e706e67" target="_blank"><img src="https://camo.githubusercontent.com/418087d6eff37a93189efd46bdd3eea357eced52/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f706c6169642e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/plaid.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-triangles" class="anchor" href="#triangles" aria-hidden="true"><span class="octicon octicon-link"></span></a>:triangles</h3>
+
+      <p><a href="https://camo.githubusercontent.com/233b893c45f534b4b9be9190e5c12fe7eb156813/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f747269616e676c65732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/233b893c45f534b4b9be9190e5c12fe7eb156813/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f747269616e676c65732e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/triangles.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-squares" class="anchor" href="#squares" aria-hidden="true"><span class="octicon octicon-link"></span></a>:squares</h3>
+
+      <p><a href="https://camo.githubusercontent.com/36a5e2bdf8d148c47d64bf1c4ba40c561401a870/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f737175617265732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/36a5e2bdf8d148c47d64bf1c4ba40c561401a870/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f737175617265732e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/squares.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-nested_squares" class="anchor" href="#nested_squares" aria-hidden="true"><span class="octicon octicon-link"></span></a>:nested_squares</h3>
+
+      <p><a href="https://camo.githubusercontent.com/5eeeec37b10468ebd5a1c6a6c941fb941659526d/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f6e65737465645f737175617265732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/5eeeec37b10468ebd5a1c6a6c941fb941659526d/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f6e65737465645f737175617265732e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/nested_squares.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-mosaic_squares" class="anchor" href="#mosaic_squares" aria-hidden="true"><span class="octicon octicon-link"></span></a>:mosaic_squares</h3>
+
+      <p><a href="https://camo.githubusercontent.com/52b080859219aefeff16cf78b5655138c61b5b8d/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f6d6f736169635f737175617265732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/52b080859219aefeff16cf78b5655138c61b5b8d/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f6d6f736169635f737175617265732e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/mosaic_squares.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-concentric_circles" class="anchor" href="#concentric_circles" aria-hidden="true"><span class="octicon octicon-link"></span></a>:concentric_circles</h3>
+
+      <p><a href="https://camo.githubusercontent.com/9c57869d51db723f1f36b019357bd8741f30df0e/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f636f6e63656e747269635f636972636c65732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/9c57869d51db723f1f36b019357bd8741f30df0e/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f636f6e63656e747269635f636972636c65732e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/concentric_circles.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-diamonds" class="anchor" href="#diamonds" aria-hidden="true"><span class="octicon octicon-link"></span></a>:diamonds</h3>
+
+      <p><a href="https://camo.githubusercontent.com/c18f0f018fa4d4706ddab4d7f399eedcc6b1df47/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f6469616d6f6e64732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/c18f0f018fa4d4706ddab4d7f399eedcc6b1df47/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f6469616d6f6e64732e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/diamonds.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-tessellation" class="anchor" href="#tessellation" aria-hidden="true"><span class="octicon octicon-link"></span></a>:tessellation</h3>
+
+      <p><a href="https://camo.githubusercontent.com/2bbe98f0f9ba230a9e15df3de56ff474e8abf001/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f74657373656c6c6174696f6e2e706e67" target="_blank"><img src="https://camo.githubusercontent.com/2bbe98f0f9ba230a9e15df3de56ff474e8abf001/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f74657373656c6c6174696f6e2e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/tessellation.png" style="max-width:100%;"></a></p>
+
+      <h3>
+      <a id="user-content-geopatternchevronpattern" class="anchor" href="#geopatternchevronpattern" aria-hidden="true"><span class="octicon octicon-link"></span></a>GeoPattern::ChevronPattern</h3>
+
+      <p><a href="https://camo.githubusercontent.com/568f18fc690c8d2882c289e63cf9c67673114df6/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f63686576726f6e732e706e67" target="_blank"><img src="https://camo.githubusercontent.com/568f18fc690c8d2882c289e63cf9c67673114df6/687474703a2f2f6a61736f6e6c6f6e672e6769746875622e696f2f67656f5f7061747465726e2f6578616d706c65732f63686576726f6e732e706e67" alt="" data-canonical-src="http://jasonlong.github.io/geo_pattern/examples/chevrons.png" style="max-width:100%;"></a></p>
+
+      <h2>
+      <a id="user-content-inspection-of-pattern" class="anchor" href="#inspection-of-pattern" aria-hidden="true"><span class="octicon octicon-link"></span></a>Inspection of pattern</h2>
+
+      <p>If you want to get some more information about a pattern, please use the
+      following methods.</p>
+
+      <div class="highlight highlight-ruby"><pre>pattern <span class="pl-k">=</span> <span class="pl-c1">GeoPattern</span>.generate(<span class="pl-s"><span class="pl-pds">'</span>Mastering Markdown<span class="pl-pds">'</span></span>, <span class="pl-c1">patterns:</span> [<span class="pl-c1">:sine_waves</span>, <span class="pl-c1">:xes</span>])
+
+      <span class="pl-c"># The color of the background in html notation</span>
+      pattern.background.color.to_html
+
+      <span class="pl-c"># The color of the background in svg notation</span>
+      pattern.background.color.to_svg
+
+
+      <span class="pl-c"># The input colors</span>
+      pattern.background.preset.color
+      pattern.background.preset.base_color
+
+      <span class="pl-c"># The generator</span>
+      pattern.background.generator</pre></div>
+
+      <p>To get more information about the structure of the pattern, please use the following methods:</p>
+
+      <div class="highlight highlight-ruby"><pre>pattern <span class="pl-k">=</span> <span class="pl-c1">GeoPattern</span>.generate(<span class="pl-s"><span class="pl-pds">'</span>Mastering Markdown<span class="pl-pds">'</span></span>, <span class="pl-c1">patterns:</span> [<span class="pl-c1">:sine_waves</span>, <span class="pl-c1">:xes</span>])
+
+      <span class="pl-c"># The name of the structure</span>
+      pattern.structure.name
+
+      <span class="pl-c"># The generator of the structure</span>
+      pattern.structure.generator</pre></div>
+
+      <h2>
+      <a id="user-content-rake-support" class="anchor" href="#rake-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Rake Support</h2>
+
+      <div class="highlight highlight-ruby"><pre>string <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Mastering markdown<span class="pl-pds">'</span></span>
+
+      <span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">'</span>geo_pattern/geo_pattern_task<span class="pl-pds">'</span></span>
+
+      <span class="pl-c1">GeoPattern</span>::<span class="pl-c1">GeoPatternTask</span>.<span class="pl-k">new</span>(
+        <span class="pl-c1">name:</span> <span class="pl-s"><span class="pl-pds">'</span>generate<span class="pl-pds">'</span></span>,
+        <span class="pl-c1">description:</span> <span class="pl-s"><span class="pl-pds">'</span>Generate patterns to make them available as fixtures<span class="pl-pds">'</span></span>,
+        <span class="pl-c1">data:</span> {
+          <span class="pl-s"><span class="pl-pds">'</span>fixtures/generated_patterns/diamonds_with_color.svg<span class="pl-pds">'</span></span>      =&gt; { <span class="pl-c1">input:</span> string, <span class="pl-c1">patterns:</span> [<span class="pl-c1">:diamonds</span>], <span class="pl-c1">color:</span> <span class="pl-s"><span class="pl-pds">'</span>#00ff00<span class="pl-pds">'</span></span> },
+          <span class="pl-s"><span class="pl-pds">'</span>fixtures/generated_patterns/diamonds_with_base_color.svg<span class="pl-pds">'</span></span> =&gt; { <span class="pl-c1">input:</span> string, <span class="pl-c1">patterns:</span> [<span class="pl-c1">:diamonds</span>], <span class="pl-c1">base_color:</span> <span class="pl-s"><span class="pl-pds">'</span>#00ff00<span class="pl-pds">'</span></span> }
+        }
+      )</pre></div>
+
+      <h2>
+      <a id="user-content-developing" class="anchor" href="#developing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Developing</h2>
+
+      <h3>
+      <a id="user-content-generate-fixtures" class="anchor" href="#generate-fixtures" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generate Fixtures</h3>
+
+      <div class="highlight highlight-ruby"><pre>rake <span class="pl-c1">fixtures:</span>generate</pre></div>
+
+      <h3>
+      <a id="user-content-run-tests" class="anchor" href="#run-tests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Run tests</h3>
+
+      <div class="highlight highlight-ruby"><pre>rake test</pre></div>
+
+      <h2>
+      <a id="user-content-contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+      <ol class="task-list">
+      <li>Fork it ( <a href="http://github.com/jasonlong/geo_pattern/fork">http://github.com/jasonlong/geo_pattern/fork</a> )</li>
+      <li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+      <li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+      <li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+      <li>Create new Pull Request</li>
+      </ol>
+
+      <h2>
+      <a id="user-content-development" class="anchor" href="#development" aria-hidden="true"><span class="octicon octicon-link"></span></a>Development</h2>
+
+      <p>Prefix rspec-commandline with <code>RSPEC_PROFILE=1</code> to output the ten slowest
+      examples of the test suite.</p>
+
+      <div class="highlight highlight-bash"><pre>RSPEC_PROFILE=1 bundle <span class="pl-c1">exec</span> rspec</pre></div>
+
+      <h2>
+      <a id="user-content-ports--related-projects" class="anchor" href="#ports--related-projects" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ports &amp; related projects</h2>
+
+      <p>JavaScript port by Brandon Mills:
+      <a href="https://github.com/btmills/geopatterns-js">https://github.com/btmills/geopatterns-js</a></p>
+
+      <p>Python port by Bryan Veloso:
+      <a href="https://github.com/bryanveloso/geopatterns">https://github.com/bryanveloso/geopatterns</a></p>
+
+      <p>PHP port by Anand Capur:
+      <a href="https://github.com/redeyeventures/geopattern-php">https://github.com/redeyeventures/geopattern-php</a></p>
+
+      <p>Go port by Pravendra Singh:
+      <a href="https://github.com/pravj/geo_pattern">https://github.com/pravj/geo_pattern</a></p>
+
+      <p>CoffeeScript port by Aleks (muchweb):
+      <a href="https://github.com/muchweb/geo-pattern-coffee">https://github.com/muchweb/geo-pattern-coffee</a></p>
+
+      <p>Middleman extension by @maxmeyer:
+      <a href="https://github.com/fedux-org/middleman-geo_pattern">https://github.com/fedux-org/middleman-geo_pattern</a></p>
+      </article>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/jasonlong/geo_pattern">GeoPattern</a> is maintained by <a href="https://github.com/jasonlong">jasonlong</a>.</span>
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  </body>
+</html>
+
