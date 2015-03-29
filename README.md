@@ -22,7 +22,7 @@ Javascript port.
 
 ## Installation
 
-**Note:** as of version `1.4.0`, Ruby version 2 or greater is required.__
+**Note:** as of version `1.4.0`, Ruby version 2 or greater is required.
 
 Add this line to your application's Gemfile:
 
