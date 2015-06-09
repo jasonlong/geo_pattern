@@ -263,5 +263,8 @@ https://github.com/pravj/geo_pattern
 CoffeeScript port by Aleks (muchweb):
 https://github.com/muchweb/geo-pattern-coffee
 
+Cocoa port by Matt Faluotico:
+https://github.com/MattFaluotico/GeoPattern-Cocoa
+
 Middleman extension by @maxmeyer:
 https://github.com/fedux-org/middleman-geo_pattern
