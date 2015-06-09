@@ -31,7 +31,7 @@ module GeoPattern
                 'opacity' => opacity,
                 'stroke-width' => "#{stroke_width}px"
               }
-              )
+            )
 
             val     = hex_val(39 - i, 1)
             opacity = opacity(val)
@@ -43,7 +43,7 @@ module GeoPattern
               ring_size / 4,
               'fill'         => fill,
               'fill-opacity' => opacity
-              )
+            )
 
             i += 1
           end

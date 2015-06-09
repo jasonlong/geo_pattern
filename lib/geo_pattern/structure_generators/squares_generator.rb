@@ -24,7 +24,7 @@ module GeoPattern
                      'fill-opacity'   => opacity,
                      'stroke'         => stroke_color,
                      'stroke-opacity' => stroke_opacity
-            )
+                    )
             i += 1
           end
         end
