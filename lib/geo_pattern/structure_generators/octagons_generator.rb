@@ -26,7 +26,7 @@ module GeoPattern
                          'stroke'         => stroke_color,
                          'stroke-opacity' => stroke_opacity,
                          'transform'      => "translate(#{x * square_size}, #{y * square_size})"
-            )
+                        )
             i += 1
           end
         end
