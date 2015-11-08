@@ -1,6 +1,6 @@
-[![](http://img.shields.io/gem/v/geo_pattern.svg?style=flat)](http://rubygems.org/gems/geo_pattern)
+[![](https://img.shields.io/gem/v/geo_pattern.svg?style=flat)](http://rubygems.org/gems/geo_pattern)
 [![](https://img.shields.io/travis/jasonlong/geo_pattern.svg?style=flat)](https://travis-ci.org/jasonlong/geo_pattern)
-[![](http://img.shields.io/gem/dt/geo_pattern.svg?style=flat)](http://rubygems.org/gems/geo_pattern)
+[![](https://img.shields.io/gem/dt/geo_pattern.svg?style=flat)](http://rubygems.org/gems/geo_pattern)
 
 # GeoPattern
 
@@ -14,7 +14,7 @@ You can use the generated pattern as the `background-image` for a container.
 Using the `base64` representation of the pattern still results in SVG
 rendering, so it looks great on retina displays.
 
-See the [GitHub Guides](http://guides.github.com) site and the [Explore section
+See the [GitHub Guides](https://guides.github.com/) site and the [Explore section
 of GitHub](https://github.com/explore) are examples of this library in action.
 Brandon Mills has put together an awesome [live preview
 page](http://btmills.github.io/geopattern/geopattern.html) that's built on his
@@ -231,7 +231,7 @@ rake test
 
 ## Contributing
 
-1. Fork it ( http://github.com/jasonlong/geo_pattern/fork )
+1. Fork it ( https://github.com/jasonlong/geo_pattern/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -249,7 +249,7 @@ RSPEC_PROFILE=1 bundle exec rspec
 ## Ports & related projects
 
 JavaScript port by Brandon Mills:
-https://github.com/btmills/geopatterns-js
+https://github.com/btmills/geopattern
 
 Python port by Bryan Veloso:
 https://github.com/bryanveloso/geopatterns
@@ -258,13 +258,13 @@ PHP port by Anand Capur:
 https://github.com/redeyeventures/geopattern-php
 
 Go port by Pravendra Singh:
-https://github.com/pravj/geo_pattern
+https://github.com/pravj/geopattern
 
 CoffeeScript port by Aleks (muchweb):
 https://github.com/muchweb/geo-pattern-coffee
 
 Cocoa port by Matt Faluotico:
-https://github.com/MattFaluotico/GeoPattern-Cocoa
+https://github.com/mattfxyz/GeoPattern-Cocoa
 
 Middleman extension by @maxmeyer:
 https://github.com/fedux-org/middleman-geo_pattern
