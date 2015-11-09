@@ -18,7 +18,7 @@ RSpec.configure do |c|
   c.include SpecHelper::Aruba
 
   c.before :each do
-    remove('.')
     restore_env
+    setup_aruba
   end
 end
