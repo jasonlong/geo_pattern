@@ -56,8 +56,8 @@ module GeoPattern
         svg
       end
 
-      def build_hexagon_shape(sideLength)
-        c = sideLength
+      def build_hexagon_shape(side_length)
+        c = side_length
         a = c / 2
         b = Math.sin(60 * Math::PI / 180) * c
         "0,#{b},#{a},0,#{a + c},0,#{2 * c},#{b},#{a + c},#{2 * b},#{a},#{2 * b},0,#{b}"
