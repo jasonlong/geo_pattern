@@ -35,13 +35,13 @@ module GeoPattern
                                     'transform' => "translate(#{x * plus_size - x * square_size + dx * square_size - square_size},#{y * plus_size - y * square_size - plus_size / 2})"))
 
             # Add an extra column on the right for tiling.
-            if (x == 0)
+            if x == 0
               svg.group(plus_shape, styles.merge(
                                       'transform' => "translate(#{4 * plus_size - x * square_size + dx * square_size - square_size},#{y * plus_size - y * square_size - plus_size / 2})"))
             end
 
             # Add an extra row on the bottom that matches the first row, for tiling.
-            if (y == 0)
+            if y == 0
               svg.group(plus_shape, styles.merge(
                                       'transform' => "translate(#{x * plus_size - x * square_size + dx * square_size - square_size},#{4 * plus_size - y * square_size - plus_size / 2})"))
             end

@@ -31,12 +31,12 @@ module GeoPattern
             svg.circle(x * radius, y * radius, radius, styles)
 
             # Add an extra one at top-right, for tiling.
-            if (x == 0)
+            if x == 0
               svg.circle(6 * radius, y * radius, radius, styles)
             end
 
             # Add an extra row at the end that matches the first row, for tiling.
-            if (y == 0)
+            if y == 0
               svg.circle(x * radius, 6 * radius, radius, styles)
             end
 
