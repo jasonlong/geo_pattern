@@ -17,7 +17,7 @@ end
 
 RSpec.configure do |c|
   c.before :each do
-    restore_env
+    # restore_env
     setup_aruba
   end
 end
