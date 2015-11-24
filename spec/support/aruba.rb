@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'aruba/api'
 require 'aruba/reporting'
+require 'aruba/rspec'
 
 # Spec Helpers
 module SpecHelper
@@ -15,8 +16,6 @@ module SpecHelper
 end
 
 RSpec.configure do |c|
-  c.include SpecHelper::Aruba
-
   c.before :each do
     restore_env
     setup_aruba

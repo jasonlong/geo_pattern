@@ -1,5 +1,6 @@
 # encoding: utf-8
 $LOAD_PATH << File.expand_path('../../lib', __FILE__)
+Dir.glob(::File.expand_path('../support/*.rb', __FILE__)).each { |f| require_relative f }
 
 require 'simplecov'
 SimpleCov.command_name 'rspec'
