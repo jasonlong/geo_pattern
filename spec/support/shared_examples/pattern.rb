@@ -8,7 +8,7 @@ RSpec.shared_examples 'a chosen pattern', type: :aruba  do |name|
   end
 
   it { expect(pattern.structure).to be_name name }
-  it { expect(file_name).to have_same_file_content_like(fixtures_path("generated_patterns/#{name}.svg")) }
+  it { expect(file_name).to have_same_file_content_like("%/generated_patterns/#{name}.svg") }
 end
 
 RSpec.shared_examples 'an invalid pattern', type: :aruba do |chosen_pattern|
@@ -27,5 +27,5 @@ RSpec.shared_examples 'an old style pattern', type: :aruba do |chosen_pattern, n
   end
 
   it { expect(pattern.structure).to be_name name }
-  it { expect(file_name).to have_same_file_content_like(fixtures_path("generated_patterns/#{name}.svg")) }
+  it { expect(file_name).to have_same_file_content_like("%/generated_patterns/#{name}.svg") }
 end
