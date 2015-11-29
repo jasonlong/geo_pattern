@@ -35,12 +35,12 @@ module GeoPattern
             svg.polyline(hex, styles.merge('transform' => "translate(#{x * side_length * 1.5 - hex_width / 2}, #{dy - hex_height / 2})"))
 
             # Add an extra one at top-right, for tiling.
-            if (x == 0)
+            if x == 0
               svg.polyline(hex, styles.merge('transform' => "translate(#{6 * side_length * 1.5 - hex_width / 2}, #{dy - hex_height / 2})"))
             end
 
             # Add an extra row at the end that matches the first row, for tiling.
-            if (y == 0)
+            if y == 0
               dy = x % 2 == 0 ? 6 * hex_height : 6 * hex_height + hex_height / 2
               svg.polyline(hex, styles.merge('transform' => "translate(#{x * side_length * 1.5 - hex_width / 2}, #{dy - hex_height / 2})"))
             end
@@ -56,8 +56,8 @@ module GeoPattern
         svg
       end
 
-      def build_hexagon_shape(sideLength)
-        c = sideLength
+      def build_hexagon_shape(side_length)
+        c = side_length
         a = c / 2
         b = Math.sin(60 * Math::PI / 180) * c
         "0,#{b},#{a},0,#{a + c},0,#{2 * c},#{b},#{a + c},#{2 * b},#{a},#{2 * b},0,#{b}"

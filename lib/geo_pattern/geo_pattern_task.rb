@@ -37,7 +37,7 @@ module GeoPattern
     def run_task(_verbose)
       data.each do |path, string|
         opts = {}
-        path    = File.expand_path(path)
+        path = File.expand_path(path)
 
         if string.is_a?(Hash)
           input             = string[:input]

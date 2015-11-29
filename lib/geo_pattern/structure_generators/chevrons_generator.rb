@@ -33,7 +33,7 @@ module GeoPattern
             svg.group(chevron, styles.merge('transform' => "translate(#{x * chevron_width},#{y * chevron_height * 0.66 - chevron_height / 2})"))
 
             # Add an extra row at the end that matches the first row, for tiling.
-            if (y == 0)
+            if y == 0
               svg.group(chevron, styles.merge('transform' => "translate(#{x * chevron_width},#{6 * chevron_height * 0.66 - chevron_height / 2})"))
             end
             i += 1

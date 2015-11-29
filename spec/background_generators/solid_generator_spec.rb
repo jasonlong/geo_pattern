@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe BackgroundGenerators::SolidGenerator do
-  subject(:generator) {  described_class.new(seed, preset) }
+  subject(:generator) { described_class.new(seed, preset) }
 
   let(:seed) { instance_double('GeoPattern::Seed') }
   let(:preset) { instance_double('GeoPattern::ColorPreset') }

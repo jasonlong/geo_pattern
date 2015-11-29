@@ -28,10 +28,10 @@ module GeoPattern
 
       seed = Seed.new(string)
 
-      pattern_validator    = PatternValidator.new
+      pattern_validator = PatternValidator.new
       pattern_validator.validate(requested_patterns)
 
-      pattern_sieve        = PatternSieve.new(requested_patterns, seed)
+      pattern_sieve = PatternSieve.new(requested_patterns, seed)
 
       @background_generator = BackgroundGenerators::SolidGenerator.new(seed, color_preset)
       @structure_generator  = begin
