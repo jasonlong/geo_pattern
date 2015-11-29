@@ -1,4 +1,4 @@
-RSpec.shared_examples 'a structure generator' do |name|
+RSpec.shared_examples 'a structure generator', type: :aruba do |name|
   subject {  described_class.new(seed, preset, svg_image) }
 
   let(:seed) { instance_double('GeoPattern::Seed') }
@@ -40,7 +40,7 @@ RSpec.shared_examples 'a structure generator' do |name|
   it_behaves_like 'a named generator', name
 end
 
-RSpec.shared_examples 'a named generator' do |name|
+RSpec.shared_examples 'a named generator', type: :aruba do |name|
   it { is_expected.to have_name name }
   it { is_expected.to have_name name.to_s }
 end

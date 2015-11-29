@@ -56,6 +56,9 @@ Style/EmptyElse:
 Style/EvenOdd:
   Enabled: false
 
+Style/ExtraSpacing:
+  Enabled: false
+
 # Offense count: 28
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/For:
@@ -65,3 +68,7 @@ Style/For:
 # Configuration parameters: MaxLineLength.
 Style/IfUnlessModifier:
   Enabled: false
+
+Style/ParenthesesAroundCondition:
+  Enabled: true
+

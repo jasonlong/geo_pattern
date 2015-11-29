@@ -1,4 +1,4 @@
-RSpec.shared_examples 'a metadata argument' do |argument|
+RSpec.shared_examples 'a metadata argument', type: :aruba do |argument|
   describe "##{argument}" do
     it { expect(metadata.public_send(argument)).to eq public_send(argument) }
   end
@@ -25,7 +25,7 @@ RSpec.shared_examples 'a metadata argument' do |argument|
   end
 end
 
-RSpec.shared_examples 'a forwarded metadata argument' do |argument|
+RSpec.shared_examples 'a forwarded metadata argument', type: :aruba do |argument|
   describe "##{argument}" do
     it { expect(metadata.public_send(argument)).to eq public_send(argument) }
   end

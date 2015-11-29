@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'aruba/api'
 require 'aruba/reporting'
+require 'aruba/rspec'
 
 # Spec Helpers
 module SpecHelper
@@ -11,14 +12,5 @@ module SpecHelper
     def dirs
       @dirs ||= %w(tmp rspec)
     end
-  end
-end
-
-RSpec.configure do |c|
-  c.include SpecHelper::Aruba
-
-  c.before :each do
-    clean_current_dir
-    restore_env
   end
 end

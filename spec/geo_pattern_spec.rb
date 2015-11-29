@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
 
-RSpec.describe GeoPattern do
+RSpec.describe GeoPattern, type: :aruba do
   subject(:pattern) { GeoPattern.generate(input) }
   let(:input) { 'Mastering Markdown' }
   let(:color) { '#ffcc00' }
