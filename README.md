@@ -254,6 +254,9 @@ https://github.com/btmills/geopattern
 Python port by Bryan Veloso:
 https://github.com/bryanveloso/geopatterns
 
+Elixir port by Anne Johnson:
+https://github.com/annejohnson/geo_pattern
+
 PHP port by Anand Capur:
 https://github.com/redeyeventures/geopattern-php
 
