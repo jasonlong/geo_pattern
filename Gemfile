@@ -11,7 +11,7 @@ group :development, :test do
   gem 'simplecov'
   gem 'fuubar'
   gem 'inch'
-  gem 'activesupport', '~> 5.0', '>= 5.0.0.1'
+  gem 'activesupport', '~> 4.2', '>= 4.2.7.1'
   gem 'pry'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
