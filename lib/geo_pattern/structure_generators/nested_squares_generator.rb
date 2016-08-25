@@ -9,7 +9,7 @@ module GeoPattern
         @block_size = map(hex_val(0, 1), 0, 15, 4, 12)
         @square_size = block_size * 7
 
-        self.height = self.width  = (square_size + block_size) * 6 + block_size * 6
+        self.height = self.width = (square_size + block_size) * 6 + block_size * 6
       end
 
       def generate_structure
