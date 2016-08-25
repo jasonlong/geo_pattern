@@ -84,3 +84,6 @@ Style/IfInsideElse:
 
 Style/MutableConstant:
   Enabled: false
+
+Style/GuardClause:
+  Enabled: false
