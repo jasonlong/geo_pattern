@@ -78,3 +78,9 @@ Style/MultilineMethodCallBraceLayout:
 
 Style/TernaryParentheses:
   Enabled: false
+
+Style/IfInsideElse:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false

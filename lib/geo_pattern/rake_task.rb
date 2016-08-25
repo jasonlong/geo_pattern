@@ -69,8 +69,6 @@ module GeoPattern
       define_task
     end
 
-    private
-
     # Run code after initialize
     def after_initialize; end
 
