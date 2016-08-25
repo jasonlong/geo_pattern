@@ -75,3 +75,6 @@ Style/NumericPredicate:
 
 Style/MultilineMethodCallBraceLayout:
   Enabled: false
+
+Style/TernaryParentheses:
+  Enabled: false
