@@ -72,3 +72,6 @@ Style/IfUnlessModifier:
 
 Style/NumericPredicate:
   Enabled: false
+
+Style/MultilineMethodCallBraceLayout:
+  Enabled: false
