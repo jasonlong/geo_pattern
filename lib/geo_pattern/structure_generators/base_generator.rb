@@ -53,7 +53,7 @@ module GeoPattern
 
       # Generate the structure
       def generate_structure
-        fail NotImplementedError
+        raise NotImplementedError
       end
 
       def hex_val(index, len)

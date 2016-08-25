@@ -27,7 +27,7 @@ module GeoPattern
     def initialize(opts = {})
       super
 
-      fail ArgumentError, :data if @options[:data].nil?
+      raise ArgumentError, :data if @options[:data].nil?
 
       @data             = @options[:data]
       @allowed_patterns = @options[:allowed_patterns]
@@ -45,7 +45,7 @@ module GeoPattern
           opts[:color]      = string[:color] if string.key? :color
           opts[:base_color] = string[:base_color] if string.key? :base_color
         else
-          fail 'Invalid data structure for Rake Task'
+          raise 'Invalid data structure for Rake Task'
         end
 
         pattern = GeoPattern.generate(input, opts)

@@ -55,7 +55,7 @@ module GeoPattern
 
       before_initialize
 
-      fail ArgumentError, :description if @options[:description].nil?
+      raise ArgumentError, :description if @options[:description].nil?
 
       @description       = @options[:description]
       @task_arguments    = Array(@options[:arguments])

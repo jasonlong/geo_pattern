@@ -14,10 +14,10 @@ module GeoPattern
       @color     = options[:color]
       @generator = options[:generator]
 
-      fail ArgumentError, 'Argument color is missing' if @color.nil?
-      fail ArgumentError, 'Argument image is missing' if @image.nil?
-      fail ArgumentError, 'Argument preset is missing' if @preset.nil?
-      fail ArgumentError, 'Argument generator is missing' if @generator.nil?
+      raise ArgumentError, 'Argument color is missing' if @color.nil?
+      raise ArgumentError, 'Argument image is missing' if @image.nil?
+      raise ArgumentError, 'Argument preset is missing' if @preset.nil?
+      raise ArgumentError, 'Argument generator is missing' if @generator.nil?
     end
 
     def_comparators :base_color, :color
