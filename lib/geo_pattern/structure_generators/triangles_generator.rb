@@ -30,12 +30,11 @@ module GeoPattern
               'stroke-opacity' => stroke_opacity
             }
 
-            rotation = ''
-            if y % 2 == 0
-              rotation = x % 2 == 0 ? 180 : 0
-            else
-              rotation = x % 2 != 0 ? 180 : 0
-            end
+            rotation = if y % 2 == 0
+                         x % 2 == 0 ? 180 : 0
+                       else
+                         x % 2 != 0 ? 180 : 0
+                       end
 
             svg.polyline(triangle, styles.merge(
                                      'transform' => "translate(#{x * side_length * 0.5 - side_length / 2}, #{triangle_height * y}) rotate(#{rotation}, #{side_length / 2}, #{triangle_height / 2})"))

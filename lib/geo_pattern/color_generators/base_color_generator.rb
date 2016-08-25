@@ -32,12 +32,11 @@ module GeoPattern
         new_color     = ::Color::RGB.from_html(color).to_hsl
         new_color.hue = new_color.hue - hue_offset
 
-        if sat_offset % 2 == 0
-          new_color.saturation = new_color.saturation + sat_offset
-        else
-          new_color.saturation = new_color.saturation - sat_offset
-        end
-
+        new_color.saturation = if sat_offset % 2 == 0
+                                 new_color.saturation + sat_offset
+                               else
+                                 new_color.saturation - sat_offset
+                               end
         new_color.html
       end
 

@@ -29,7 +29,7 @@ module GeoPattern
         # vertical stripes
         i = 0
         18.times do
-          space  = hex_val(i, 1)
+          space = hex_val(i, 1)
           local_width += space + 5
 
           val          = hex_val(i + 1, 1)

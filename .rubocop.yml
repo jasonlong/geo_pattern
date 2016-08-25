@@ -44,6 +44,9 @@ Metrics/PerceivedComplexity:
 Style/AccessorMethodName:
   Enabled: false
 
+Style/Alias:
+  Enabled: false
+
 # Offense count: 36
 Style/Documentation:
   Enabled: false
@@ -64,4 +67,22 @@ Style/For:
 # Offense count: 3
 # Configuration parameters: MaxLineLength.
 Style/IfUnlessModifier:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/MultilineMethodCallBraceLayout:
+  Enabled: false
+
+Style/TernaryParentheses:
+  Enabled: false
+
+Style/IfInsideElse:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
+Style/GuardClause:
   Enabled: false
