@@ -70,5 +70,5 @@ Style/For:
 Style/IfUnlessModifier:
   Enabled: false
 
-Style/NumericPredicate
+Style/NumericPredicate:
   Enabled: false
