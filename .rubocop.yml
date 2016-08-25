@@ -44,6 +44,9 @@ Metrics/PerceivedComplexity:
 Style/AccessorMethodName:
   Enabled: false
 
+Style/Alias:
+  Enabled: false
+
 # Offense count: 36
 Style/Documentation:
   Enabled: false
@@ -58,6 +61,7 @@ Style/EvenOdd:
 
 # Offense count: 28
 # Configuration parameters: EnforcedStyle, SupportedStyles.
+#
 Style/For:
   Enabled: false
 
