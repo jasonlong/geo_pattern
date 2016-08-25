@@ -76,10 +76,10 @@ module GeoPattern
 
     def write_args(args)
       str = ''
-      args.each do|key, value|
+      args.each do |key, value|
         if value.is_a?(Hash)
           str << %(#{key}=")
-          value.each do|k, v|
+          value.each do |k, v|
             str << %(#{k}:#{v};)
           end
           str << %(" )
