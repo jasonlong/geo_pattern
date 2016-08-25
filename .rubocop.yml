@@ -69,3 +69,6 @@ Style/For:
 # Configuration parameters: MaxLineLength.
 Style/IfUnlessModifier:
   Enabled: false
+
+Style/NumericPredicate
+  Enabled: false
