@@ -61,7 +61,7 @@ module GeoPattern
       end
 
       def fill_color(val)
-        (val.even?) ? fill_color_light : fill_color_dark
+        val.even? ? fill_color_light : fill_color_dark
       end
 
       def opacity(val)
