@@ -24,11 +24,11 @@ module GeoPattern
       base_color     = ::Color::RGB.from_html(base_color).to_hsl
       base_color.hue = base_color.hue - hue_offset
 
-      if sat_offset % 2 == 0
-        base_color.saturation = base_color.saturation + sat_offset
-      else
-        base_color.saturation = base_color.saturation - sat_offset
-      end
+      base_color.saturation = if sat_offset % 2 == 0
+                                base_color.saturation + sat_offset
+                              else
+                                base_color.saturation - sat_offset
+                              end
 
       generate_rgb_string(base_color.to_rgb)
     end
