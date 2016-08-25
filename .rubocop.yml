@@ -61,7 +61,6 @@ Style/EvenOdd:
 
 # Offense count: 28
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-#
 Style/For:
   Enabled: false
 
