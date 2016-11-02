@@ -158,10 +158,6 @@ are deprecated in favor of symbol references (e.g. `:overlapping_circles`).*
 
 ![](http://jasonlong.github.io/geo_pattern/examples/tessellation.png)
 
-### :chevrons
-
-![](http://jasonlong.github.io/geo_pattern/examples/chevrons.png)
-
 
 ## Inspection of pattern
 
