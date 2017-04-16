@@ -47,13 +47,21 @@ pattern = GeoPattern.generate('Mastering Markdown')
 To specify a base background color (with a hue and saturation that adjusts depending on the string):
 
 ```ruby
-pattern = GeoPattern.generate('Mastering Markdown', base_color: '#fc0')
+pattern = GeoPattern.generate('Mastering Markdown', background_color: '#fc0')
+pattern = GeoPattern.generate('Mastering Markdown', background_color: '#fc0', background_color_mode: :base_color)
 ```
 
 To use a specific background color (w/o any hue or saturation adjustments):
 
 ```ruby
-pattern = GeoPattern.generate('Mastering Markdown', color: '#fc0')
+pattern = GeoPattern.generate('Mastering Markdown', background_color: '#fc0', background_color_mode: :color)
+```
+
+To define how the background should be generated, use the `:background-option`.
+For now only `:solid` is supported.
+
+```ruby
+pattern = GeoPattern.generate('Mastering Markdown', background_color: '#fc0', background: :solid)
 ```
 
 To use a specific [pattern generator](#available-patterns):
@@ -205,8 +213,8 @@ GeoPattern::GeoPatternTask.new(
   name: 'generate',
   description: 'Generate patterns to make them available as fixtures',
   data: {
-    'fixtures/generated_patterns/diamonds_with_color.svg'      => { input: string, patterns: [:diamonds], color: '#00ff00' },
-    'fixtures/generated_patterns/diamonds_with_base_color.svg' => { input: string, patterns: [:diamonds], base_color: '#00ff00' }
+    'fixtures/generated_patterns/diamonds_with_color.svg'      => { input: string, patterns: [:diamonds], background_color: '#00ff00', background_color_mode: :color },
+    'fixtures/generated_patterns/diamonds_with_base_color.svg' => { input: string, patterns: [:diamonds], background_color: '#00ff00' }
   }
 )
 ```
