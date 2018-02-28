@@ -25,7 +25,7 @@ RSpec.describe BackgroundGenerators::SolidGenerator do
 
   describe '#generate' do
     context 'when base color is given' do
-      let(:generated_color) { %w(187 187 187) }
+      let(:generated_color) { %w[187 187 187] }
 
       before :each do
         expect(pattern).to receive(:background=).with(have_image_with_rgb_color(generated_color))
@@ -36,7 +36,7 @@ RSpec.describe BackgroundGenerators::SolidGenerator do
 
     context 'when color is given' do
       let(:base_color_should_be_used) { false }
-      let(:generated_color) { %w(170 170 170) }
+      let(:generated_color) { %w[170 170 170] }
 
       before :each do
         expect(pattern).to receive(:background=).with(have_image_with_rgb_color(generated_color))

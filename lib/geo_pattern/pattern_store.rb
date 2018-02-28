@@ -1,5 +1,5 @@
 module GeoPattern
-  # rubocop:disable Style/ConstantName
+  # rubocop:disable Naming/ConstantName
   ChevronPattern            = :chevrons
   ConcentricCirclesPattern  = :concentric_circles
   DiamondPattern            = :diamonds
@@ -16,7 +16,7 @@ module GeoPattern
   TessellationPattern       = :tessellation
   TrianglePattern           = :triangles
   XesPattern                = :xes
-  # rubocop:enable Style/ConstantName
+  # rubocop:enable Naming/ConstantName
 
   class PatternStore
     private
@@ -47,7 +47,7 @@ module GeoPattern
     end
 
     def [](pattern)
-      $stderr.puts 'String pattern references are deprecated as of 1.3.0' if pattern.is_a?(String)
+      warn 'String pattern references are deprecated as of 1.3.0' if pattern.is_a?(String)
 
       store[pattern.to_s.to_sym]
     end

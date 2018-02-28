@@ -1,3 +1,5 @@
+# rubocop:disable Lint/DuplicateMethods
+
 module GeoPattern
   class ColorPreset
     attr_accessor :color, :base_color, :mode
@@ -24,3 +26,5 @@ module GeoPattern
     end
   end
 end
+
+# rubocop:enable Lint/DuplicateMethods

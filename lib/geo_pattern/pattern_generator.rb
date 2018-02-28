@@ -7,7 +7,7 @@ module GeoPattern
     public
 
     def initialize(string, generator: nil, patterns: nil, base_color: nil, color: nil)
-      $stderr.puts 'Using generator key is deprecated as of 1.3.1' if generator
+      warn 'Using generator key is deprecated as of 1.3.1' if generator
 
       requested_patterns = (Array(generator) | Array(patterns)).flatten.compact
 
