@@ -1,3 +1,5 @@
+# rubocop:disable Style/EvalWithLocation
+
 module Kernel
   # Captures the given stream and returns it:
   #
@@ -38,3 +40,5 @@ module Kernel
   end
   alias_method :silence, :capture
 end
+
+# rubocop:enable Style/EvalWithLocation

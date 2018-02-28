@@ -1,4 +1,4 @@
-# encoding: utf-8
+
 require 'spec_helper'
 
 RSpec.describe GeoPattern do
@@ -59,7 +59,7 @@ RSpec.describe GeoPattern do
       end
 
       context 'when multiple patterns are selected' do
-        let(:chosen_pattern) { [:sine_waves, :xes] }
+        let(:chosen_pattern) { %i[sine_waves xes] }
 
         it { expect(pattern.structure.name).to eq(:sine_waves).or eq(:xes) }
       end

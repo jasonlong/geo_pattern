@@ -15,7 +15,7 @@ module GeoPattern
       g = (color.g * 255).round
       b = (color.b * 255).round
 
-      format('rgb(%d, %d, %d)', r, g, b)
+      format('rgb(%<r>d, %<g>d, %<b>d)', r: r, g: g, b: b)
     end
 
     def to_html

@@ -1,4 +1,3 @@
-# coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'geo_pattern/version'
@@ -24,6 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.5'
 
   spec.post_install_message = <<-EOS
-Class style pattern names are deprecated as of 1.3.1
-EOS
+  Class style pattern names are deprecated as of 1.3.1
+  EOS
 end

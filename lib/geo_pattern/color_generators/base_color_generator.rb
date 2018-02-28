@@ -42,7 +42,8 @@ module GeoPattern
 
       # Ruby implementation of Processing's map function
       # http://processing.org/reference/map_.html
-      def map(value, v_min, v_max, d_min, d_max) # v for value, d for desired
+      # v for value, d for desired
+      def map(value, v_min, v_max, d_min, d_max)
         v_value = value.to_f # so it returns float
 
         v_range = v_max - v_min

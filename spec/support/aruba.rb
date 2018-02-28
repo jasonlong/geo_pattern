@@ -1,4 +1,4 @@
-# encoding: utf-8
+
 require 'aruba/api'
 require 'aruba/reporting'
 
@@ -9,7 +9,7 @@ module SpecHelper
     include ::Aruba::Api
 
     def dirs
-      @dirs ||= %w(tmp rspec)
+      @dirs ||= %w[tmp rspec]
     end
   end
 end

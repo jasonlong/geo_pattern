@@ -6,7 +6,8 @@ module GeoPattern
 
     # Ruby implementation of Processing's map function
     # http://processing.org/reference/map_.html
-    def map(value, v_min, v_max, d_min, d_max) # v for value, d for desired
+    # v for value, d for desired
+    def map(value, v_min, v_max, d_min, d_max)
       v_value = value.to_f # so it returns float
 
       v_range = v_max - v_min
@@ -38,7 +39,7 @@ module GeoPattern
       g = (rgb.g * 255).round
       b = (rgb.b * 255).round
 
-      format('rgb(%d, %d, %d)', r, g, b)
+      format('rgb(%<r>d, %<g>d, %<b>d)', r: r, g: g, b: b)
     end
 
     module_function :hex_val, :map, :html_to_rgb, :html_to_rgb_for_string, :generate_rgb_string

@@ -48,7 +48,7 @@ module GeoPattern
     # @see #to_data_uri
     # @deprecated
     def uri_image
-      $stderr.puts 'Using "#uri_image" is deprecated as of 1.3.1. Please use "#to_data_uri" instead.'
+      warn 'Using "#uri_image" is deprecated as of 1.3.1. Please use "#to_data_uri" instead.'
 
       to_data_uri
     end
@@ -56,7 +56,7 @@ module GeoPattern
     # @see #to_svg
     # @deprecated
     def svg_string
-      $stderr.puts 'Using "#svg_string" is deprecated as of 1.3.1. Please use "#to_svg" instead.'
+      warn 'Using "#svg_string" is deprecated as of 1.3.1. Please use "#to_svg" instead.'
 
       to_svg
     end
@@ -64,7 +64,7 @@ module GeoPattern
     # @see #to_base64
     # @deprecated
     def base64_string
-      $stderr.puts 'Using "#base64_string" is deprecated as of 1.3.1. Please use "#to_base64" instead.'
+      warn 'Using "#base64_string" is deprecated as of 1.3.1. Please use "#to_base64" instead.'
 
       to_base64
     end

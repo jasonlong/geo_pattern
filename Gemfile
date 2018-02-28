@@ -4,17 +4,17 @@ source 'https://rubygems.org'
 gemspec
 
 group :development, :test do
-  gem 'rspec'
+  gem 'activesupport', '~> 4.2', '>= 4.2.7.1'
   gem 'aruba'
-  gem 'rake'
-  gem 'rubocop'
-  gem 'simplecov'
   gem 'fuubar'
   gem 'inch'
-  gem 'activesupport', '~> 4.2', '>= 4.2.7.1'
   gem 'pry'
   gem 'pry-rescue'
   gem 'pry-stack_explorer'
+  gem 'rake'
+  gem 'rspec'
+  gem 'rubocop'
+  gem 'simplecov'
 
   if RUBY_VERSION >= '2'
     gem 'byebug'

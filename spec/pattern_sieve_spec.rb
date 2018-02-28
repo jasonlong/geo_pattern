@@ -10,7 +10,7 @@ RSpec.describe PatternSieve do
 
   let(:store) { instance_double('GeoPattern::PatternStore') }
   let(:available_patterns) { [Pattern1, Pattern2] }
-  let(:requested_patterns) { [:pattern1, :pattern2] }
+  let(:requested_patterns) { %i[pattern1 pattern2] }
   let(:seed) { instance_double('GeoPattern::Seed') }
 
   before :each do

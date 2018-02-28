@@ -62,7 +62,7 @@ unless ENV.key?('CI')
 end
 
 desc 'Bootstrap project'
-task bootstrap: %w(bootstrap:bundler)
+task bootstrap: %w[bootstrap:bundler]
 
 desc 'Bootstrap project for ci'
 task 'bootstrap:ci' do

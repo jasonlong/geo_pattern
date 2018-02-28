@@ -3,7 +3,16 @@ AllCops:
     - 'tmp/**/*'
   DisplayCopNames: true
 
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
 Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Layout/MultilineMethodCallBraceLayout:
   Enabled: false
 
 Lint/Debugger:
@@ -12,10 +21,6 @@ Lint/Debugger:
 # Offense count: 1
 # Configuration parameters: AllowSafeAssignment.
 Lint/AssignmentInCondition:
-  Enabled: false
-
-# Offense count: 2
-Lint/Eval:
   Enabled: false
 
 # Offense count: 6
@@ -41,7 +46,14 @@ Metrics/PerceivedComplexity:
   Max: 10
 
 # Offense count: 2
-Style/AccessorMethodName:
+Naming/AccessorMethodName:
+  Enabled: false
+
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+# Offense count: 2
+Security/Eval:
   Enabled: false
 
 Style/Alias:
@@ -70,9 +82,6 @@ Style/IfUnlessModifier:
   Enabled: false
 
 Style/NumericPredicate:
-  Enabled: false
-
-Style/MultilineMethodCallBraceLayout:
   Enabled: false
 
 Style/TernaryParentheses:

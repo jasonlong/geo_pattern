@@ -14,7 +14,7 @@ RSpec.describe PatternValidator do
         allow(store).to receive(:known?).with('pattern1').and_return(true)
       end
 
-      it { expect { validator.validate(%w(pattern1)) }.not_to raise_error }
+      it { expect { validator.validate(%w[pattern1]) }.not_to raise_error }
     end
 
     context 'when invalid pattern is validated' do
@@ -22,7 +22,7 @@ RSpec.describe PatternValidator do
         allow(store).to receive(:known?).with('pattern1').and_return(false)
       end
 
-      it { expect { validator.validate(%w(pattern1)) }.to raise_error InvalidPatternError }
+      it { expect { validator.validate(%w[pattern1]) }.to raise_error InvalidPatternError }
     end
   end
 end

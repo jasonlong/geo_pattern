@@ -1,4 +1,3 @@
-# encoding: utf-8
 $LOAD_PATH << File.expand_path('../../lib', __FILE__)
 
 require 'simplecov'
@@ -15,4 +14,4 @@ require 'geo_pattern'
 GeoPattern::Helpers.require_files_matching_pattern ::File.expand_path('../support/**/*.rb', __FILE__)
 
 # No need to add the namespace to every class tested
-include GeoPattern
+include GeoPattern # rubocop:disable Style/MixinUsage
