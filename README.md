@@ -270,3 +270,6 @@ https://github.com/fedux-org/middleman-geo_pattern
 
 Rust port with a WASM demo by @suyash:
 https://github.com/suyash/geopattern
+
+Dart(Flutter) port by @suyash:
+https://pub.dev/packages/geopattern_flutter
