@@ -268,8 +268,5 @@ https://github.com/mattfxyz/GeoPattern-Cocoa
 Middleman extension by @maxmeyer:
 https://github.com/fedux-org/middleman-geo_pattern
 
-Rust port with a WASM demo by @suyash:
-https://github.com/suyash/geopattern
-
 Dart(Flutter) port by @suyash:
-https://pub.dev/packages/geopattern_flutter
+https://github.com/suyash/geopattern
