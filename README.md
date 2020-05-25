@@ -247,6 +247,9 @@ RSPEC_PROFILE=1 bundle exec rspec
 JavaScript port by Brandon Mills:
 https://github.com/btmills/geopattern
 
+TypeScript port by MooYeol Lee:
+https://github.com/mooyoul/geo-pattern
+
 Python port by Bryan Veloso:
 https://github.com/bryanveloso/geopatterns
 
