@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '~>2'
 
   spec.add_dependency 'color', '~> 1.5'
-  spec.add_development_dependency 'bundler', '~> 1.5'
+  spec.add_development_dependency 'bundler', '~> 2.0'
 
   spec.post_install_message = <<-EOS
   Class style pattern names are deprecated as of 1.3.1
