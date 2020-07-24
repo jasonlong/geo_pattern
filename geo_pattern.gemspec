@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'geo_pattern'
   spec.version       = GeoPattern::VERSION
   spec.authors       = ['Jason Long']
-  spec.email         = ['jlong@github.com']
+  spec.email         = ['jason@jasonlong.me']
   spec.summary       = 'Generate SVG beautiful patterns'
   spec.description   = 'Generate SVG beautiful patterns'
   spec.homepage      = 'https://github.com/jasonlong/geo_pattern'
