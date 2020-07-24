@@ -52,6 +52,9 @@ Naming/AccessorMethodName:
 Naming/HeredocDelimiterNaming:
   Enabled: false
 
+Naming/MethodParameterName:
+  Enabled: false
+
 # Offense count: 2
 Security/Eval:
   Enabled: false
