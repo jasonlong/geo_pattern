@@ -12,6 +12,11 @@ Metrics/AbcSize:
 Metrics/BlockLength:
   Enabled: false
 
+# Offense count: 155
+# Configuration parameters: AllowURI, URISchemes.
+Layout/LineLength:
+  Max: 406
+
 Layout/MultilineMethodCallBraceLayout:
   Enabled: false
 
@@ -30,11 +35,6 @@ Metrics/BlockNesting:
 # Offense count: 8
 Metrics/CyclomaticComplexity:
   Max: 22
-
-# Offense count: 155
-# Configuration parameters: AllowURI, URISchemes.
-Metrics/LineLength:
-  Max: 406
 
 # Offense count: 24
 # Configuration parameters: CountComments.
