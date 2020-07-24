@@ -1,4 +1,6 @@
 
+# frozen_string_literal: true
+
 require 'aruba/api'
 require 'aruba/reporting'
 

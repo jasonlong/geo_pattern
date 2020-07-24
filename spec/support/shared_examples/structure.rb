@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_examples 'a metadata argument' do |argument|
   describe "##{argument}" do
     it { expect(metadata.public_send(argument)).to eq public_send(argument) }

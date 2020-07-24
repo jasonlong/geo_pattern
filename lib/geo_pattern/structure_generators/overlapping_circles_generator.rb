@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   module StructureGenerators
     class OverlappingCirclesGenerator < BaseGenerator

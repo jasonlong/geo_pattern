@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_examples 'a chosen pattern' do |name|
   subject(:pattern) { GeoPattern.generate(input, patterns: name) }
 

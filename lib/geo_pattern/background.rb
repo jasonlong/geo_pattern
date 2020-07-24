@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   class Background
     include Roles::ComparableMetadata

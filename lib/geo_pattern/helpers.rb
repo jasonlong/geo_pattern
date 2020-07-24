@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   module Helpers
     def require_files_matching_pattern(pattern)
@@ -10,7 +12,7 @@ module GeoPattern
     #   It's MIT-Licensed
     #
     def underscore(camel_cased_word)
-      return camel_cased_word unless camel_cased_word =~ /[A-Z-]/
+      return camel_cased_word unless camel_cased_word.match?(/[A-Z-]/)
 
       word = camel_cased_word.to_s
 

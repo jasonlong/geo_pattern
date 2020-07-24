@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.shared_examples 'a structure generator' do |name|
   subject {  described_class.new(seed, preset, svg_image) }
 

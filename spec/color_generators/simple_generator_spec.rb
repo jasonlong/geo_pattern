@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe ColorGenerators::SimpleGenerator do
   subject(:generator) { described_class.new(color_string) }
 

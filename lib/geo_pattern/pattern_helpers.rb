@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   module PatternHelpers
     def hex_val(hash, index, length)

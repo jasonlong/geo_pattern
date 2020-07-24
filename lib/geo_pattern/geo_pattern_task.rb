@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'geo_pattern'
 require 'geo_pattern/rake_task'
 

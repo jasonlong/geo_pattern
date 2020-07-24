@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rake'
 require 'rake/tasklib'
 require 'logger'
@@ -77,7 +79,7 @@ module GeoPattern
 
     # Define task
     def define_task
-      desc description unless ::Rake.application.last_comment
+      desc description unless ::Rake.application.last_description
 
       task name, *task_arguments do |_, task_args|
         RakeFileUtils.__send__(:verbose, verbose) do
