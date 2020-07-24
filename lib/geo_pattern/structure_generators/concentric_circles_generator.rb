@@ -27,9 +27,9 @@ module GeoPattern
               x * ring_size + x * stroke_width + (ring_size + stroke_width) / 2,
               y * ring_size + y * stroke_width + (ring_size + stroke_width) / 2,
               ring_size / 2,
-              'fill'   => 'none',
+              'fill' => 'none',
               'stroke' => fill,
-              'style'  => {
+              'style' => {
                 'opacity' => opacity,
                 'stroke-width' => "#{stroke_width}px"
               }
@@ -43,7 +43,7 @@ module GeoPattern
               x * ring_size + x * stroke_width + (ring_size + stroke_width) / 2,
               y * ring_size + y * stroke_width + (ring_size + stroke_width) / 2,
               ring_size / 4,
-              'fill'         => fill,
+              'fill' => fill,
               'fill-opacity' => opacity
             )
 

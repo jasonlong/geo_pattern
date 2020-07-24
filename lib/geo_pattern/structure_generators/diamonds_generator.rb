@@ -25,9 +25,9 @@ module GeoPattern
             fill    = fill_color(val)
 
             styles = {
-              'fill'           => fill,
-              'fill-opacity'   => opacity,
-              'stroke'         => stroke_color,
+              'fill' => fill,
+              'fill-opacity' => opacity,
+              'stroke' => stroke_color,
               'stroke-opacity' => stroke_opacity
             }
 

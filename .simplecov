@@ -13,13 +13,13 @@ class IncludeRegexFilter < SimpleCov::Filter
 end
 
 SimpleCov.start do
-  add_filter "/features/"
-  add_filter "/fixtures/"
-  add_filter "/spec/"
-  add_filter "/tmp"
-  add_filter "/vendor"
+  add_filter '/features/'
+  add_filter '/fixtures/'
+  add_filter '/spec/'
+  add_filter '/tmp'
+  add_filter '/vendor'
 
   generator_filter = %r{/background_generators/|/structure_generators/}
-  add_group "lib", ExcludeRegexFilter.new(generator_filter)
-  add_group "generators", IncludeRegexFilter.new(generator_filter)
+  add_group 'lib', ExcludeRegexFilter.new(generator_filter)
+  add_group 'generators', IncludeRegexFilter.new(generator_filter)
 end

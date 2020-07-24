@@ -24,10 +24,10 @@ module GeoPattern
           x_offset = period / 4 * 0.7
 
           styles = {
-            'fill'      => 'none',
-            'stroke'    => fill,
-            'style'     => {
-              'opacity'      => opacity,
+            'fill' => 'none',
+            'stroke' => fill,
+            'style' => {
+              'opacity' => opacity,
               'stroke-width' => "#{wave_width}px"
             }
           }

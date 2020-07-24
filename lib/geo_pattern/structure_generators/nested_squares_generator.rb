@@ -23,9 +23,9 @@ module GeoPattern
             fill    = fill_color(val)
 
             styles = {
-              'fill'   => 'none',
+              'fill' => 'none',
               'stroke' => fill,
-              'style'  => {
+              'style' => {
                 'opacity' => opacity,
                 'stroke-width' => "#{block_size}px"
               }
@@ -40,9 +40,9 @@ module GeoPattern
             fill    = fill_color(val)
 
             styles = {
-              'fill'   => 'none',
+              'fill' => 'none',
               'stroke' => fill,
-              'style'  => {
+              'style' => {
                 'opacity' => opacity,
                 'stroke-width' => "#{block_size}px"
               }

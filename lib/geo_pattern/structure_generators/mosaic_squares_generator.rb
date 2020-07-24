@@ -42,10 +42,10 @@ module GeoPattern
         opacity  = opacity(vals[0])
         fill     = fill_color(vals[0])
         styles   = {
-          'stroke'         => stroke_color,
+          'stroke' => stroke_color,
           'stroke-opacity' => stroke_opacity,
-          'fill-opacity'   => opacity,
-          'fill'           => fill
+          'fill-opacity' => opacity,
+          'fill' => fill
         }
         svg.polyline(triangle, styles.merge('transform' => "translate(#{x + triangle_size}, #{y}) scale(-1, 1)"))
         svg.polyline(triangle, styles.merge('transform' => "translate(#{x + triangle_size}, #{y + triangle_size * 2}) scale(1, -1)"))
@@ -53,10 +53,10 @@ module GeoPattern
         opacity = opacity(vals[1])
         fill    = fill_color(vals[1])
         styles  = {
-          'stroke'         => stroke_color,
+          'stroke' => stroke_color,
           'stroke-opacity' => stroke_opacity,
-          'fill-opacity'   => opacity,
-          'fill'           => fill
+          'fill-opacity' => opacity,
+          'fill' => fill
         }
         svg.polyline(triangle, styles.merge('transform' => "translate(#{x + triangle_size}, #{y + triangle_size * 2}) scale(-1, -1)"))
         svg.polyline(triangle, styles.merge('transform' => "translate(#{x + triangle_size}, #{y}) scale(1, 1)"))
@@ -67,10 +67,10 @@ module GeoPattern
         fill     = fill_color(val)
         triangle = build_right_triangle_shape(triangle_size)
         styles   = {
-          'stroke'         => stroke_color,
+          'stroke' => stroke_color,
           'stroke-opacity' => stroke_opacity,
-          'fill-opacity'   => opacity,
-          'fill'           => fill
+          'fill-opacity' => opacity,
+          'fill' => fill
         }
 
         svg.polyline(triangle, styles.merge('transform' => "translate(#{x}, #{y + triangle_size}) scale(1, -1)"))

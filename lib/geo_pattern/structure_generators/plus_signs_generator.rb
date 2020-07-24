@@ -25,10 +25,10 @@ module GeoPattern
             dx      = (y % 2 == 0) ? 0 : 1
 
             styles = {
-              'fill'           => fill,
-              'stroke'         => stroke_color,
+              'fill' => fill,
+              'stroke' => stroke_color,
               'stroke-opacity' => stroke_opacity,
-              'style'          => {
+              'style' => {
                 'fill-opacity' => opacity
               }
             }

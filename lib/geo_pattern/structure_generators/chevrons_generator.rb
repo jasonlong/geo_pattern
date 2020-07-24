@@ -24,12 +24,12 @@ module GeoPattern
             opacity = opacity(val)
             fill    = fill_color(val)
 
-            styles  = {
-              'stroke'         => stroke_color,
+            styles = {
+              'stroke' => stroke_color,
               'stroke-opacity' => stroke_opacity,
-              'fill'           => fill,
-              'fill-opacity'   => opacity,
-              'stroke-width'   => 1
+              'fill' => fill,
+              'fill-opacity' => opacity,
+              'stroke-width' => 1
             }
 
             svg.group(chevron, styles.merge('transform' => "translate(#{x * chevron_width},#{y * chevron_height * 0.66 - chevron_height / 2})"))

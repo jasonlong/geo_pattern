@@ -23,11 +23,11 @@ module GeoPattern
             fill    = fill_color(val)
 
             svg.polyline(tile,
-                         'fill'           => fill,
-                         'fill-opacity'   => opacity,
-                         'stroke'         => stroke_color,
+                         'fill' => fill,
+                         'fill-opacity' => opacity,
+                         'stroke' => stroke_color,
                          'stroke-opacity' => stroke_opacity,
-                         'transform'      => "translate(#{x * square_size}, #{y * square_size})"
+                         'transform' => "translate(#{x * square_size}, #{y * square_size})"
                         )
             i += 1
           end

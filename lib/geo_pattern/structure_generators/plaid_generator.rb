@@ -21,9 +21,9 @@ module GeoPattern
           stripe_height = val + 5
 
           svg.rect(0, local_height, '100%', stripe_height,
-                   'opacity'   => opacity,
-                   'fill'      => fill
-                  )
+                   'opacity' => opacity,
+                   'fill' => fill
+          )
           local_height += stripe_height
           i += 2
         end
@@ -40,9 +40,9 @@ module GeoPattern
           stripe_width = val + 5
 
           svg.rect(local_width, 0, stripe_width, '100%',
-                   'opacity'   => opacity,
-                   'fill'      => fill
-                  )
+                   'opacity' => opacity,
+                   'fill' => fill
+          )
           local_width += stripe_width
           i += 2
         end
