@@ -273,3 +273,6 @@ https://github.com/fedux-org/middleman-geo_pattern
 
 Dart(Flutter) port by @suyash:
 https://github.com/suyash/geopattern
+
+Lua port by Ivan Azoyan:
+https://github.com/azoyan/geopattern
