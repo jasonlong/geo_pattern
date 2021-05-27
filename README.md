@@ -1,3 +1,9 @@
+### This project is largely unmaintained now.
+
+#### I'll happily accept PRs to keep things in working order, but I no longer plan to make updates.
+
+----
+
 [![](https://img.shields.io/gem/v/geo_pattern.svg?style=flat)](http://rubygems.org/gems/geo_pattern)
 ![Ruby](https://github.com/jasonlong/geo_pattern/workflows/Ruby/badge.svg)
 [![](https://img.shields.io/gem/dt/geo_pattern.svg?style=flat)](http://rubygems.org/gems/geo_pattern)
