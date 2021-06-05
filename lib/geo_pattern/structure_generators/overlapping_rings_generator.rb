@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   module StructureGenerators
     class OverlappingRingsGenerator < BaseGenerator
@@ -6,8 +8,8 @@ module GeoPattern
       attr_reader :scale, :ring_size, :stroke_width
 
       def after_initialize
-        @scale        = hex_val(0, 1)
-        @ring_size    = map(scale, 0, 15, 10, 60)
+        @scale = hex_val(0, 1)
+        @ring_size = map(scale, 0, 15, 10, 60)
         @stroke_width = ring_size / 4
 
         self.height = self.width = ring_size * 6
@@ -15,18 +17,18 @@ module GeoPattern
 
       def generate_structure
         i = 0
-        for y in 0..5
-          for x in 0..5
-            val     = hex_val(i, 1)
+        (0..5).each do |y|
+          (0..5).each do |x|
+            val = hex_val(i, 1)
             opacity = opacity(val)
-            fill    = fill_color(val)
+            fill = fill_color(val)
 
             styles = {
-              'fill'   => 'none',
-              'stroke' => fill,
-              'style'  => {
-                'opacity' => opacity,
-                'stroke-width' => "#{stroke_width}px"
+              "fill" => "none",
+              "stroke" => fill,
+              "style" => {
+                "opacity" => opacity,
+                "stroke-width" => "#{stroke_width}px"
               }
             }
 

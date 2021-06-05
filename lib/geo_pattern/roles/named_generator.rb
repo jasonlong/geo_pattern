@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   module Roles
     module NamedGenerator
@@ -6,7 +8,7 @@ module GeoPattern
       end
 
       def name
-        Helpers.underscore(Helpers.demodulize(self.class).gsub(/Generator/, '')).to_sym
+        Helpers.underscore(Helpers.demodulize(self.class).gsub(/Generator/, "")).to_sym
       end
     end
   end

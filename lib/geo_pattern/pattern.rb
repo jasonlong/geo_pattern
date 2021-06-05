@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   class Pattern
     private
@@ -73,7 +75,7 @@ module GeoPattern
 
     def image
       svg_image.height = height
-      svg_image.width  = width
+      svg_image.width = width
 
       svg_image << background.image if background
       svg_image << structure.image if structure

@@ -7,6 +7,7 @@
 [![](https://img.shields.io/gem/v/geo_pattern.svg?style=flat)](http://rubygems.org/gems/geo_pattern)
 ![Ruby](https://github.com/jasonlong/geo_pattern/workflows/Ruby/badge.svg)
 [![](https://img.shields.io/gem/dt/geo_pattern.svg?style=flat)](http://rubygems.org/gems/geo_pattern)
+[![Ruby Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://github.com/testdouble/standard)
 
 # GeoPattern
 

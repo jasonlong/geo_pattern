@@ -1,17 +1,19 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 RSpec.describe PatternSieve do
   subject(:sieve) { PatternSieve.new(requested_patterns, seed, store) }
 
   before :each do
-    stub_const('Pattern1', Class.new)
-    stub_const('Pattern2', Class.new)
+    stub_const("Pattern1", Class.new)
+    stub_const("Pattern2", Class.new)
   end
 
-  let(:store) { instance_double('GeoPattern::PatternStore') }
+  let(:store) { instance_double("GeoPattern::PatternStore") }
   let(:available_patterns) { [Pattern1, Pattern2] }
   let(:requested_patterns) { %i[pattern1 pattern2] }
-  let(:seed) { instance_double('GeoPattern::Seed') }
+  let(:seed) { instance_double("GeoPattern::Seed") }
 
   before :each do
     allow(seed).to receive(:to_i).with(20, 1).and_return(1)
@@ -21,8 +23,8 @@ RSpec.describe PatternSieve do
   # Minimum valid object test
   it { expect(sieve).not_to be_nil }
 
-  describe '#fetch' do
-    context 'when requested_patterns is empty' do
+  describe "#fetch" do
+    context "when requested_patterns is empty" do
       let(:requested_patterns) { nil }
 
       before :each do
@@ -33,7 +35,7 @@ RSpec.describe PatternSieve do
       it { expect(sieve.fetch).to eq Pattern2 }
     end
 
-    context 'when a valid pattern is requested' do
+    context "when a valid pattern is requested" do
       let(:requested_patterns) { [:pattern1] }
 
       before :each do
@@ -43,7 +45,7 @@ RSpec.describe PatternSieve do
       it { expect(sieve.fetch).to eq Pattern1 }
     end
 
-    context 'when an invalid pattern is requested' do
+    context "when an invalid pattern is requested" do
       let(:requested_patterns) { [:patternX] }
 
       before :each do
@@ -53,7 +55,7 @@ RSpec.describe PatternSieve do
       it { expect(sieve.fetch).to be nil }
     end
 
-    context 'when a requested pattern is nil' do
+    context "when a requested pattern is nil" do
       let(:requested_patterns) { [:pattern1, nil, :pattern2] }
 
       before :each do

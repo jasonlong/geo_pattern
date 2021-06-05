@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   module Helpers
     def require_files_matching_pattern(pattern)
@@ -10,9 +12,9 @@ module GeoPattern
     #   It's MIT-Licensed
     #
     def underscore(camel_cased_word)
-      return camel_cased_word unless camel_cased_word =~ /[A-Z-]/
+      return camel_cased_word unless /[A-Z-]/.match?(camel_cased_word)
 
-      word = camel_cased_word.to_s
+      word = camel_cased_word.to_s.dup
 
       word.gsub!(/([A-Z\d]+)([A-Z][a-z])/, '\1_\2')
       word.gsub!(/([a-z\d])([A-Z])/, '\1_\2')
@@ -38,8 +40,8 @@ module GeoPattern
     def demodulize(path)
       path = path.to_s
 
-      if i = path.rindex('::')
-        path[(i + 2)..-1]
+      if (i = path.rindex("::"))
+        path[(i + 2)..]
       else
         path
       end

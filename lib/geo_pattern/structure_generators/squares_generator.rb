@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   module StructureGenerators
     class SquaresGenerator < BaseGenerator
@@ -13,18 +15,17 @@ module GeoPattern
 
       def generate_structure
         i = 0
-        for y in 0..5
-          for x in 0..5
-            val     = hex_val(i, 1)
+        (0..5).each do |y|
+          (0..5).each do |x|
+            val = hex_val(i, 1)
             opacity = opacity(val)
-            fill    = fill_color(val)
+            fill = fill_color(val)
 
             svg.rect(x * square_size, y * square_size, square_size, square_size,
-                     'fill'           => fill,
-                     'fill-opacity'   => opacity,
-                     'stroke'         => stroke_color,
-                     'stroke-opacity' => stroke_opacity
-                    )
+              "fill" => fill,
+              "fill-opacity" => opacity,
+              "stroke" => stroke_color,
+              "stroke-opacity" => stroke_opacity)
             i += 1
           end
         end

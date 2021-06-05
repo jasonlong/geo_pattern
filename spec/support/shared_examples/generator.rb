@@ -1,16 +1,18 @@
-RSpec.shared_examples 'a structure generator' do |name|
-  subject {  described_class.new(seed, preset, svg_image) }
+# frozen_string_literal: true
 
-  let(:seed) { instance_double('GeoPattern::Seed') }
-  let(:preset) { instance_double('GeoPattern::PatternPreset') }
+RSpec.shared_examples "a structure generator" do |name|
+  subject { described_class.new(seed, preset, svg_image) }
+
+  let(:seed) { instance_double("GeoPattern::Seed") }
+  let(:preset) { instance_double("GeoPattern::PatternPreset") }
   let(:svg_image) { SvgImage.new }
-  let(:pattern) { instance_double('GeoPattern::Pattern') }
+  let(:pattern) { instance_double("GeoPattern::Pattern") }
 
   let(:name) { name }
 
-  let(:fill_color_dark) { '#222' }
-  let(:fill_color_light) { '#ddd' }
-  let(:stroke_color) { '#000' }
+  let(:fill_color_dark) { "#222" }
+  let(:fill_color_light) { "#ddd" }
+  let(:stroke_color) { "#000" }
   let(:stroke_opacity) { 0.02 }
   let(:opacity_min) { 0.02 }
   let(:opacity_max) { 0.15 }
@@ -37,10 +39,10 @@ RSpec.shared_examples 'a structure generator' do |name|
     subject.generate(pattern)
   end
 
-  it_behaves_like 'a named generator', name
+  it_behaves_like "a named generator", name
 end
 
-RSpec.shared_examples 'a named generator' do |name|
+RSpec.shared_examples "a named generator" do |name|
   it { is_expected.to have_name name }
   it { is_expected.to have_name name.to_s }
 end

@@ -1,6 +1,8 @@
-require 'rake'
-require 'rake/tasklib'
-require 'logger'
+# frozen_string_literal: true
+
+require "rake"
+require "rake/tasklib"
+require "logger"
 
 module GeoPattern
   # Rake Task
@@ -47,7 +49,7 @@ module GeoPattern
     def initialize(opts = {}, &task_block)
       @options = {
         description: nil,
-        name: GeoPattern::Helpers.underscore(self.class.to_s.split(/::/).slice(-2..-1).join(':').gsub(/Task$/, '')),
+        name: GeoPattern::Helpers.underscore(self.class.to_s.split("::").slice(-2..-1).join(":").gsub(/Task$/, "")),
         arguments: [],
         logger: ::Logger.new($stderr),
         working_directory: Dir.getwd
@@ -57,12 +59,12 @@ module GeoPattern
 
       raise ArgumentError, :description if @options[:description].nil?
 
-      @description       = @options[:description]
-      @task_arguments    = Array(@options[:arguments])
-      @task_block        = task_block
-      @logger            = @options[:logger]
+      @description = @options[:description]
+      @task_arguments = Array(@options[:arguments])
+      @task_block = task_block
+      @logger = @options[:logger]
       @working_directory = @options[:working_directory]
-      @name              = @options[:name]
+      @name = @options[:name]
 
       after_initialize
 
@@ -70,10 +72,12 @@ module GeoPattern
     end
 
     # Run code after initialize
-    def after_initialize; end
+    def after_initialize
+    end
 
     # Run code before initialize
-    def before_initialize; end
+    def before_initialize
+    end
 
     # Define task
     def define_task
@@ -88,7 +92,8 @@ module GeoPattern
     end
 
     # Run code if task is executed
-    def run_task(_verbose); end
+    def run_task(_verbose)
+    end
 
     public
 

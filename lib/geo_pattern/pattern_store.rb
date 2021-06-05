@@ -1,21 +1,23 @@
+# frozen_string_literal: true
+
 module GeoPattern
   # rubocop:disable Naming/ConstantName
-  ChevronPattern            = :chevrons
-  ConcentricCirclesPattern  = :concentric_circles
-  DiamondPattern            = :diamonds
-  HexagonPattern            = :hexagons
-  MosaicSquaresPattern      = :mosaic_squares
-  NestedSquaresPattern      = :nested_squares
-  OctagonPattern            = :octagons
+  ChevronPattern = :chevrons
+  ConcentricCirclesPattern = :concentric_circles
+  DiamondPattern = :diamonds
+  HexagonPattern = :hexagons
+  MosaicSquaresPattern = :mosaic_squares
+  NestedSquaresPattern = :nested_squares
+  OctagonPattern = :octagons
   OverlappingCirclesPattern = :overlapping_circles
-  OverlappingRingsPattern   = :overlapping_rings
-  PlaidPattern              = :plaid
-  PlusSignPattern           = :plus_signs
-  SineWavePattern           = :sine_waves
-  SquarePattern             = :squares
-  TessellationPattern       = :tessellation
-  TrianglePattern           = :triangles
-  XesPattern                = :xes
+  OverlappingRingsPattern = :overlapping_rings
+  PlaidPattern = :plaid
+  PlusSignPattern = :plus_signs
+  SineWavePattern = :sine_waves
+  SquarePattern = :squares
+  TessellationPattern = :tessellation
+  TrianglePattern = :triangles
+  XesPattern = :xes
   # rubocop:enable Naming/ConstantName
 
   class PatternStore
@@ -47,7 +49,7 @@ module GeoPattern
     end
 
     def [](pattern)
-      warn 'String pattern references are deprecated as of 1.3.0' if pattern.is_a?(String)
+      warn "String pattern references are deprecated as of 1.3.0" if pattern.is_a?(String)
 
       store[pattern.to_s.to_sym]
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   class PatternSieve
     private
@@ -8,11 +10,11 @@ module GeoPattern
 
     def initialize(requested_patterns, seed, pattern_store = PatternStore.new)
       @requested_patterns = requested_patterns
-      @seed               = seed
-      @pattern_store      = pattern_store
+      @seed = seed
+      @pattern_store = pattern_store
 
       @available_patterns = determine_available_patterns
-      @index              = determine_index
+      @index = determine_index
     end
 
     def fetch

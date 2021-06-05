@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   module StructureGenerators
     class OctagonsGenerator < BaseGenerator
@@ -7,26 +9,25 @@ module GeoPattern
 
       def after_initialize
         @square_size = map(hex_val(0, 1), 0, 15, 10, 60)
-        @tile        = build_octogon_shape(square_size)
+        @tile = build_octogon_shape(square_size)
 
         self.height = self.width = square_size * 6
       end
 
       def generate_structure
         i = 0
-        for y in 0..5
-          for x in 0..5
-            val     = hex_val(i, 1)
+        (0..5).each do |y|
+          (0..5).each do |x|
+            val = hex_val(i, 1)
             opacity = opacity(val)
-            fill    = fill_color(val)
+            fill = fill_color(val)
 
             svg.polyline(tile,
-                         'fill'           => fill,
-                         'fill-opacity'   => opacity,
-                         'stroke'         => stroke_color,
-                         'stroke-opacity' => stroke_opacity,
-                         'transform'      => "translate(#{x * square_size}, #{y * square_size})"
-                        )
+              "fill" => fill,
+              "fill-opacity" => opacity,
+              "stroke" => stroke_color,
+              "stroke-opacity" => stroke_opacity,
+              "transform" => "translate(#{x * square_size}, #{y * square_size})")
             i += 1
           end
         end

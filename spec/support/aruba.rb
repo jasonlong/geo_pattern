@@ -1,5 +1,7 @@
-require 'aruba/rspec'
-require 'aruba/api'
+# frozen_string_literal: true
+
+require "aruba/rspec"
+require "aruba/api"
 
 # Spec Helpers
 module SpecHelper
