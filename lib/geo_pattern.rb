@@ -51,6 +51,6 @@ require 'geo_pattern/pattern_generator'
 
 module GeoPattern
   def self.generate(string = Time.now, opts = {})
-    GeoPattern::PatternGenerator.new(string.to_s, opts).generate
+    GeoPattern::PatternGenerator.new(string.to_s, **opts).generate
   end
 end

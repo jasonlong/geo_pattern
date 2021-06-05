@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gemspec
 
 group :development, :test do
-  gem 'activesupport', '~> 4.2', '>= 4.2.7.1'
+  gem 'activesupport', '~> 6'
   gem 'aruba'
   gem 'fuubar'
   gem 'inch'
@@ -16,11 +16,7 @@ group :development, :test do
   gem 'rubocop'
   gem 'simplecov'
 
-  if RUBY_VERSION >= '2'
-    gem 'byebug'
-    gem 'pry-byebug'
-  else
-    gem 'debugger'
-    gem 'pry-debugger'
-  end
+  gem 'byebug'
+  gem 'pry-byebug'
+  gem 'irb'
 end

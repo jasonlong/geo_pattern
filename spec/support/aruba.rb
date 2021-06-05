@@ -1,6 +1,5 @@
-
+require 'aruba/rspec'
 require 'aruba/api'
-require 'aruba/reporting'
 
 # Spec Helpers
 module SpecHelper
@@ -19,6 +18,5 @@ RSpec.configure do |c|
 
   c.before :each do
     setup_aruba
-    restore_env
   end
 end
