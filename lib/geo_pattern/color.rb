@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   class Color
     private
@@ -15,7 +17,7 @@ module GeoPattern
       g = (color.g * 255).round
       b = (color.b * 255).round
 
-      format('rgb(%<r>d, %<g>d, %<b>d)', r: r, g: g, b: b)
+      format("rgb(%<r>d, %<g>d, %<b>d)", r: r, g: g, b: b)
     end
 
     def to_html

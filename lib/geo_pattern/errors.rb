@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   # user errors
   class UserError < StandardError; end

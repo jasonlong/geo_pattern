@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   class PatternValidator
     private
@@ -11,7 +13,7 @@ module GeoPattern
     end
 
     def validate(requested_patterns)
-      message = "Error: At least one of the requested patterns \"#{requested_patterns.join(', ')}\" is invalid"
+      message = "Error: At least one of the requested patterns \"#{requested_patterns.join(", ")}\" is invalid"
 
       raise InvalidPatternError, message unless valid?(requested_patterns)
 

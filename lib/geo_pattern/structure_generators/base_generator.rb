@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   module StructureGenerators
     class BaseGenerator
@@ -11,19 +13,19 @@ module GeoPattern
       public
 
       def initialize(seed, preset, svg = SvgImage.new)
-        @svg    = svg
-        @seed   = seed
+        @svg = svg
+        @seed = seed
         @preset = preset
 
-        @fill_color_dark  = @preset.fill_color_dark
+        @fill_color_dark = @preset.fill_color_dark
         @fill_color_light = @preset.fill_color_light
-        @stroke_color     = @preset.stroke_color
-        @stroke_opacity   = @preset.stroke_opacity
-        @opacity_min      = @preset.opacity_min
-        @opacity_max      = @preset.opacity_max
+        @stroke_color = @preset.stroke_color
+        @stroke_opacity = @preset.stroke_opacity
+        @opacity_min = @preset.opacity_min
+        @opacity_max = @preset.opacity_max
 
         @height = 100
-        @width  = 100
+        @width = 100
 
         after_initialize
       end
@@ -31,8 +33,8 @@ module GeoPattern
       def generate(pattern)
         pattern.structure = Structure.new(image: svg_image, preset: preset, generator: self.class, name: name)
 
-        pattern.height    = height
-        pattern.width     = width
+        pattern.height = height
+        pattern.width = width
 
         self
       end
@@ -43,13 +45,14 @@ module GeoPattern
       def svg_image
         image = generate_structure
         image.height = height
-        image.width  = width
+        image.width = width
 
         image
       end
 
       # Hook for generators
-      def after_initialize; end
+      def after_initialize
+      end
 
       # Generate the structure
       def generate_structure

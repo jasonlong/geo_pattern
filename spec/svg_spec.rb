@@ -1,8 +1,10 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 RSpec.describe SvgImage do
-  context '#<=>' do
-    it 'is comparable' do
+  context "#<=>" do
+    it "is comparable" do
       svg1 = SvgImage.new
       svg2 = SvgImage.new
 

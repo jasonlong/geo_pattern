@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   module PatternHelpers
     def hex_val(hash, index, length)
@@ -20,16 +22,16 @@ module GeoPattern
     end
 
     def html_to_rgb_for_string(seed, base_color)
-      hue_offset     = map(seed.to_i(14, 3), 0, 4095, 0, 359)
-      sat_offset     = seed.to_i(17, 1)
-      base_color     = ::Color::RGB.from_html(base_color).to_hsl
+      hue_offset = map(seed.to_i(14, 3), 0, 4095, 0, 359)
+      sat_offset = seed.to_i(17, 1)
+      base_color = ::Color::RGB.from_html(base_color).to_hsl
       base_color.hue = base_color.hue - hue_offset
 
       base_color.saturation = if sat_offset % 2 == 0
-                                base_color.saturation + sat_offset
-                              else
-                                base_color.saturation - sat_offset
-                              end
+        base_color.saturation + sat_offset
+      else
+        base_color.saturation - sat_offset
+      end
 
       generate_rgb_string(base_color.to_rgb)
     end
@@ -39,7 +41,7 @@ module GeoPattern
       g = (rgb.g * 255).round
       b = (rgb.b * 255).round
 
-      format('rgb(%<r>d, %<g>d, %<b>d)', r: r, g: g, b: b)
+      format("rgb(%<r>d, %<g>d, %<b>d)", r: r, g: g, b: b)
     end
 
     module_function :hex_val, :map, :html_to_rgb, :html_to_rgb_for_string, :generate_rgb_string

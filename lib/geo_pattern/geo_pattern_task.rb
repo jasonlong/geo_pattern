@@ -1,5 +1,7 @@
-require 'geo_pattern'
-require 'geo_pattern/rake_task'
+# frozen_string_literal: true
+
+require "geo_pattern"
+require "geo_pattern/rake_task"
 
 module GeoPattern
   # GeoPatternTask
@@ -29,7 +31,7 @@ module GeoPattern
 
       raise ArgumentError, :data if @options[:data].nil?
 
-      @data             = @options[:data]
+      @data = @options[:data]
       @allowed_patterns = @options[:allowed_patterns]
     end
 
@@ -40,12 +42,12 @@ module GeoPattern
         path = File.expand_path(path)
 
         if string.is_a?(Hash)
-          input             = string[:input]
-          opts[:patterns]   = string[:patterns] if string.key? :patterns
-          opts[:color]      = string[:color] if string.key? :color
+          input = string[:input]
+          opts[:patterns] = string[:patterns] if string.key? :patterns
+          opts[:color] = string[:color] if string.key? :color
           opts[:base_color] = string[:base_color] if string.key? :base_color
         else
-          raise 'Invalid data structure for Rake Task'
+          raise "Invalid data structure for Rake Task"
         end
 
         pattern = GeoPattern.generate(input, opts)

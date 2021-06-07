@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Lint/DuplicateMethods
 
 module GeoPattern
@@ -5,7 +7,7 @@ module GeoPattern
     attr_accessor :color, :base_color, :mode
 
     def initialize(color: nil, base_color: nil)
-      @color      = color
+      @color = color
       @base_color = base_color
     end
 

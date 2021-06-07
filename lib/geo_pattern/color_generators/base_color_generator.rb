@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   # Color generators
   module ColorGenerators
@@ -14,8 +16,8 @@ module GeoPattern
       # @param [String] color
       #   HTML color string, #0a0a0a
       def initialize(color, seed, creator = Color)
-        @color   = color
-        @seed    = seed
+        @color = color
+        @seed = seed
         @creator = creator
       end
 
@@ -27,16 +29,16 @@ module GeoPattern
       private
 
       def transform(color, seed)
-        hue_offset    = map(seed.to_i(14, 3), 0, 4095, 0, 359)
-        sat_offset    = seed.to_i(17, 1)
-        new_color     = ::Color::RGB.from_html(color).to_hsl
+        hue_offset = map(seed.to_i(14, 3), 0, 4095, 0, 359)
+        sat_offset = seed.to_i(17, 1)
+        new_color = ::Color::RGB.from_html(color).to_hsl
         new_color.hue = new_color.hue - hue_offset
 
         new_color.saturation = if sat_offset % 2 == 0
-                                 new_color.saturation + sat_offset
-                               else
-                                 new_color.saturation - sat_offset
-                               end
+          new_color.saturation + sat_offset
+        else
+          new_color.saturation - sat_offset
+        end
         new_color.html
       end
 

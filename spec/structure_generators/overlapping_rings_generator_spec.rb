@@ -1,5 +1,7 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 RSpec.describe StructureGenerators::OverlappingRingsGenerator do
-  it_behaves_like 'a structure generator', :overlapping_rings
+  it_behaves_like "a structure generator", :overlapping_rings
 end

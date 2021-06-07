@@ -1,5 +1,7 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require "spec_helper"
 
 RSpec.describe StructureGenerators::NestedSquaresGenerator do
-  it_behaves_like 'a structure generator', :nested_squares
+  it_behaves_like "a structure generator", :nested_squares
 end

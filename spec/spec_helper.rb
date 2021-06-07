@@ -1,17 +1,19 @@
-$LOAD_PATH << File.expand_path('../../lib', __FILE__)
+# frozen_string_literal: true
 
-require 'simplecov'
-SimpleCov.command_name 'rspec'
+$LOAD_PATH << File.expand_path("../lib", __dir__)
+
+require "simplecov"
+SimpleCov.command_name "rspec"
 SimpleCov.start
 
 # Pull in all of the gems including those in the `test` group
-require 'bundler'
+require "bundler"
 Bundler.require :default, :test, :development
 
-require 'geo_pattern'
+require "geo_pattern"
 
 # Loading support files
-GeoPattern::Helpers.require_files_matching_pattern ::File.expand_path('../support/**/*.rb', __FILE__)
+GeoPattern::Helpers.require_files_matching_pattern ::File.expand_path("support/**/*.rb", __dir__)
 
 # No need to add the namespace to every class tested
 include GeoPattern # rubocop:disable Style/MixinUsage

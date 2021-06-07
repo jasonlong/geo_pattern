@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GeoPattern
   class SvgImage
     include Comparable
@@ -11,9 +13,9 @@ module GeoPattern
     attr_reader :height, :width
 
     def initialize
-      @width      = 100
-      @height     = 100
-      @svg_string = ''
+      @width = 100
+      @height = 100
+      @svg_string = +""
     end
 
     def width=(width)
@@ -37,7 +39,7 @@ module GeoPattern
     end
 
     def svg_closer
-      '</svg>'
+      "</svg>"
     end
 
     def to_s
@@ -70,12 +72,12 @@ module GeoPattern
 
     def group(elements, args = {})
       svg_string << %(<g #{write_args(args)}>)
-      elements.each { |e| eval e }
+      elements.each { |e| eval e } # rubocop:disable Security/Eval
       svg_string << %(</g>)
     end
 
     def write_args(args)
-      str = ''
+      str = +""
       args.each do |key, value|
         if value.is_a?(Hash)
           str << %(#{key}=")
