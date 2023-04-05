@@ -15,8 +15,8 @@ module GeoPattern
 
       def generate_structure
         i = 0
-        (0..3).each do |y|
-          (0..3).each do |x|
+        4.times do |y|
+          4.times do |x|
             if x.even?
               if y.even?
                 draw_outer_mosaic_tile(x * triangle_size * 2, y * triangle_size * 2, triangle_size, hex_val(i, 1))

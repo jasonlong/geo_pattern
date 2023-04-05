@@ -18,8 +18,8 @@ module GeoPattern
 
       def generate_structure
         i = 0
-        (0..5).each do |y|
-          (0..5).each do |x|
+        6.times do |y|
+          6.times do |x|
             val = hex_val(i, 1)
             opacity = opacity(val)
             fill = fill_color(val)
@@ -31,7 +31,7 @@ module GeoPattern
               "stroke-opacity" => stroke_opacity
             }
 
-            dx = y % 2 == 0 ? 0 : diamond_width / 2
+            dx = (y % 2 == 0) ? 0 : diamond_width / 2
 
             svg.polyline(diamond, styles.merge(
               "transform" => "translate(#{x * diamond_width - diamond_width / 2 + dx}, #{diamond_height / 2 * y - diamond_height / 2})"

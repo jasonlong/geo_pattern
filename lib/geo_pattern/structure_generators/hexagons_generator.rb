@@ -20,10 +20,10 @@ module GeoPattern
 
       def generate_structure
         i = 0
-        (0..5).each do |y|
-          (0..5).each do |x|
+        6.times do |y|
+          6.times do |x|
             val = hex_val(i, 1)
-            dy = x % 2 == 0 ? y * hex_height : y * hex_height + hex_height / 2
+            dy = (x % 2 == 0) ? y * hex_height : y * hex_height + hex_height / 2
             opacity = opacity(val)
             fill = fill_color(val)
 
@@ -43,7 +43,7 @@ module GeoPattern
 
             # Add an extra row at the end that matches the first row, for tiling.
             if y == 0
-              dy = x % 2 == 0 ? 6 * hex_height : 6 * hex_height + hex_height / 2
+              dy = (x % 2 == 0) ? 6 * hex_height : 6 * hex_height + hex_height / 2
               svg.polyline(hex, styles.merge("transform" => "translate(#{x * side_length * 1.5 - hex_width / 2}, #{dy - hex_height / 2})"))
             end
 

@@ -17,7 +17,7 @@ module GeoPattern
       end
 
       def generate_structure
-        (0..35).each do |i|
+        36.times do |i|
           val = hex_val(i, 1)
           opacity = opacity(val)
           fill = fill_color(val)
