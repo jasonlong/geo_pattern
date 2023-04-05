@@ -3,7 +3,7 @@
 module GeoPattern
   module Helpers
     def require_files_matching_pattern(pattern)
-      Dir.glob(pattern).each { |f| require_relative f }
+      Dir.glob(pattern).sort.each { |f| require_relative f }
     end
 
     # Makes an underscored, lowercase form from the expression in the string.
