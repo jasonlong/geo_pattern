@@ -12,7 +12,7 @@ RSpec.describe Pattern do
   let(:background_body) { %(<rect x="0" y="0" width="100%" height="100%" fill="rgb(121, 131, 76)"  />) }
   let(:structure) { instance_double("GeoPattern::Structure") }
   let(:structure_image) { instance_double("GeoPattern::SvgImage") }
-  let(:structure_body) { %(<path d=\"M0 53 C 28.0 0, 52.0 0, 80 53 S 132.0 106, 160 53 S 212.0 0, 240.0, 53\" fill=\"none\" stroke=\"#222\" style=\"opacity:0.046;stroke-width:6px;\" transform=\"translate(-40, -79.5)\"  />) }
+  let(:structure_body) { %(<path d="M0 53 C 28.0 0, 52.0 0, 80 53 S 132.0 106, 160 53 S 212.0 0, 240.0, 53" fill="none" stroke="#222" style="opacity:0.046;stroke-width:6px;" transform="translate(-40, -79.5)"  />) }
 
   it { expect(pattern).not_to be_nil }
 

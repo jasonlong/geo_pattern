@@ -22,7 +22,7 @@ module GeoPattern
       end
 
       def generate_structure
-        (0..19).each do |i|
+        20.times do |i|
           val = hex_val(i, 1)
           opacity = opacity(val)
           fill = fill_color(val)

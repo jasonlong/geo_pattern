@@ -19,8 +19,8 @@ module GeoPattern
 
       def generate_structure
         i = 0
-        (0..5).each do |y|
-          (0..5).each do |x|
+        6.times do |y|
+          6.times do |x|
             val = hex_val(i, 1)
             opacity = opacity(val)
             fill = fill_color(val)
@@ -33,9 +33,9 @@ module GeoPattern
             }
 
             rotation = if y % 2 == 0
-              x % 2 == 0 ? 180 : 0
+              (x % 2 == 0) ? 180 : 0
             else
-              x % 2 != 0 ? 180 : 0
+              (x % 2 != 0) ? 180 : 0
             end
 
             svg.polyline(triangle, styles.merge(

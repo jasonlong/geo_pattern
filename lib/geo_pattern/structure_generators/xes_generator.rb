@@ -17,11 +17,11 @@ module GeoPattern
 
       def generate_structure
         i = 0
-        (0..5).each do |y|
-          (0..5).each do |x|
+        6.times do |y|
+          6.times do |x|
             val = hex_val(i, 1)
             opacity = opacity(val)
-            dy = x % 2 == 0 ? y * x_size - x_size * 0.5 : y * x_size - x_size * 0.5 + x_size / 4
+            dy = (x % 2 == 0) ? y * x_size - x_size * 0.5 : y * x_size - x_size * 0.5 + x_size / 4
             fill = fill_color(val)
 
             styles = {
@@ -44,7 +44,7 @@ module GeoPattern
 
             # Add an extra row on the bottom that matches the first row, for tiling.
             if y == 0
-              dy = x % 2 == 0 ? 6 * x_size - x_size / 2 : 6 * x_size - x_size / 2 + x_size / 4
+              dy = (x % 2 == 0) ? 6 * x_size - x_size / 2 : 6 * x_size - x_size / 2 + x_size / 4
               svg.group(x_shape, styles.merge(
                 "transform" => "translate(#{x * x_size / 2 - x_size / 2},#{dy - 6 * x_size / 2}) rotate(45, #{x_size / 2}, #{x_size / 2})"
               ))
