@@ -283,3 +283,6 @@ https://github.com/suyash/geopattern
 
 Lua port by Ivan Azoyan:
 https://github.com/azoyan/geopattern
+
+Java port by Jason Selzer:
+https://github.com/jselzer/geopattern
