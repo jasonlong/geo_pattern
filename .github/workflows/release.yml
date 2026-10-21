@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  push:
+    tags: ['v[0-9]*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    uses: ./.github/workflows/ruby.yml
+
+  publish:
+    needs: verify
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          rubygems: latest
+
+      - name: Verify the tag matches the gem version
+        run: |
+          ruby -Ilib -rgeo_pattern/version -e '
+            expected = "v#{GeoPattern::VERSION}"
+            actual = ENV.fetch("GITHUB_REF_NAME")
+            abort "Tag #{actual.inspect} does not match #{expected.inspect}" unless actual == expected
+          '
+
+      - name: Build the gem
+        run: |
+          mkdir -p pkg
+          gem build geo_pattern.gemspec --output pkg/geo_pattern.gem
+
+      - name: Configure RubyGems trusted publishing
+        uses: rubygems/configure-rubygems-credentials@dc5a8d8553e6ee01fc26761a49e99e733d17954a # v2.1.0
+
+      - name: Publish to RubyGems
+        run: gem push pkg/geo_pattern.gem

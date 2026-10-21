@@ -13,10 +13,6 @@ namespace :test do
     sh "rspec"
   end
 
-  task "inch" do
-    sh "inch"
-  end
-
   require "standard/rake"
 end
 

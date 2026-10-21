@@ -1,26 +1,12 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-class ExcludeRegexFilter < SimpleCov::Filter
-  def matches?(source_file)
-    source_file.filename !~ filter_argument
-  end
-end
-
-class IncludeRegexFilter < SimpleCov::Filter
-  def matches?(source_file)
-    source_file.filename =~ filter_argument
-  end
-end
-
-SimpleCov.start do
-  add_filter "/features/"
-  add_filter "/fixtures/"
-  add_filter "/spec/"
-  add_filter "/tmp"
-  add_filter "/vendor"
+SimpleCov.configure do
+  skip ["/features/", "/fixtures/", "/spec/", "/tmp", "/vendor"]
 
   generator_filter = %r{/background_generators/|/structure_generators/}
-  add_group "lib", ExcludeRegexFilter.new(generator_filter)
-  add_group "generators", IncludeRegexFilter.new(generator_filter)
+  group "lib" do |source_file|
+    !source_file.filename.match?(generator_filter)
+  end
+  group "generators", generator_filter
 end

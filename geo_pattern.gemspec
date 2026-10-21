@@ -9,17 +9,24 @@ Gem::Specification.new do |spec|
   spec.version = GeoPattern::VERSION
   spec.authors = ["Jason Long"]
   spec.email = ["jason@jasonlong.me"]
-  spec.summary = "Generate SVG beautiful patterns"
-  spec.description = "Generate SVG beautiful patterns"
+  spec.summary = "Generate beautiful SVG patterns"
+  spec.description = "Generate deterministic, tiling SVG patterns from a string."
   spec.homepage = "https://github.com/jasonlong/geo_pattern"
   spec.license = "MIT"
 
-  spec.files = `git ls-files -z`.split("\x0")
-  spec.executables = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.metadata = {
+    "source_code_uri" => spec.homepage,
+    "changelog_uri" => "#{spec.homepage}/blob/main/CHANGELOG.md"
+  }
+
+  spec.files = Dir.glob("lib/**/*.rb") + %w[README.md LICENSE.txt CHANGELOG.md]
   spec.require_paths = ["lib"]
 
   spec.required_ruby_version = ">= 2.6"
 
+  spec.add_dependency "base64", ">= 0.1"
   spec.add_dependency "color", ">= 1.5"
+  spec.add_dependency "logger", ">= 1.4"
+  spec.add_dependency "rake", ">= 12.0"
   spec.add_development_dependency "bundler", ">= 2.2"
 end
