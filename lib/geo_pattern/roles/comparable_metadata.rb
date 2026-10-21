@@ -23,7 +23,7 @@ module GeoPattern
         # Define comparators
         def def_comparators(*methods)
           methods.flatten.each do |m|
-            define_method "#{m}?".to_sym do |value|
+            define_method :"#{m}?" do |value|
               return true if value.nil? && public_send(m)
               return true if value == public_send(m)
 

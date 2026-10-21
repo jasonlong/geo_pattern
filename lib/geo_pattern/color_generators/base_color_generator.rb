@@ -31,15 +31,8 @@ module GeoPattern
       def transform(color, seed)
         hue_offset = map(seed.to_i(14, 3), 0, 4095, 0, 359)
         sat_offset = seed.to_i(17, 1)
-        new_color = ::Color::RGB.from_html(color).to_hsl
-        new_color.hue = new_color.hue - hue_offset
 
-        new_color.saturation = if sat_offset % 2 == 0
-          new_color.saturation + sat_offset
-        else
-          new_color.saturation - sat_offset
-        end
-        new_color.html
+        PatternHelpers.offset_color(color, hue_offset, sat_offset).html
       end
 
       # Ruby implementation of Processing's map function
