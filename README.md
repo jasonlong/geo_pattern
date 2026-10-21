@@ -29,7 +29,7 @@ Javascript port.
 
 ## Installation
 
-**Note:** as of version `1.4.0`, Ruby version 2 or greater is required.
+Ruby 2.6 or greater is required. GeoPattern supports both color 1.x and 2.x.
 
 Add this line to your application's Gemfile:
 
@@ -220,17 +220,55 @@ GeoPattern::GeoPatternTask.new(
 
 ## Developing
 
+Use Ruby 3.3 or newer for development and install dependencies with `bundle install`.
+
 ### Generate Fixtures
 
-```ruby
-rake fixtures:generate
+```sh
+bundle exec rake fixtures:generate
 ```
 
 ### Run tests
 
-```ruby
-rake test
+```sh
+bundle exec rake test
 ```
+
+### Releasing
+
+See [CHANGELOG.md](CHANGELOG.md) for release notes. To prepare a release, update
+`lib/geo_pattern/version.rb` and the changelog, then run:
+
+```sh
+bundle install
+bundle exec rake test
+bundle exec rake gem:build
+```
+
+Releases are published by [the release workflow](.github/workflows/release.yml)
+when a version tag is pushed. The workflow runs the test and package checks,
+verifies that the tag matches the gem version, and publishes to RubyGems.org.
+
+Before the first automated release, a gem owner must configure
+[RubyGems trusted publishing](https://guides.rubygems.org/trusted-publishing/)
+for `geo_pattern` with these values:
+
+- Repository owner: `jasonlong`
+- Repository name: `geo_pattern`
+- Workflow filename: `release.yml`
+- Environment: `release`
+
+Create the matching `release` environment in the repository's GitHub settings.
+The workflow uses short-lived credentials; no RubyGems API key secret is needed.
+
+Commit and push the release changes, then tag that commit and push the tag:
+
+```sh
+git tag v1.6.0
+git push origin v1.6.0
+```
+
+Use the version from `lib/geo_pattern/version.rb` for subsequent releases.
 
 ## Contributing
 

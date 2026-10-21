@@ -1,10 +1,15 @@
 name: Ruby
 
 on:
+  workflow_call:
+  workflow_dispatch:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+
+permissions:
+  contents: read
 
 jobs:
   test:
@@ -21,7 +26,7 @@ jobs:
       COLOR_VERSION: ${{ matrix.color }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -32,3 +37,30 @@ jobs:
 
       - name: Run tests
         run: bundle exec rake
+
+  package:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ['2.6', '3.4', '4.0']
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          rubygems: latest
+
+      - name: Build and verify the installed gem with only runtime dependencies
+        run: |
+          mkdir -p pkg
+          gem build geo_pattern.gemspec --output pkg/geo_pattern.gem
+          gem install --no-document --install-dir "$RUNNER_TEMP/gems" pkg/geo_pattern.gem
+          printf 'source "https://rubygems.org"\ngem "geo_pattern"\n' > "$RUNNER_TEMP/Gemfile"
+          export GEM_HOME="$RUNNER_TEMP/gems"
+          export GEM_PATH="$GEM_HOME"
+          export BUNDLE_GEMFILE="$RUNNER_TEMP/Gemfile"
+          bundle lock --local
+          bundle exec ruby script/smoke_test.rb
